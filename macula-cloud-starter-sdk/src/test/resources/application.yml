@@ -1,0 +1,20 @@
+macula:
+   cloud:
+      application:
+         group: scmp
+      feign:
+         oauth2: true
+      event:
+         kafka: ${KAFKA_EVENT_ENABLE:true}
+      zookeeper:
+         zk-servers: ${ZOOKEEPER_SERVER:172.20.72.133:2181}
+         session-timeout: 20000
+         lock: ${ZOOKEEPER_LOCK_ENABLE:false}
+      cat:
+         enable: ${CAT_ENABLE:true}
+      cache:
+         j2cache: ${J2CACHE_ENABLE:true}
+      providers:
+      -  appId: macula-cloud-demo-provider
+         appKey: ${APP_KEY:MCwwDQYJKoZIhvcNAQEBBQADGwAwGAIRAKV9f6m/4vyOrpOdBCPKmBcCAwEAAQ==}
+         appSecret: ${APP_SECRET:MHgCAQAwDQYJKoZIhvcNAQEBBQAEZDBiAgEAAhEApX1/qb/i/I6uk50EI8qYFwIDAQABAg9Acx/E4qlqS4XqC5WDzxUCCQDkQ7l+rc9FqwIJALmZJkk443NFAggO2fkvrM9XkQIJAJGlGkNZrjvVAgkAoVBuAEiUyOI=}

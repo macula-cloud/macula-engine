@@ -1,0 +1,41 @@
+image: harbor.javalabs.com.cn/javalabs-tools/ci-base:0.0.2
+
+stages:
+  - mvn-package
+  - maven-deploy
+
+maven-test-branches:
+  stage: mvn-package
+  script:
+    - mvn package -DskipTests=true
+  only:
+    - branches
+  except:
+    - master
+    - tags
+    - /^release-.*$/
+    - /^hotfix-.*$/
+
+maven-test-build:
+  stage: mvn-package
+  script:
+    - mvn clean package -U
+  only:
+    - master
+    - /^release-.*$/
+    - /^hotfix-.*$/
+
+maven-deploy-snapshot:
+  stage: maven-deploy
+  script:
+    - mvn clean install -DskipTests=true deploy
+  only:
+    - master
+
+maven-deploy-release:
+  stage: maven-deploy
+  script:
+    - mvn clean install -DskipTests=true deploy
+  only:
+    - tags
+    - /^release-.*$/
