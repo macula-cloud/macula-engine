@@ -27,7 +27,7 @@
 		<commons-lang3.version>3.9</commons-lang3.version>
 		<commons-collections.version>4.3</commons-collections.version>
 		<commons-io.version>2.6</commons-io.version>
-		<druid.version>1.1.18</druid.version>
+		<spring-boot-druid.version>1.1.21</spring-boot-druid.version>
 		<cat-client.version>3.0.0</cat-client.version>
 		<mysql.version>8.0.16</mysql.version>
 		<ehcache.version>3.7.1</ehcache.version>
@@ -214,8 +214,8 @@
 			</dependency>
 			<dependency>
 				<groupId>com.alibaba</groupId>
-				<artifactId>druid</artifactId>
-				<version>${druid.version}</version>
+				<artifactId>druid-spring-boot-starter</artifactId>
+				<version>${spring-boot-druid.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.alibaba</groupId>
