@@ -47,7 +47,8 @@
 		<adfs-version>1.0.0</adfs-version>
 		<oauth2-version>2.3.5.RELEASE</oauth2-version>
 		<log4j.version>2.12.0</log4j.version>
-		<hutool.version>4.6.9</hutool.version>
+		<hutool.version>5.1.5</hutool.version>
+		<guava.version>28.2-jre</guava.version>
 		<easy-captcha.version>1.6.1</easy-captcha.version>
 		<docker.registry>harbor.javalabs.com.cn</docker.registry>
 		<helm.registry>chart.javalabs.com.cn</helm.registry>
@@ -339,6 +340,12 @@
 				<groupId>cn.hutool</groupId>
 				<artifactId>hutool-all</artifactId>
 				<version>${hutool.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
 			</dependency>
 
 			<dependency>
