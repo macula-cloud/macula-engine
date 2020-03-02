@@ -21,7 +21,6 @@
 		<java.version>11</java.version>
 		<spring-cloud.version>Hoxton.SR2</spring-cloud.version>
 		<spring-cloud-alibaba.version>2.1.0.RELEASE</spring-cloud-alibaba.version>
-		<spring-cloud-huawei.version>0.0.3</spring-cloud-huawei.version>
 		<spring-boot-admin.version>2.2.2</spring-boot-admin.version>
 		<cas-client.version>3.5.1</cas-client.version>
 		<javase.version>3.3.3</javase.version>
@@ -70,13 +69,6 @@
 				<groupId>com.alibaba.cloud</groupId>
 				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
 				<version>${spring-cloud-alibaba.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>com.huaweicloud</groupId>
-				<artifactId>spring-cloud-huawei-dependencies</artifactId>
-				<version>${spring-cloud-huawei.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
