@@ -1,4 +1,4 @@
-package io.javalabs.swagger.configure;
+package org.macula.cloud.swagger.configure;
 
 import org.springframework.context.annotation.Configuration;
 
