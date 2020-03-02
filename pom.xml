@@ -18,29 +18,19 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<spring-cloud.version>Hoxton.SR1</spring-cloud.version>
+		<spring-cloud.version>Hoxton.SR2</spring-cloud.version>
 		<spring-cloud-alibaba.version>2.1.0.RELEASE</spring-cloud-alibaba.version>
 		<spring-cloud-huawei.version>0.0.3</spring-cloud-huawei.version>
-		<spring-cloud-kubernetes.version>1.1.2-SNAPSHOT</spring-cloud-kubernetes.version>
 		<spring-cloud-security.version>2.2.0.RELEASE</spring-cloud-security.version>
 		<spring-boot-admin.version>2.2.2</spring-boot-admin.version>
-		<spring-session.version>2.2.0.RELEASE</spring-session.version>
-		<querydsl.version>4.1.3</querydsl.version>
 		<cas-client.version>3.5.1</cas-client.version>
 		<javase.version>3.3.3</javase.version>
-		<commons-lang3.version>3.9</commons-lang3.version>
 		<commons-collections.version>4.3</commons-collections.version>
 		<commons-io.version>2.6</commons-io.version>
 		<spring-boot-druid.version>1.1.21</spring-boot-druid.version>
-		<cat-client.version>3.0.0</cat-client.version>
-		<mysql.version>8.0.16</mysql.version>
-		<ehcache.version>3.8.1</ehcache.version>
 		<j2cache.version>2.7.6-release</j2cache.version>
 		<curator.version>4.2.0</curator.version>
-		<gson.version>2.8.5</gson.version>
 		<swagger2.version>2.9.2</swagger2.version>
-		<lomok.version>1.18.4</lomok.version>
-		<okhttp.version>3.9.0</okhttp.version>
 		<fastjson.version>1.2.54</fastjson.version>
 		<mybatis.version>3.4.6</mybatis.version>
 		<pagehelper.version>1.2.10</pagehelper.version>
@@ -48,12 +38,9 @@
 		<sdk-sso-adfs.version>1.0.0</sdk-sso-adfs.version>
 		<eureka-server.version>2.0.0</eureka-server.version>
 		<jasypt.version>2.1.1</jasypt.version>
-		<adfs-version>1.0.0</adfs-version>
 		<oauth2-version>2.3.5.RELEASE</oauth2-version>
-		<log4j.version>2.12.0</log4j.version>
 		<hutool.version>5.1.5</hutool.version>
 		<guava.version>28.2-jre</guava.version>
-		<easy-captcha.version>1.6.1</easy-captcha.version>
 		<docker.registry>harbor.javalabs.com.cn</docker.registry>
 		<helm.registry>chart.javalabs.com.cn</helm.registry>
 	</properties>
@@ -70,22 +57,8 @@
 		<module>macula-cloud-starter-annotation-processor</module>
 	</modules>
 
-
 	<dependencyManagement>
 		<dependencies>
-
-			<dependency>
-				<groupId>macula-cloud</groupId>
-				<artifactId>macula-cloud-starter-sdk</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>macula-cloud</groupId>
-				<artifactId>macula-cloud-starter-security</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
@@ -93,7 +66,6 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-
 			<dependency>
 				<groupId>com.alibaba.cloud</groupId>
 				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
@@ -101,7 +73,6 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-
 			<dependency>
 				<groupId>com.huaweicloud</groupId>
 				<artifactId>spring-cloud-huawei-dependencies</artifactId>
@@ -109,7 +80,6 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-security-dependencies</artifactId>
@@ -117,36 +87,6 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-starter-kubernetes</artifactId>
-				<version>${spring-cloud-kubernetes.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-starter-kubernetes-config</artifactId>
-				<version>${spring-cloud-kubernetes.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-starter-kubernetes-ribbon</artifactId>
-				<version>${spring-cloud-kubernetes.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework.session</groupId>
-				<artifactId>spring-session-core</artifactId>
-				<version>${spring-session.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.session</groupId>
-				<artifactId>spring-session-data-redis</artifactId>
-				<version>${spring-session.version}</version>
-			</dependency>
-
 			<dependency>
 				<groupId>de.codecentric</groupId>
 				<artifactId>spring-boot-admin-starter-client</artifactId>
@@ -157,16 +97,10 @@
 				<artifactId>spring-boot-admin-starter-server</artifactId>
 				<version>${spring-boot-admin.version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>de.codecentric</groupId>
 				<artifactId>spring-boot-admin-server-ui</artifactId>
 				<version>${spring-boot-admin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.querydsl</groupId>
-				<artifactId>querydsl-jpa</artifactId>
-				<version>${querydsl.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.jasig.cas.client</groupId>
@@ -185,16 +119,6 @@
 				<version>${javase.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.google.code.gson</groupId>
-				<artifactId>gson</artifactId>
-				<version>${gson.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-lang3</artifactId>
-				<version>${commons-lang3.version}</version>
-			</dependency>
-			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-collections4</artifactId>
 				<version>${commons-collections.version}</version>
@@ -203,11 +127,6 @@
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
 				<version>${commons-io.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.dianping.cat</groupId>
-				<artifactId>cat-client</artifactId>
-				<version>${cat-client.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.alibaba</groupId>
@@ -223,11 +142,6 @@
 				<groupId>com.alibaba</groupId>
 				<artifactId>fastjson</artifactId>
 				<version>${fastjson.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>mysql</groupId>
-				<artifactId>mysql-connector-java</artifactId>
-				<version>${mysql.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>net.oschina.j2cache</groupId>
@@ -252,17 +166,6 @@
 				</exclusions>
 			</dependency>
 			<dependency>
-				<groupId>org.ehcache</groupId>
-				<artifactId>ehcache</artifactId>
-				<version>${ehcache.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>org.slf4j</groupId>
-						<artifactId>*</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
 				<groupId>org.apache.curator</groupId>
 				<artifactId>curator-recipes</artifactId>
 				<version>${curator.version}</version>
@@ -272,84 +175,46 @@
 				<artifactId>springfox-swagger2</artifactId>
 				<version>${swagger2.version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>io.springfox</groupId>
 				<artifactId>springfox-swagger-ui</artifactId>
 				<version>${swagger2.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.projectlombok</groupId>
-				<artifactId>lombok</artifactId>
-				<version>${lomok.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.squareup.okhttp3</groupId>
-				<artifactId>okhttp</artifactId>
-				<version>${okhttp.version}</version>
-			</dependency>
-
-			<dependency>
 				<groupId>org.mybatis</groupId>
 				<artifactId>mybatis</artifactId>
 				<version>${mybatis.version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>tk.mybatis</groupId>
 				<artifactId>mapper-spring-boot-starter</artifactId>
 				<version>${tk.mybatis.version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>com.github.pagehelper</groupId>
 				<artifactId>pagehelper-spring-boot-starter</artifactId>
 				<version>${pagehelper.version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>com.github.ulisesbocchio</groupId>
 				<artifactId>jasypt-spring-boot-starter</artifactId>
 				<version>${jasypt.version}</version>
 			</dependency>
-
-			<dependency>
-				<groupId>com.infinitusint.emp.sdk</groupId>
-				<artifactId>sdk-sso-adfs</artifactId>
-				<version>${adfs-version}</version>
-			</dependency>
-
 			<dependency>
 				<groupId>org.springframework.security.oauth</groupId>
 				<artifactId>spring-security-oauth2</artifactId>
 				<version>${oauth2-version}</version>
 			</dependency>
-
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-core</artifactId>
-				<version>${log4j.version}</version>
-			</dependency>
-
 			<dependency>
 				<groupId>cn.hutool</groupId>
 				<artifactId>hutool-all</artifactId>
 				<version>${hutool.version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
 				<version>${guava.version}</version>
 			</dependency>
-
-			<dependency>
-				<groupId>com.github.whvcse</groupId>
-				<artifactId>easy-captcha</artifactId>
-				<version>${easy-captcha.version}</version>
-			</dependency>
-
 		</dependencies>
 	</dependencyManagement>
 
