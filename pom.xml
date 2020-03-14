@@ -54,6 +54,7 @@
 		<module>macula-cloud-starter-websocket</module>
 		<module>macula-cloud-starter-sdk</module>
 		<module>macula-cloud-starter-annotation-processor</module>
+		<module>macula-cloud-starter-multi-registry</module>
 	</modules>
 
 	<dependencyManagement>
