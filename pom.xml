@@ -18,6 +18,7 @@
 
 	<properties>
 		<java.version>8</java.version>
+		<macula-cloud-starters.version>2.0.0-SNAPSHOT</macula-cloud-starters.version>
 		<spring-cloud.version>Hoxton.SR4</spring-cloud.version>
 		<spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
 		<spring-boot-admin.version>2.2.2</spring-boot-admin.version>
@@ -60,6 +61,72 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>macula-cloud</groupId>
+				<artifactId>macula-cloud-starter-websocket</artifactId>
+				<version>${macula-cloud-starters.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>macula-cloud</groupId>
+				<artifactId>macula-cloud-starter-core</artifactId>
+				<version>${macula-cloud-starters.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>macula-cloud</groupId>
+				<artifactId>macula-cloud-starter-authority</artifactId>
+				<version>${macula-cloud-starters.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>macula-cloud</groupId>
+				<artifactId>macula-cloud-starter-registry</artifactId>
+				<version>${macula-cloud-starters.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>macula-cloud</groupId>
+				<artifactId>macula-cloud-starter-flow</artifactId>
+				<version>${macula-cloud-starters.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>macula-cloud</groupId>
+				<artifactId>macula-cloud-starter-login</artifactId>
+				<version>${macula-cloud-starters.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>macula-cloud</groupId>
+				<artifactId>macula-cloud-starter-social</artifactId>
+				<version>${macula-cloud-starters.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>macula-cloud</groupId>
+				<artifactId>macula-cloud-starter-swagger</artifactId>
+				<version>${macula-cloud-starters.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>macula-cloud</groupId>
+				<artifactId>macula-cloud-starter-security</artifactId>
+				<version>${macula-cloud-starters.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>macula-cloud</groupId>
+				<artifactId>macula-cloud-starter-mybatis</artifactId>
+				<version>${macula-cloud-starters.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>macula-cloud</groupId>
+				<artifactId>macula-cloud-starter-cache</artifactId>
+				<version>${macula-cloud-starters.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>macula-cloud</groupId>
+				<artifactId>macula-cloud-starter-event</artifactId>
+				<version>${macula-cloud-starters.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>macula-cloud</groupId>
+				<artifactId>macula-cloud-starter-rbac</artifactId>
+				<version>${macula-cloud-starters.version}</version>
+			</dependency>
+
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>

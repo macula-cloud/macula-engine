@@ -16,12 +16,10 @@
 		<dependency>
 			<groupId>macula-cloud</groupId>
 			<artifactId>macula-cloud-starter-core</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>macula-cloud</groupId>
 			<artifactId>macula-cloud-starter-security</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
