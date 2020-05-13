@@ -5,13 +5,18 @@ import java.util.Set;
 
 import org.macula.cloud.core.configure.model.SecurityProperties;
 import org.macula.cloud.core.principal.SubjectPrincipal;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.util.StringUtils;
 
 public final class SecurityUtils {
+
+	private static Authentication anonymous = new AnonymousAuthenticationToken("key", "anonymous",
+			AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
 
 	public static SubjectPrincipal getSubjectPrincipal() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -48,6 +53,9 @@ public final class SecurityUtils {
 	}
 
 	public static Authentication cast(SubjectPrincipal principal) {
+		if (principal == null) {
+			return anonymous;
+		}
 		principal.eraseCredentials();
 		return new PreAuthenticatedAuthenticationToken(principal, principal.getCredential(), principal.getAuthorities());
 	}
