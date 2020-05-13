@@ -39,3 +39,7 @@ maven-deploy-release:
   only:
     - tags
     - /^release-.*$/
+
+before_script:
+   - mkdir -p /root/.docker
+   - echo "{\"auths\":{\"registry.cn-hangzhou.aliyuncs.com\":{\"auth":\"am9rZXdheTpmdWNrc2hpdEBhbGl5dW4=\"}}}" > /root/.docker/config.json
