@@ -9,7 +9,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.macula.cloud.sdk.utils.J2CacheUtils;
+import org.macula.cloud.core.utils.J2CacheUtils;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;

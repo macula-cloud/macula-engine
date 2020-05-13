@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.javalabs.swagger.configure.SwaggerConfiguration
+org.macula.cloud.swagger.configure.SwaggerConfiguration

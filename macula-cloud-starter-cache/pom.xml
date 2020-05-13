@@ -12,4 +12,32 @@
 
 	<artifactId>macula-cloud-starter-cache</artifactId>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.oschina.j2cache</groupId>
+			<artifactId>j2cache-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.oschina.j2cache</groupId>
+			<artifactId>j2cache-spring-boot2-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>com.alibaba</groupId>
+					<artifactId>fastjson</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+	</dependencies>
 </project>

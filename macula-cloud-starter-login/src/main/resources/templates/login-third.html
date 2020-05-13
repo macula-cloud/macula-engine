@@ -1,0 +1,56 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>test</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <link href="static/css/public.css" rel="stylesheet" type="text/css">
+    <link href="static/css/login-third.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.css">
+</head>
+<body style="background-image: url('static/images/background.png');">
+    <!-- 头部 -->
+    <div class="logo" style="width: 600px">
+        <div class="row" style="margin-left: 0px">
+            <img src="static/images/logo.png">
+            <a class="logo_title" th:if="1==1">连接到WUXIANJI.NET</a>
+        </div>
+    </div>
+    <!-- 头部 -->
+    <!-- 登录 -->
+    <div class="login">
+        <div class="content">
+            <div class="login_content">
+                <span class="span_title">使用员工账号访问<a href="http://tttdsfsd.com" style="color: #3e88ff;text-decoration: underline;">http://tttdsfsd.com</a>,并允许网站进行如下操作:</span>
+                <ul>
+                    <li class="checked1">
+                        <img src="static/images/icon_checked1.png"/>
+                        <span>全选</span>
+                    </li>
+                    <li class="checked2">
+                        <img src="static/images/icon_checked2.png"/>
+                        <span>访问用户信息</span>
+                    </li>
+                </ul>
+                <div class="btn">
+                    <button class="btn1" onclick="window.location.href='/success'">连接</button>
+                    <button class="btn2">取消</button>
+                </div>
+                <div style="margin-top: 10px">
+                    <a href="" style="border-right: 1px solid black;padding-right: 5px">whatsee</a>
+                    <a href="" style="padding-left: 2px">换个账号?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 登录 -->
+    <!-- 底部 -->
+    <div class="bottom">
+        <ul>
+            <li class="bottom_title">关于我们</li>
+            <li class="bottom_title">联系我们</li>
+            <li class="bottom_title" style="border: 0">@新浪微博</li>
+        </ul>
+        <span class="bottom_content" style="margin-left: 100px">无极限(中国)科技有限公司 123456号</span>
+    </div>
+    <!-- 底部 -->
+</body>
+</html>

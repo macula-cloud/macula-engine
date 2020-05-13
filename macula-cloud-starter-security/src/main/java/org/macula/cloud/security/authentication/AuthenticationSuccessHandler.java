@@ -8,15 +8,15 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.macula.cloud.sdk.configure.SDKConfigurationProperties;
-import org.macula.cloud.sdk.context.CloudApplicationContext;
-import org.macula.cloud.sdk.event.InstanceProcessEvent;
-import org.macula.cloud.sdk.principal.SubjectPrincipal;
-import org.macula.cloud.sdk.principal.SubjectPrincipalCreatedEvent;
-import org.macula.cloud.sdk.session.Session;
-import org.macula.cloud.sdk.session.SessionCreatedEvent;
-import org.macula.cloud.sdk.utils.HttpRequestUtils;
-import org.macula.cloud.sdk.utils.StringUtils;
+import org.macula.cloud.core.configure.CoreConfigurationProperties;
+import org.macula.cloud.core.context.CloudApplicationContext;
+import org.macula.cloud.core.event.InstanceProcessEvent;
+import org.macula.cloud.core.principal.SubjectPrincipal;
+import org.macula.cloud.core.principal.SubjectPrincipalCreatedEvent;
+import org.macula.cloud.core.session.Session;
+import org.macula.cloud.core.session.SessionCreatedEvent;
+import org.macula.cloud.core.utils.HttpRequestUtils;
+import org.macula.cloud.core.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -34,8 +34,7 @@ public class AuthenticationSuccessHandler extends SavedRequestAwareAuthenticatio
 	@Autowired(required = false)
 	private AjaxAuthenticationSuccessHandler ajaxSuccessHandler;
 
-	public AuthenticationSuccessHandler(SDKConfigurationProperties properties,
-			CaptchaValidationPolicy captchaValidationPolicy) {
+	public AuthenticationSuccessHandler(CoreConfigurationProperties properties, CaptchaValidationPolicy captchaValidationPolicy) {
 		this.defaultUrl = properties.getSecurity().getDefaultUrl();
 		this.captchaValidationPolicy = captchaValidationPolicy;
 		setTargetUrlParameter("redirect");
@@ -47,8 +46,8 @@ public class AuthenticationSuccessHandler extends SavedRequestAwareAuthenticatio
 	}
 
 	@Override
-	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) throws IOException, ServletException {
+	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
+			throws IOException, ServletException {
 		String username = authentication.getName();
 		if (StringUtils.isNotEmpty(username)) {
 			captchaValidationPolicy.clearCaptchaMarks(username);
@@ -61,7 +60,7 @@ public class AuthenticationSuccessHandler extends SavedRequestAwareAuthenticatio
 		}
 
 		if (authentication.getPrincipal() instanceof SubjectPrincipal) {
-			String guid = ((SubjectPrincipal) authentication.getPrincipal()).getGuid();
+			String guid = ((SubjectPrincipal) authentication.getPrincipal()).getUserId();
 			SubjectPrincipalCreatedEvent event = new SubjectPrincipalCreatedEvent(guid);
 			CloudApplicationContext.getContainer().publishEvent(InstanceProcessEvent.wrap(event));
 			Session session = new Session(request.getSession().getId(), guid);

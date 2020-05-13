@@ -1,8 +1,8 @@
 package org.macula.cloud.security.authentication;
 
-import org.macula.cloud.sdk.configure.SDKConfigurationProperties;
-import org.macula.cloud.sdk.configure.model.SDKSecurityProperties;
-import org.macula.cloud.sdk.utils.J2CacheUtils;
+import org.macula.cloud.core.configure.CoreConfigurationProperties;
+import org.macula.cloud.core.configure.model.SecurityProperties;
+import org.macula.cloud.core.utils.J2CacheUtils;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,9 +10,9 @@ public class CaptchaValidationPolicy {
 
 	private static final String CAPTCHA_USER_PREFIX = "~login_attempt_times~";
 
-	private SDKSecurityProperties properties;
+	private SecurityProperties properties;
 
-	public CaptchaValidationPolicy(SDKConfigurationProperties configuration) {
+	public CaptchaValidationPolicy(CoreConfigurationProperties configuration) {
 		properties = configuration.getSecurity();
 	}
 
