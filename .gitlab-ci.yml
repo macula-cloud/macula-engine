@@ -1,4 +1,4 @@
-image: harbor.javalabs.com.cn/javalabs-tools/ci-base:0.0.2
+image: registry.cn-hangzhou.aliyuncs.com/macula-cloud/ci-base:0.9.1
 
 stages:
   - mvn-package
