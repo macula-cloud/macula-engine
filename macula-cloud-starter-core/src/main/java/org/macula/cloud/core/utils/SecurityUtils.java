@@ -8,6 +8,7 @@ import org.macula.cloud.core.principal.SubjectPrincipal;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.util.StringUtils;
 
 public final class SecurityUtils {
@@ -44,5 +45,10 @@ public final class SecurityUtils {
 
 		hasAuthories.forEach(t -> t.toLowerCase());
 		return StringUtils.toStringArray(hasAuthories);
+	}
+
+	public static Authentication cast(SubjectPrincipal principal) {
+		principal.eraseCredentials();
+		return new PreAuthenticatedAuthenticationToken(principal, principal.getCredential(), principal.getAuthorities());
 	}
 }

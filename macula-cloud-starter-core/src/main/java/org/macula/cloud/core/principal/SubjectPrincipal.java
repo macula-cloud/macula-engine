@@ -38,8 +38,11 @@ public class SubjectPrincipal extends User implements Principal, Serializable {
 	private String avatar;
 	private String language;
 	private String timeZone;
+	private String theme;
 	private String organizationId;
 	private Set<String> tenantIds;
+	private String source;
+	private transient Object credential;
 	private long lastUpdatedTime = System.currentTimeMillis();
 
 	private String clientId;
@@ -149,5 +152,10 @@ public class SubjectPrincipal extends User implements Principal, Serializable {
 
 	public void addAdditionInfo(Map<String, Serializable> properties) {
 		// TODO  
+	}
+
+	public void addAuthority(String string) {
+		// TODO Auto-generated method stub
+
 	}
 }

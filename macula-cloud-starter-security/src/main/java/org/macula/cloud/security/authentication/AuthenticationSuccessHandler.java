@@ -9,12 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.macula.cloud.core.configure.CoreConfigurationProperties;
-import org.macula.cloud.core.context.CloudApplicationContext;
-import org.macula.cloud.core.event.InstanceProcessEvent;
-import org.macula.cloud.core.principal.SubjectPrincipal;
-import org.macula.cloud.core.principal.SubjectPrincipalCreatedEvent;
-import org.macula.cloud.core.session.Session;
-import org.macula.cloud.core.session.SessionCreatedEvent;
 import org.macula.cloud.core.utils.HttpRequestUtils;
 import org.macula.cloud.core.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,13 +53,13 @@ public class AuthenticationSuccessHandler extends SavedRequestAwareAuthenticatio
 			response.addCookie(new Cookie(HttpRequestUtils.OAUTH2_TOKEN_COOKIE, tokenValue));
 		}
 
-		if (authentication.getPrincipal() instanceof SubjectPrincipal) {
-			String guid = ((SubjectPrincipal) authentication.getPrincipal()).getUserId();
-			SubjectPrincipalCreatedEvent event = new SubjectPrincipalCreatedEvent(guid);
-			CloudApplicationContext.getContainer().publishEvent(InstanceProcessEvent.wrap(event));
-			Session session = new Session(request.getSession().getId(), guid);
-			CloudApplicationContext.getContainer().publishEvent(new SessionCreatedEvent(session));
-		}
+		//		if (authentication.getPrincipal() instanceof SubjectPrincipal) {
+		//			String guid = ((SubjectPrincipal) authentication.getPrincipal()).getUserId();
+		//			SubjectPrincipalCreatedEvent event = new SubjectPrincipalCreatedEvent(guid);
+		//			CloudApplicationContext.getContainer().publishEvent(InstanceProcessEvent.wrap(event));
+		//			Session session = new Session(request.getSession().getId(), guid);
+		//			CloudApplicationContext.getContainer().publishEvent(new SessionCreatedEvent(session));
+		//		}
 
 		if (HttpRequestUtils.isAjaxRequest(request) && ajaxSuccessHandler != null) {
 			ajaxSuccessHandler.onAuthenticationSuccess(request, response, authentication);
