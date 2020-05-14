@@ -9,8 +9,6 @@ server:
 spring:
    application:
       name: macula-cloud-flow
-   profiles:
-      active: ${PROFILE_ACTIVE:test}
    cloud:
       config:
          discovery:
