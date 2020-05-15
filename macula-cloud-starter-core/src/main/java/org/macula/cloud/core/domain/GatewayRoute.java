@@ -12,28 +12,28 @@ import lombok.ToString;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @MappedSuperclass
 @ToString(callSuper = true)
-public class GatewayRoute extends AbstractAuditable<String> implements Serializable {
+public class GatewayRoute extends AbstractAuditable<Long> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "URI")
 	private String uri;
-	
+
 	@Column(name = "PATH")
 	private String path;
-	
+
 	@Column(name = "STRIP_PREFIX")
 	private Integer stripPrefix;
-	
+
 	@Column(name = "ORDERED")
 	private int ordered;
-	
+
 	@Column(name = "METHOD")
 	private String method;
-	
+
 	@Column(name = "WEIGHT_GROUP")
 	private String group;
-	
+
 	@Column(name = "WEIGHT")
 	private String weight;
 
@@ -91,11 +91,6 @@ public class GatewayRoute extends AbstractAuditable<String> implements Serializa
 
 	public void setWeight(String weight) {
 		this.weight = weight;
-	}
-
-	@Override
-	public void setId(String id) {
-		super.setId(id);
 	}
 
 	public GatewayRoute clone(GatewayRoute entity) {
