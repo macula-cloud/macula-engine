@@ -71,9 +71,9 @@ public class SecurityAccessAutoConfiguration {
 	@Bean
 	@Primary
 	@ConditionalOnMissingBean(AuthorizationEndpoint.class)
-	public UserInfoTokenServices cacheableUserInfoTokenServices(OAuth2ClientContext oauth2ClientContext, OAuth2ProtectedResourceDetails client,
+	public UserInfoTokenServices oauth2UserInfoTokenServices(OAuth2ClientContext oauth2ClientContext, OAuth2ProtectedResourceDetails client,
 			ResourceServerProperties resource) {
-		CacheableUserInfoTokenServices tokenServices = new CacheableUserInfoTokenServices(resource.getUserInfoUri(), resource.getClientId());
+		OAuth2UserInfoTokenServices tokenServices = new OAuth2UserInfoTokenServices(resource.getUserInfoUri(), resource.getClientId());
 		tokenServices.setRestTemplate(new OAuth2RestTemplate(client, oauth2ClientContext));
 		return tokenServices;
 	}
@@ -232,7 +232,7 @@ public class SecurityAccessAutoConfiguration {
 			http.authorizeRequests().antMatchers(securityProperties.getPublicPaths()).permitAll()
 
 					.anyRequest().authenticated().filterSecurityInterceptorOncePerRequest(false).and()
-					.addFilterAfter(securityAccessInterceptor(), FilterSecurityInterceptor.class);
+					.addFilterAfter(securityAccessDecisionInterceptor(), FilterSecurityInterceptor.class);
 
 			configurePluginConfigures(http);
 
@@ -264,7 +264,7 @@ public class SecurityAccessAutoConfiguration {
 			if (tokenServices != null) {
 				filter.setTokenServices(tokenServices);
 			} else {
-				CacheableUserInfoTokenServices tokenServices = new CacheableUserInfoTokenServices(resource.getUserInfoUri(), resource.getClientId());
+				OAuth2UserInfoTokenServices tokenServices = new OAuth2UserInfoTokenServices(resource.getUserInfoUri(), resource.getClientId());
 				tokenServices.setRestTemplate(new OAuth2RestTemplate(client, oauth2ClientContext));
 				filter.setTokenServices(tokenServices);
 			}
@@ -284,7 +284,7 @@ public class SecurityAccessAutoConfiguration {
 		}
 
 		@Bean
-		public FilterSecurityInterceptor securityAccessInterceptor() {
+		public FilterSecurityInterceptor securityAccessDecisionInterceptor() {
 			FilterSecurityInterceptor securityInterceptor = new FilterSecurityInterceptor();
 			securityInterceptor.setAccessDecisionManager(new SecurityAccessDecisionManager());
 			securityInterceptor.setSecurityMetadataSource(this.securityAccessMetadataSource());

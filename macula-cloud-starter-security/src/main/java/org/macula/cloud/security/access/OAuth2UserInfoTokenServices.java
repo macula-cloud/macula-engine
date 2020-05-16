@@ -7,16 +7,15 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.InvalidTokenException;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 
-public class CacheableUserInfoTokenServices extends UserInfoTokenServices {
+public class OAuth2UserInfoTokenServices extends UserInfoTokenServices {
 
-	public CacheableUserInfoTokenServices(String userInfoEndpointUrl, String clientId) {
+	public OAuth2UserInfoTokenServices(String userInfoEndpointUrl, String clientId) {
 		super(userInfoEndpointUrl, clientId);
 	}
 
 	@Override
-	@Cacheable(OAuth2AccessToken.ACCESS_TOKEN)
-	public OAuth2Authentication loadAuthentication(String accessToken)
-			throws AuthenticationException, InvalidTokenException {
+	@Cacheable(cacheNames = OAuth2AccessToken.ACCESS_TOKEN, key = "#{accessToken}")
+	public OAuth2Authentication loadAuthentication(String accessToken) throws AuthenticationException, InvalidTokenException {
 		return super.loadAuthentication(accessToken);
 	}
 

@@ -2,14 +2,9 @@ package org.macula.cloud.core.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-/**
- * @Auther: Aaron
- * @Date: 2018/12/5 15:11
- * @Description:
- */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SysApplication {
+public class Client {
 
 	private String appId;
 
@@ -21,10 +16,10 @@ public class SysApplication {
 
 	private String appSecret;
 
-	public SysApplication() {
+	public Client() {
 	}
 
-	public SysApplication(Long id, String appId, String appName, String homePage, String appKey, String appSecret) {
+	public Client(Long id, String appId, String appName, String homePage, String appKey, String appSecret) {
 		this.appId = appId;
 		this.appName = appName;
 		this.homePage = homePage;
