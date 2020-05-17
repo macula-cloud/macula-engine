@@ -32,7 +32,7 @@ public class LoginCredential implements Serializable {
 	// 重定向地址
 	private String redirectToUrl;
 
-	//  签名
+	// 签名
 	private String sign;
 
 	// sessionId

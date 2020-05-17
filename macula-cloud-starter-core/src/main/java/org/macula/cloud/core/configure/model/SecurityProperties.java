@@ -33,11 +33,10 @@ public class SecurityProperties implements Serializable {
 
 	private long captchaTimes = 3;
 
-	private String ignoreUrls = "/actuator/**,/static/**,/public/**,/webjars/**,/favicon.ico";
+	private String ignoreUrls = "/static/**,/public/**,/webjars/**,/favicon.ico";
 
-	private String publicUrls = "/login**,/login/**,/error,/error**";
+	private String publicUrls = "/actuator,/actuator/**,/login,/login/**,/error,/error**";
 
-	
 	private String loginPath = "/login";
 
 	private String resourcePathPattern = "/api/**";

@@ -1,0 +1,50 @@
+.login{
+    width: 850px;
+    height: 540px;
+    margin: 0 auto;
+
+}
+.content{
+    width: 785px;
+    height: 454px;
+    margin: 0 auto!important;
+    background: #fff;
+    position: relative;
+    top: 90px;
+}
+.top{
+    position: relative;
+    top: 20px;
+    left: 50px;
+}
+.img_head{
+    border-radius: 50%;
+}
+.title{
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing:2px;
+    margin-left: 10px;
+}
+.login_success{
+    width: 250px;
+    margin: 0 auto;
+    text-align: center;
+}
+.prompt{
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+.btn_success{
+    width: 250px;
+    height: 40px;
+    border-radius: 4px;
+    border: 0;
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: 500;
+    background: #4091fd;
+}
+ul{
+    padding: 0;
+}

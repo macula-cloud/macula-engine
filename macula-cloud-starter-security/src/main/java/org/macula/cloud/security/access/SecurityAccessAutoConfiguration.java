@@ -71,6 +71,7 @@ public class SecurityAccessAutoConfiguration {
 	@Bean
 	@Primary
 	@ConditionalOnMissingBean(AuthorizationEndpoint.class)
+	@Conditional(EnableResourceServerCondition.class)
 	public UserInfoTokenServices oauth2UserInfoTokenServices(OAuth2ClientContext oauth2ClientContext, OAuth2ProtectedResourceDetails client,
 			ResourceServerProperties resource) {
 		OAuth2UserInfoTokenServices tokenServices = new OAuth2UserInfoTokenServices(resource.getUserInfoUri(), resource.getClientId());
@@ -242,8 +243,10 @@ public class SecurityAccessAutoConfiguration {
 				http.addFilterBefore(oauth2ClientContextFilter, BasicAuthenticationFilter.class);
 			}
 
-			http.addFilterBefore(createOAuth2ClientAuthenticationFilter(securityProperties.getOauth2Callback()), BasicAuthenticationFilter.class);
-
+			if (securityProperties.isOauth2Login()) {
+				http.addFilterBefore(createOAuth2ClientAuthenticationFilter(securityProperties.getOauth2Callback()), BasicAuthenticationFilter.class);
+			}
+			
 			HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
 			requestCache.setRequestMatcher(new NegatedRequestMatcher(new AntPathRequestMatcher("/error")));
 			http.setSharedObject(RequestCache.class, requestCache);
