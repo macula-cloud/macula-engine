@@ -3,6 +3,7 @@ package org.macula.cloud.login.configure;
 import java.util.Properties;
 
 import org.macula.cloud.login.service.WeChatService;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,7 @@ import com.google.code.kaptcha.util.Config;
 
 @Configuration
 @ComponentScan({ "org.macula.cloud.login" })
+@EnableFeignClients(basePackages = "org.macula.cloud.login")
 public class LoginConfiguration {
 
 	@Bean

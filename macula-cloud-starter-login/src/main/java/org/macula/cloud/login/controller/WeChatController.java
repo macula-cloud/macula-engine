@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping(value = "/v1/login/wechat")
+@RequestMapping(value = "/v1/wechat")
 public class WeChatController {
 
 	private WeChatService weChatService;

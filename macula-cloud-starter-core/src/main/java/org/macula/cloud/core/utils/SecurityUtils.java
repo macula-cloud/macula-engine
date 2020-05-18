@@ -15,8 +15,11 @@ import org.springframework.util.StringUtils;
 
 public final class SecurityUtils {
 
-	private static Authentication anonymous = new AnonymousAuthenticationToken("key", "anonymous",
+	private static Authentication anonymousAuthentication = new AnonymousAuthenticationToken("key", "anonymous",
 			AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
+
+	private static SubjectPrincipal anonymousPrincipal = new SubjectPrincipal(anonymousAuthentication.getName(), "",
+			anonymousAuthentication.getAuthorities());
 
 	public static SubjectPrincipal getSubjectPrincipal() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -32,7 +35,7 @@ public final class SecurityUtils {
 				}
 			}
 		}
-		return null;
+		return anonymousPrincipal;
 	}
 
 	public static String[] getResourceAuthorities(SecurityProperties securityProperties, String springAppName) {
@@ -54,7 +57,7 @@ public final class SecurityUtils {
 
 	public static Authentication cast(SubjectPrincipal principal) {
 		if (principal == null) {
-			return anonymous;
+			return anonymousAuthentication;
 		}
 		principal.eraseCredentials();
 		return new PreAuthenticatedAuthenticationToken(principal, principal.getCredential(), principal.getAuthorities());

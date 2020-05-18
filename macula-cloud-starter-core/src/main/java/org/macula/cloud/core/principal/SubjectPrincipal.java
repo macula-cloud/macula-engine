@@ -143,7 +143,7 @@ public class SubjectPrincipal extends User implements Principal, Serializable {
 
 	@Override
 	public String getName() {
-		return getUserId() != null ? getUserId() : getClientId();
+		return getUsername() != null ? getUsername() : getClientId();
 	}
 
 	public void addAuthorities(Set<String> authories) {
