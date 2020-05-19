@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
+import cn.binarywang.wx.miniapp.api.WxMaUserService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -48,13 +49,14 @@ public class WeChatService {
 		String clientId = credential.getClientId();
 		String code = credential.getCode();
 		WxMaService service = WxaUtils.getWxMaService(clientId);
+		WxMaUserService us = service.getUserService();
 
 		try {
-			WxMaJscode2SessionResult sessionKey = service.getUserService().getSessionInfo(code);
-			String openId = sessionKey.getOpenid();
+			WxMaJscode2SessionResult session = us.getSessionInfo(code);
 
-			WxMaUserInfo userInfo = service.getUserService().getUserInfo(sessionKey.getSessionKey(), credential.getEncryptedData(),
-					credential.getIv());
+			WxMaUserInfo userInfo = us.getUserInfo(session.getSessionKey(), credential.getEncryptedData(), credential.getIv());
+
+			String openId = session.getOpenid();
 
 			OAuth2User user = new OAuth2User();
 			BeanUtils.copyProperties(credential, user);
@@ -64,6 +66,7 @@ public class WeChatService {
 			user.setSource(clientId);
 			user.setAccount(user.getUsername());
 			user.setEnabled(true);
+			user.setSource("SOCIAL");
 
 			UserSocial social = new UserSocial();
 			BeanUtils.copyProperties(credential, social);
@@ -71,12 +74,12 @@ public class WeChatService {
 			social.setAppid(clientId);
 			social.setClientId(clientDetails.getClientId());
 			social.setOpenId(openId);
-			social.setUnionId(sessionKey.getUnionid());
+			social.setUnionId(session.getUnionid());
 
 			CreateSocialUserCommand command = CreateSocialUserCommand.builder().user(user).social(social).build();
 			String username = oauth2ClientFeign.createSocialUser(command);
 			Map<String, Object> oauth2Result = oauth2ClientFeign.getToken(clientDetails.getClientId(), clientDetails.getClientSecret(), "password",
-					username, openId);
+					username, user.getPassword());
 			return oauth2Result.getOrDefault(clientDetails.getTokenName(), "").toString();
 		} catch (WxErrorException e) {
 			log.error("BindAndLogin {} error: ", code, e);
@@ -93,5 +96,4 @@ public class WeChatService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
