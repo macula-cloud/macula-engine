@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(value = "macula-cloud-oauth3")
+@FeignClient(value = "macula-cloud-oauth2")
 public interface OAuth2ClientFeign {
 
 	@PostMapping("/oauth/token")
