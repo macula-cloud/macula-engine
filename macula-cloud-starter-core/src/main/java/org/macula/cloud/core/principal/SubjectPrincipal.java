@@ -55,13 +55,18 @@ public class SubjectPrincipal extends User implements Principal, Serializable {
 	private Set<String> clientAutoApproveScopes;
 	private Map<String, Serializable> additionInfo = new HashMap<String, Serializable>();
 
+	@JsonCreator
+	public SubjectPrincipal(@JsonProperty("username") String username, @JsonProperty("password") String password) {
+		super(username, password, Collections.emptyList());
+	}
+
 	public SubjectPrincipal(String username, String password, Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
 	}
 
-	@JsonCreator
-	public SubjectPrincipal(@JsonProperty("username") String username, @JsonProperty("password") String password) {
-		this(username, password, Collections.emptyList());
+	public SubjectPrincipal(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired,
+			boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 	}
 
 	public boolean isUserPrincipal() {

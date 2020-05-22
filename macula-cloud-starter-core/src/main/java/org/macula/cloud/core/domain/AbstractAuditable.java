@@ -20,8 +20,7 @@ import lombok.ToString;
 @MappedSuperclass
 @ToString(callSuper = true)
 @EntityListeners(AuditingEntityListener.class)
-public abstract class AbstractAuditable<PK extends Serializable> extends AbstractPersistable<PK>
-		implements Auditable<String, PK, Instant> {
+public abstract class AbstractAuditable<PK extends Serializable> extends AbstractPersistable<PK> implements Auditable<String, PK, Instant> {
 
 	@Version
 	@Column(name = "OBJECT_VERSION_NUMBER", nullable = false, length = 50)
@@ -41,10 +40,16 @@ public abstract class AbstractAuditable<PK extends Serializable> extends Abstrac
 	@Column(name = "LAST_UPDATED_TIME", nullable = false)
 	private Date lastModifiedDate;
 
+	/**
+	 * @return
+	 */
 	public Long getVersion() {
 		return version;
 	}
 
+	/**
+	 * @param version
+	 */
 	public void setVersion(Long version) {
 		this.version = version;
 	}

@@ -77,6 +77,10 @@ public class OAuth2User extends AbstractAuditable<Long> {
 	@Column(name = "IS_ENABLED", length = 1, nullable = false)
 	private Boolean enabled;
 
+	/** 是否有效 */
+	@Column(name = "IS_LOCKED", length = 1, nullable = false)
+	private Boolean locked;
+
 	/** 上级用户帐号 */
 	@Column(name = "LEADER_ACCOUNT", length = 250, nullable = true)
 	private String leaderAccount;
@@ -175,6 +179,7 @@ public class OAuth2User extends AbstractAuditable<Long> {
 		this.setEmail2(user.getEmail2());
 		this.setEmail3(user.getEmail3());
 		this.setEnabled(user.getEnabled());
+		this.setLocked(user.getLocked());
 		this.setField1(user.getField1());
 		this.setField2(user.getField2());
 		this.setField3(user.getField3());
