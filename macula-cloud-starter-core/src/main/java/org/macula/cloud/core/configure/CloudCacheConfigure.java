@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import net.oschina.j2cache.CacheChannel;
 
 @Configuration
-@ConditionalOnProperty(prefix = "macula.cloud", name = "cache.j2cache", havingValue = "true", matchIfMissing = false)
+@ConditionalOnProperty(prefix = "macula.cloud", name = "cache.j2cache", havingValue = "true", matchIfMissing = true)
 public class CloudCacheConfigure {
 
 	@Bean
