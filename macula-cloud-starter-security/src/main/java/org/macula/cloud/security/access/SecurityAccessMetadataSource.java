@@ -28,14 +28,13 @@ public class SecurityAccessMetadataSource implements FilterInvocationSecurityMet
 
 	@Scheduled(fixedRate = 3600 * 1000, initialDelay = 1000)
 	public void loadUrlRoleMappings() {
-		log.info("scheduled execute loadUrlRoleMappings");
+		log.info("Scheduled execute loadUrlRoleMappings");
 		Map<RequestMatcher, Collection<ConfigAttribute>> loadMetadata = new HashMap<>();
 		Map<String, Set<String>> urlRoleMapping = J2CacheUtils.get(J2CacheUtils.CACHE_REGION, URL_ROLE_MAPPING_CACHE);
 		if (urlRoleMapping != null) {
 			for (Map.Entry<String, Set<String>> entry : urlRoleMapping.entrySet()) {
 				Set<String> roleCodes = entry.getValue();
-				Collection<ConfigAttribute> configs = CollectionUtils.collect(roleCodes.iterator(),
-						input -> new SecurityConfig(input));
+				Collection<ConfigAttribute> configs = CollectionUtils.collect(roleCodes.iterator(), input -> new SecurityConfig(input));
 				loadMetadata.put(new AntPathRequestMatcher(entry.getKey()), configs);
 			}
 		}

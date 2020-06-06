@@ -7,8 +7,8 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 
 public interface SecurityAccessPluginConfigure {
 
-	default void init(AuthenticationSuccessHandler authenticationSuccessHandler,
-			AuthenticationFailureHandler authenticationFailureHandler, LogoutSuccessHandler logoutSuccessHandler) {
+	default void init(AuthenticationSuccessHandler authenticationSuccessHandler, AuthenticationFailureHandler authenticationFailureHandler,
+			LogoutSuccessHandler logoutSuccessHandler) {
 	}
 
 	default void configureAccess(HttpSecurity http) throws Exception {

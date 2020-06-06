@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.collections4.CollectionUtils;
 import org.macula.cloud.core.configure.CoreConfigurationProperties;
 import org.macula.cloud.core.configure.model.SecurityProperties;
+import org.macula.cloud.core.oauth2.SubjectPrincipalExtractor;
+import org.macula.cloud.core.oauth2.SubjectPrincipalUserInfoTokenServices;
 import org.macula.cloud.core.servlet.RequestAccessLogFilter;
-import org.macula.cloud.core.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
@@ -36,6 +37,8 @@ import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResour
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationManager;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationProcessingFilter;
 import org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
@@ -74,9 +77,24 @@ public class SecurityAccessAutoConfiguration {
 	@Conditional(EnableResourceServerCondition.class)
 	public UserInfoTokenServices oauth2UserInfoTokenServices(OAuth2ClientContext oauth2ClientContext, OAuth2ProtectedResourceDetails client,
 			ResourceServerProperties resource) {
-		OAuth2UserInfoTokenServices tokenServices = new OAuth2UserInfoTokenServices(resource.getUserInfoUri(), resource.getClientId());
+		SubjectPrincipalUserInfoTokenServices tokenServices = new SubjectPrincipalUserInfoTokenServices(resource.getUserInfoUri(),
+				resource.getClientId(), new SubjectPrincipalExtractor(), properties.getSecurity().getJwtSigner());
 		tokenServices.setRestTemplate(new OAuth2RestTemplate(client, oauth2ClientContext));
 		return tokenServices;
+	}
+
+	@Bean
+	public FilterInvocationSecurityMetadataSource securityAccessMetadataSource() {
+		SecurityAccessMetadataSource securityAccessMetadataSource = new SecurityAccessMetadataSource();
+		return securityAccessMetadataSource;
+	}
+
+	@Bean
+	public FilterSecurityInterceptor securityAccessDecisionInterceptor() {
+		FilterSecurityInterceptor securityInterceptor = new FilterSecurityInterceptor();
+		securityInterceptor.setAccessDecisionManager(new SecurityAccessDecisionManager());
+		securityInterceptor.setSecurityMetadataSource(this.securityAccessMetadataSource());
+		return securityInterceptor;
 	}
 
 	@Configuration
@@ -95,6 +113,9 @@ public class SecurityAccessAutoConfiguration {
 
 		@Autowired
 		private RequestAccessLogFilter requestAccessLogFilter;
+
+		@Autowired
+		private FilterSecurityInterceptor filterSecurityInterceptor;
 
 		protected void configurePluginConfigures(HttpSecurity http) throws Exception {
 			if (CollectionUtils.isNotEmpty(pluginConfigures)) {
@@ -124,13 +145,12 @@ public class SecurityAccessAutoConfiguration {
 
 			http.requestMatchers().antMatchers(securityProperties.getResourcePaths());
 
-			http.authorizeRequests().antMatchers(securityProperties.getPublicPaths()).permitAll()
+			http.authorizeRequests().antMatchers(securityProperties.getPublicPaths()).permitAll();
 
-					.anyRequest().hasAnyAuthority(SecurityUtils.getResourceAuthorities(securityProperties, properties.getApplication().getName()));
+			http.addFilterBefore(filterSecurityInterceptor, FilterSecurityInterceptor.class);
+			http.addFilterAfter(requestAccessLogFilter, SecurityContextPersistenceFilter.class);
 
 			configurePluginConfigures(http);
-
-			http.addFilterAfter(requestAccessLogFilter, SecurityContextPersistenceFilter.class);
 
 			log.info("Security Access Control is enabled on Resource Server Application");
 		}
@@ -167,6 +187,9 @@ public class SecurityAccessAutoConfiguration {
 		private OAuth2ProtectedResourceDetails client;
 
 		@Autowired(required = false)
+		private OAuth2AuthenticationManager oauth2AuthenticationManager;
+
+		@Autowired(required = false)
 		private ResourceServerProperties resource;
 
 		@Autowired(required = false)
@@ -177,6 +200,9 @@ public class SecurityAccessAutoConfiguration {
 
 		@Autowired(required = false)
 		private List<SecurityAccessPluginConfigure> pluginConfigures;
+
+		@Autowired
+		private FilterSecurityInterceptor filterSecurityInterceptor;
 
 		protected void initPluginConfigures() {
 			if (CollectionUtils.isNotEmpty(pluginConfigures)) {
@@ -230,13 +256,8 @@ public class SecurityAccessAutoConfiguration {
 				logoutConfig.logoutSuccessHandler(logoutSuccessHandler);
 			}
 
-			http.authorizeRequests().antMatchers(securityProperties.getPublicPaths()).permitAll()
-
-					.anyRequest().authenticated().filterSecurityInterceptorOncePerRequest(false).and()
-					.addFilterAfter(securityAccessDecisionInterceptor(), FilterSecurityInterceptor.class);
-
-			configurePluginConfigures(http);
-
+			http.authorizeRequests().antMatchers(securityProperties.getPublicPaths()).permitAll().anyRequest().authenticated();
+			http.addFilterBefore(filterSecurityInterceptor, FilterSecurityInterceptor.class);
 			http.addFilterBefore(requestAccessLogFilter, SecurityContextPersistenceFilter.class);
 
 			if (oauth2ClientContextFilter != null) {
@@ -245,8 +266,11 @@ public class SecurityAccessAutoConfiguration {
 
 			if (securityProperties.isOauth2Login()) {
 				http.addFilterBefore(createOAuth2ClientAuthenticationFilter(securityProperties.getOauth2Callback()), BasicAuthenticationFilter.class);
+				if (tokenServices != null && resource != null) {
+					http.addFilterBefore(createOAuth2AuthenticationFilter(), OAuth2ClientAuthenticationProcessingFilter.class);
+				}
 			}
-			
+
 			HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
 			requestCache.setRequestMatcher(new NegatedRequestMatcher(new AntPathRequestMatcher("/error")));
 			http.setSharedObject(RequestCache.class, requestCache);
@@ -254,11 +278,30 @@ public class SecurityAccessAutoConfiguration {
 			http.exceptionHandling()
 					.authenticationEntryPoint(new RedirectLoginUrlAuthenticationEntryPoint(properties.getSecurity().getLoginPath(), requestCache));
 
+			configurePluginConfigures(http);
+
 			log.info("Security Access Control is enabled on Web Application");
+		}
+
+		protected AuthenticationManager getOAuth2AuthenticationManager() {
+			if (oauth2AuthenticationManager == null) {
+				oauth2AuthenticationManager = new OAuth2AuthenticationManager();
+				oauth2AuthenticationManager.setResourceId(resource.getResourceId());
+			}
+			oauth2AuthenticationManager.setTokenServices(tokenServices);
+			return oauth2AuthenticationManager;
+		}
+
+		protected Filter createOAuth2AuthenticationFilter() {
+			OAuth2AuthenticationProcessingFilter oauth2AuthenticationFilter = new OAuth2AuthenticationProcessingFilter();
+			oauth2AuthenticationFilter.setAuthenticationManager(getOAuth2AuthenticationManager());
+			oauth2AuthenticationFilter.afterPropertiesSet();
+			return oauth2AuthenticationFilter;
 		}
 
 		protected Filter createOAuth2ClientAuthenticationFilter(String path) {
 			OAuth2ClientAuthenticationProcessingFilter filter = new OAuth2ClientAuthenticationProcessingFilter(path);
+			filter.setAuthenticationManager(getOAuth2AuthenticationManager());
 			OAuth2RestTemplate template = new OAuth2RestTemplate(client, oauth2ClientContext);
 			filter.setRestTemplate(template);
 			if (authenticationSuccessHandler != null) {
@@ -266,11 +309,8 @@ public class SecurityAccessAutoConfiguration {
 			}
 			if (tokenServices != null) {
 				filter.setTokenServices(tokenServices);
-			} else {
-				OAuth2UserInfoTokenServices tokenServices = new OAuth2UserInfoTokenServices(resource.getUserInfoUri(), resource.getClientId());
-				tokenServices.setRestTemplate(new OAuth2RestTemplate(client, oauth2ClientContext));
-				filter.setTokenServices(tokenServices);
 			}
+			filter.afterPropertiesSet();
 			return filter;
 		}
 
@@ -278,20 +318,6 @@ public class SecurityAccessAutoConfiguration {
 		@Override
 		protected AuthenticationManager authenticationManager() throws Exception {
 			return super.authenticationManager();
-		}
-
-		@Bean
-		public FilterInvocationSecurityMetadataSource securityAccessMetadataSource() {
-			SecurityAccessMetadataSource securityAccessMetadataSource = new SecurityAccessMetadataSource();
-			return securityAccessMetadataSource;
-		}
-
-		@Bean
-		public FilterSecurityInterceptor securityAccessDecisionInterceptor() {
-			FilterSecurityInterceptor securityInterceptor = new FilterSecurityInterceptor();
-			securityInterceptor.setAccessDecisionManager(new SecurityAccessDecisionManager());
-			securityInterceptor.setSecurityMetadataSource(this.securityAccessMetadataSource());
-			return securityInterceptor;
 		}
 
 	}

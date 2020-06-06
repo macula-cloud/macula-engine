@@ -1,4 +1,17 @@
 <div>
 	This is default page!
 	<div th:text="${#httpServletRequest.getUserPrincipal()}"></div>
+	<p>
+	<form action="/oauth/authorize">
+		<input type="hidden" name="response_type" value="token" />
+		<p>
+			<label>client_id</label>
+			<input type="text" name="client_id" value="macula-cloud-gateway"></input>
+		</p>
+		<p>
+			<label>redirect_uri</label>
+			<input type="text" name="redirect_uri" value="http://localhost:8030/login/oauth2"></input>
+		</p>
+		<button type="submit">生成</button>
+	</form>
 </div>

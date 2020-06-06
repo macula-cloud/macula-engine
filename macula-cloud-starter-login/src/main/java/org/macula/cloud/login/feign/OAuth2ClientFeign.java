@@ -17,7 +17,7 @@ public interface OAuth2ClientFeign {
 			@RequestParam(value = "grant_type", defaultValue = "password") String grantType, @RequestParam("username") String username,
 			@RequestParam("password") String password);
 
-	@PutMapping("/public/v1/user/social")
+	@PutMapping("/v1/social/create")
 	String createSocialUser(@RequestBody CreateSocialUserCommand command);
 
 }

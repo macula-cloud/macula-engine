@@ -161,6 +161,5 @@ public class SubjectPrincipal extends User implements Principal, Serializable {
 
 	public void addAuthority(String string) {
 		// TODO Auto-generated method stub
-
 	}
 }

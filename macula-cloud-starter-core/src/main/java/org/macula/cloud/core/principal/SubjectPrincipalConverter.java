@@ -16,6 +16,10 @@ public class SubjectPrincipalConverter extends DefaultAccessTokenConverter {
 	private final UserDetailsService userDetailsService;
 	private final ClientDetailsService clientDetailsService;
 
+	public SubjectPrincipalConverter() {
+		this(null, null);
+	}
+
 	public SubjectPrincipalConverter(UserDetailsService userDetailsService, ClientDetailsService clientDetailsService) {
 		this.userDetailsService = userDetailsService;
 		this.clientDetailsService = clientDetailsService;

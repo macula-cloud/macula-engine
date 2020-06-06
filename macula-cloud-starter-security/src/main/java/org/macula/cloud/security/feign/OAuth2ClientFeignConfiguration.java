@@ -1,8 +1,15 @@
 package org.macula.cloud.security.feign;
 
+import org.macula.cloud.core.configure.CoreConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.cloud.security.oauth2.client.feign.OAuth2FeignRequestInterceptor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
+import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
+
+import feign.RequestInterceptor;
 
 public class OAuth2ClientFeignConfiguration {
 
@@ -12,15 +19,21 @@ public class OAuth2ClientFeignConfiguration {
 		return new ClientCredentialsResourceDetails();
 	}
 
-	//	@Bean
-	//	@RefreshScope
-	//	public RequestInterceptor oauth2FeignRequestInterceptor(ClientCredentialsResourceDetails clientDetails) {
-	//		return new OAuth2FeignRequestInterceptor(new DefaultOAuth2ClientContext(), clientDetails);
-	//	}
+	@Bean
+	@RefreshScope
+	public RequestInterceptor oauth2FeignRequestInterceptor(ClientCredentialsResourceDetails clientDetails) {
+		return new OAuth2FeignRequestInterceptor(new DefaultOAuth2ClientContext(), clientDetails);
+	}
 
-	//	@Bean
-	//	@RefreshScope
-	//	public OAuth2RestTemplate clientCredentialsRestTemplate(ClientCredentialsResourceDetails clientDetails) {
-	//		return new OAuth2RestTemplate(clientDetails);
-	//	}
+	@Bean
+	@RefreshScope
+	public RequestInterceptor jwtFeignRequestInterceptor(CoreConfigurationProperties properties) {
+		return new JWTFeignRequestInterceptor(properties.getSecurity().getJwtKey());
+	}
+
+	@Bean
+	@RefreshScope
+	public OAuth2RestTemplate clientCredentialsRestTemplate(ClientCredentialsResourceDetails clientDetails) {
+		return new OAuth2RestTemplate(clientDetails);
+	}
 }

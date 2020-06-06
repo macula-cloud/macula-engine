@@ -1,5 +1,6 @@
 package org.macula.cloud.security.token;
 
+import org.macula.cloud.core.oauth2.SubjectPrincipalExtractor;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerTokenServicesConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -13,4 +14,5 @@ public class SubjectPrincipalExtractorConfiguration {
 	public SubjectPrincipalExtractor subjectPrincipalExtractor() {
 		return new SubjectPrincipalExtractor();
 	}
+
 }

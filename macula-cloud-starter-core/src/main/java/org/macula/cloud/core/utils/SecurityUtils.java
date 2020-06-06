@@ -9,10 +9,19 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.jwt.JwtHelper;
+import org.springframework.security.jwt.crypto.sign.SignatureVerifier;
+import org.springframework.security.jwt.crypto.sign.Signer;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.util.StringUtils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public final class SecurityUtils {
 
 	private static Authentication anonymousAuthentication = new AnonymousAuthenticationToken("key", "anonymous",
@@ -20,6 +29,8 @@ public final class SecurityUtils {
 
 	private static SubjectPrincipal anonymousPrincipal = new SubjectPrincipal(anonymousAuthentication.getName(), "",
 			anonymousAuthentication.getAuthorities());
+
+	private final static ObjectMapper objectMapper = new ObjectMapper();
 
 	public static SubjectPrincipal getSubjectPrincipal() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -36,6 +47,27 @@ public final class SecurityUtils {
 			}
 		}
 		return anonymousPrincipal;
+	}
+
+	public static SubjectPrincipal getLoginedPrincipal() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		return getLoginedPrincipal(authentication);
+	}
+
+	public static SubjectPrincipal getLoginedPrincipal(Authentication authentication) {
+		if (authentication != null) {
+			if (authentication.getPrincipal() instanceof SubjectPrincipal) {
+				return (SubjectPrincipal) authentication.getPrincipal();
+			}
+			Object details = authentication.getDetails();
+			if (details instanceof OAuth2AuthenticationDetails) {
+				Object decodedDetails = ((OAuth2AuthenticationDetails) details).getDecodedDetails();
+				if (decodedDetails instanceof SubjectPrincipal) {
+					return (SubjectPrincipal) decodedDetails;
+				}
+			}
+		}
+		return null;
 	}
 
 	public static String[] getResourceAuthorities(SecurityProperties securityProperties, String springAppName) {
@@ -61,5 +93,32 @@ public final class SecurityUtils {
 		}
 		principal.eraseCredentials();
 		return new PreAuthenticatedAuthenticationToken(principal, principal.getCredential(), principal.getAuthorities());
+	}
+
+	public static String convertPrincipal(SubjectPrincipal principal, Signer jwtSigner) {
+		if (principal != null) {
+			try {
+				String token = objectMapper.writeValueAsString(principal);
+				String jwt = "Bearer " + JwtHelper.encode(token, jwtSigner).getEncoded();
+				return jwt;
+			} catch (JsonProcessingException e) {
+				log.error("convertPrincipal error: ", e);
+			}
+		}
+		return null;
+	}
+
+	public static SubjectPrincipal convertPrincipal(String jwt, SignatureVerifier jwtSigner) {
+		try {
+			String claims = JwtHelper.decodeAndVerify(jwt, jwtSigner).getClaims();
+			return objectMapper.readValue(claims, SubjectPrincipal.class);
+		} catch (JsonProcessingException e) {
+			log.error("convertPrincipal error: ", e);
+		}
+		return null;
+	}
+
+	public static boolean isJwtToken(String token) {
+		return token != null && token.indexOf(".") > 0;
 	}
 }
