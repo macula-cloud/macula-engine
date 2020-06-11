@@ -31,9 +31,15 @@ public class LoginController {
 	@Autowired
 	private AuthenticationSuccessHandler authenticationSuccessHandler;
 
-	@RequestMapping(value = "/login", method = { RequestMethod.POST, RequestMethod.GET })
-	public String loginPage(HttpServletRequest request, HttpServletResponse response, HttpSession session, Authentication authentication, Model model)
-			throws IOException, ServletException {
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String postLoginPage(HttpServletRequest request, HttpServletResponse response, HttpSession session, Authentication authentication,
+			Model model) throws IOException, ServletException {
+		return getLoginPage(request, response, session, authentication, model);
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String getLoginPage(HttpServletRequest request, HttpServletResponse response, HttpSession session, Authentication authentication,
+			Model model) throws IOException, ServletException {
 
 		if (authentication != null && authentication.getPrincipal() instanceof SubjectPrincipal) {
 			authenticationSuccessHandler.onAuthenticationSuccess(request, response, authentication);
