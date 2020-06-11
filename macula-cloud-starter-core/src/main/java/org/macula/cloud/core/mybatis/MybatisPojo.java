@@ -32,6 +32,7 @@ public abstract class MybatisPojo implements Serializable {
 	private Date updateTime;
 
 	public MybatisPojo() {
+		this.id = null;
 	}
 
 	public MybatisPojo(Long id) {
@@ -39,6 +40,7 @@ public abstract class MybatisPojo implements Serializable {
 	}
 
 	public MybatisPojo(Long createBy, Date createTime, Long updateBy, Date updateTime) {
+		this.id = null;
 		this.createBy = createBy;
 		this.createTime = createTime;
 		this.updateBy = updateBy;

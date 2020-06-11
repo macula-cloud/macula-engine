@@ -21,7 +21,7 @@ public class CloudApplicationEventMulticaster extends SimpleApplicationEventMult
 
 	@Override
 	public void multicastEvent(final ApplicationEvent event, ResolvableType eventType) {
-		ResolvableType type = (eventType != null ? eventType : resolveDefaultEventType(event));
+		ResolvableType type = (eventType != null ? eventType : resolveEventType(event));
 		for (final ApplicationListener<?> listener : getApplicationListeners(event, type)) {
 			Executor executor = getTaskExecutor();
 			// 存在Executor并且是异步事件，则异步响应事件
@@ -38,18 +38,14 @@ public class CloudApplicationEventMulticaster extends SimpleApplicationEventMult
 		}
 	}
 
-	private ResolvableType resolveDefaultEventType(ApplicationEvent event) {
+	private ResolvableType resolveEventType(ApplicationEvent event) {
 		return ResolvableType.forInstance(event);
 	}
 
 	@Override
 	protected Executor getTaskExecutor() {
 		if (taskExecutor == null) {
-			synchronized (this) {
-				if (taskExecutor == null) {
-					taskExecutor = new ThreadPoolTaskExecutor();
-				}
-			}
+			taskExecutor = new ThreadPoolTaskExecutor();
 		}
 		return this.taskExecutor;
 	}

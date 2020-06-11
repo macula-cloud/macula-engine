@@ -347,12 +347,12 @@
 		<repository>
 			<id>pdsd-nexus</id>
 			<name>ReleasesProxy</name>
-			<url>https://pdsd-nexus.infinitus.com.cn/repository/maven-releases/</url>
+			<url>https://pdsd-nexus.infinitus.com.cn/repository/infinitus-releases</url>
 		</repository>
 		<snapshotRepository>
 			<id>pdsd-nexus</id>
 			<name>SnapshotsProxy</name>
-			<url>https://pdsd-nexus.infinitus.com.cn/repository/maven-snapshots/</url>
+			<url>https://pdsd-nexus.infinitus.com.cn/repository/infinitus-snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 
