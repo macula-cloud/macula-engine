@@ -1,13 +1,14 @@
-image: registry.cn-shanghai.aliyuncs.com/c7n/cibase:0.9.1
+image: pdsd-registry.infinitus.com.cn/tools/cibase:0.9.1
 
 stages:
-  - mvn-package
-  - maven-deploy
+  - build
+  - release
 
-maven-test-branches:
-  stage: mvn-package
+build-branches:
+  stage: build
   script:
-    - mvn package -DskipTests=true
+    - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent test -Dmaven.test.failure.ignore=true -DskipTests=true -U
+    - mvn package deploy
   only:
     - branches
   except:
@@ -16,30 +17,40 @@ maven-test-branches:
     - /^release-.*$/
     - /^hotfix-.*$/
 
-maven-test-build:
-  stage: mvn-package
+build:
+  stage: build
   script:
-    - mvn clean package -U
+    - export CI_COMMIT_TAG="${CI_COMMIT_TAG}-${CI_PIPELINE_ID}"
+    - echo ${CI_COMMIT_TAG}
+    - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent  test -Dmaven.test.failure.ignore=true -DskipTests=false -U
+    - mvn --batch-mode  verify sonar:sonar  -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_LOGIN -Dsonar.gitlab.project_id=$CI_PROJECT_PATH -Dsonar.gitlab.commit_sha=$CI_COMMIT_SHA -Dsonar.gitlab.ref_name=$CI_COMMIT_REF_NAME -Dsonar.analysis.serviceGroup=$GROUP_NAME -Dsonar.analysis.commitId=$CI_COMMIT_SHA -Dsonar.projectKey=${GROUP_NAME}:${PROJECT_NAME}
+    - mvn package deploy
+  only:
+    refs:
+      - master
+      - tags
+      - /^release-.*$/
+      - /^hotfix-.*$/
+
+release:
+  stage: release
+  script:
+    - export CI_COMMIT_TAG="${CI_COMMIT_TAG}-${CI_PIPELINE_ID}"
+    - echo ${CI_COMMIT_TAG}
+    - chart_build
   only:
     - master
+    - tags
     - /^release-.*$/
     - /^hotfix-.*$/
 
-maven-deploy-snapshot:
-  stage: maven-deploy
-  script:
-    - mvn clean install -DskipTests=true deploy
-  only:
-    - master
-
-maven-deploy-release:
-  stage: maven-deploy
-  script:
-    - mvn clean install -DskipTests=true deploy
-  only:
-    - tags
-    - /^release-.*$/
+.auto_devops: &auto_devops |
+  http_status_code=`curl -o .auto_devops.sh -s -m 10 --connect-timeout 10 -w %{http_code} "${CHOERODON_URL}/devops/ci?token=${Token}&type=microservice"`
+  if [ "$http_status_code" != "200" ]; then
+    cat .auto_devops.sh
+    exit 1
+  fi
+  source .auto_devops.sh
 
 before_script:
-   - mkdir -p /root/.docker
-   - echo "{\"auths\":{\"registry.cn-hangzhou.aliyuncs.com\":{\"auth\":\"am9rZXdheTpmdWNrc2hpdEBhbGl5dW4=\"}}}" > /root/.docker/config.json
+  - *auto_devops

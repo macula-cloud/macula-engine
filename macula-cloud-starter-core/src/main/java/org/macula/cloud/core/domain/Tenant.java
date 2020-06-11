@@ -23,7 +23,7 @@ public class Tenant extends Entity {
 
 	public Tenant clone(Tenant entity) {
 		super.clone(entity);
-		this.setType(getType());
+		entity.setType(getType());
 		return entity;
 	}
 

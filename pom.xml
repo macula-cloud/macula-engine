@@ -57,6 +57,8 @@
 		<module>macula-cloud-starter-flow</module>
 		<module>macula-cloud-starter-login</module>
 		<module>macula-cloud-starter-social</module>
+		<module>macula-cloud-starter-log</module>
+		<module>macula-cloud-starter-sap</module>
 	</modules>
 
 	<dependencyManagement>
