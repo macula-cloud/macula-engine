@@ -1,5 +1,7 @@
 package org.macula.cloud.core.lock.aop;
 
+import java.lang.reflect.Method;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.context.expression.MethodBasedEvaluationContext;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
@@ -7,10 +9,11 @@ import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
-import java.lang.reflect.Method;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  */
+@Slf4j
 public class AbstractLockAop {
 
 	/**
@@ -33,7 +36,7 @@ public class AbstractLockAop {
 		try {
 			method = pjp.getTarget().getClass().getMethod(pjp.getSignature().getName(), argTypes);
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
+			log.error("GetMethod error:", e);
 		}
 		return method;
 	}

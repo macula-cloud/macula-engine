@@ -23,11 +23,13 @@ import cn.binarywang.wx.miniapp.bean.WxMaTemplateMessage;
 import cn.binarywang.wx.miniapp.config.impl.WxMaDefaultConfigImpl;
 import cn.binarywang.wx.miniapp.message.WxMaMessageHandler;
 import cn.binarywang.wx.miniapp.message.WxMaMessageRouter;
+import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.bean.result.WxMediaUploadResult;
 import me.chanjar.weixin.common.error.WxErrorException;
 
 @Configuration
 @EnableConfigurationProperties(WxMaProperties.class)
+@Slf4j
 public class WxMaConfiguration {
 
 	private WxMaProperties properties;
@@ -111,7 +113,7 @@ public class WxMaConfiguration {
 			service.getMsgService()
 					.sendKefuMsg(WxMaKefuMessage.newImageBuilder().mediaId(uploadResult.getMediaId()).toUser(wxMessage.getFromUser()).build());
 		} catch (WxErrorException e) {
-			e.printStackTrace();
+			log.error("picHandle error:", e);
 		}
 
 		return null;
@@ -124,7 +126,7 @@ public class WxMaConfiguration {
 			service.getMsgService()
 					.sendKefuMsg(WxMaKefuMessage.newImageBuilder().mediaId(uploadResult.getMediaId()).toUser(wxMessage.getFromUser()).build());
 		} catch (WxErrorException e) {
-			e.printStackTrace();
+			log.error("qrcodeHandler error:", e);
 		}
 
 		return null;

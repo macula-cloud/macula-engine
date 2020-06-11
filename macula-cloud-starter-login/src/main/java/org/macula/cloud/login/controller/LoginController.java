@@ -19,6 +19,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RefreshScope
@@ -30,7 +31,7 @@ public class LoginController {
 	@Autowired
 	private AuthenticationSuccessHandler authenticationSuccessHandler;
 
-	@RequestMapping("/login")
+	@RequestMapping(value = "/login", method = { RequestMethod.POST, RequestMethod.GET })
 	public String loginPage(HttpServletRequest request, HttpServletResponse response, HttpSession session, Authentication authentication, Model model)
 			throws IOException, ServletException {
 

@@ -7,6 +7,9 @@ import java.util.Date;
 import org.macula.cloud.core.exception.MaculaCloudException;
 import org.springframework.core.convert.converter.Converter;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class DateConverter implements Converter<String, Date> {
 
 	private final static String DATE_FORMATTER = "yyyy-MM-dd";
@@ -24,7 +27,7 @@ public class DateConverter implements Converter<String, Date> {
 			// 2. 解析日期
 			return format.parse(source);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			log.error("format parse error:", e);
 			throw new MaculaCloudException("请求参数时间格式错误!");
 		}
 	}
