@@ -40,7 +40,7 @@
 		<hutool.version>5.1.5</hutool.version>
 		<guava.version>28.2-jre</guava.version>
 		<docker.registry>registry.cn-hangzhou.aliyuncs.com</docker.registry>
-		<helm.registry>chart.javalabs.com.cn</helm.registry>
+		<helm.registry>pdsd-chart.infinitus.com.cn/</helm.registry>
 	</properties>
 
 	<modules>
@@ -330,9 +330,9 @@
 
 	<repositories>
 		<repository>
-			<id>javalabs-nexus</id>
-			<name>javalabs-nexus</name>
-			<url>https://nexus.javalabs.com.cn/repository/maven-public</url>
+			<id>pdsd-nexus</id>
+			<name>pdsd-nexus</name>
+			<url>https://pdsd-nexus.infinitus.com.cn/repository/infinitus-maven</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -345,14 +345,14 @@
 
 	<distributionManagement>
 		<repository>
-			<id>javalabs-nexus</id>
+			<id>pdsd-nexus</id>
 			<name>ReleasesProxy</name>
-			<url>https://nexus.javalabs.com.cn/repository/maven-releases/</url>
+			<url>https://pdsd-nexus.infinitus.com.cn/repository/maven-releases/</url>
 		</repository>
 		<snapshotRepository>
-			<id>javalabs-nexus</id>
+			<id>pdsd-nexus</id>
 			<name>SnapshotsProxy</name>
-			<url>https://nexus.javalabs.com.cn/repository/maven-snapshots/</url>
+			<url>https://pdsd-nexus.infinitus.com.cn/repository/maven-snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 
