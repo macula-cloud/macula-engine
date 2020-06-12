@@ -27,6 +27,11 @@ public class ServiceInvokeLog extends AbstractAuditable<Long> implements Seriali
 	private String key;
 
 	/**
+	 * 调用描述
+	 */
+	private String description;
+
+	/**
 	 * 调用方服务名
 	 */
 	private String source;
@@ -88,6 +93,12 @@ public class ServiceInvokeLog extends AbstractAuditable<Long> implements Seriali
 	 */
 	@Lob
 	private String exceptionMessage;
+
+	/**
+	 * 备注信息
+	 */
+	@Lob
+	private String comments;
 
 	public ServiceInvokeLog clone(ServiceInvokeLog entity) {
 		super.clone(entity);

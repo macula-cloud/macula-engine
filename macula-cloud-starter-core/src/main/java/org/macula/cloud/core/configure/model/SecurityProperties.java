@@ -35,7 +35,7 @@ public class SecurityProperties implements Serializable {
 
 	private boolean captcha = true;
 
-	private long captchaTimes = 3;
+	private long captchaTimes = 100;
 
 	private String ignoreUrls = "/static/**,/public/**,/webjars/**,/favicon.ico";
 

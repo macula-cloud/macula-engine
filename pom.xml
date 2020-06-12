@@ -75,6 +75,11 @@
 			</dependency>
 			<dependency>
 				<groupId>macula-cloud</groupId>
+				<artifactId>macula-cloud-starter-log</artifactId>
+				<version>${macula-cloud-starters.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>macula-cloud</groupId>
 				<artifactId>macula-cloud-starter-authority</artifactId>
 				<version>${macula-cloud-starters.version}</version>
 			</dependency>
