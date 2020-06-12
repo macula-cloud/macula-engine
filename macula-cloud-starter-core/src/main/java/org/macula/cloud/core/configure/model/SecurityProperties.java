@@ -6,8 +6,6 @@ import java.util.Collections;
 import java.util.Set;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.security.jwt.crypto.sign.MacSigner;
-import org.springframework.security.jwt.crypto.sign.SignerVerifier;
 import org.springframework.util.StringUtils;
 
 import lombok.Getter;
@@ -77,10 +75,6 @@ public class SecurityProperties implements Serializable {
 			return StringUtils.commaDelimitedListToSet(needAuthories);
 		}
 		return CollectionUtils.emptyCollection();
-	}
-
-	public SignerVerifier getJwtSigner() {
-		return new MacSigner(getJwtKey());
 	}
 
 }

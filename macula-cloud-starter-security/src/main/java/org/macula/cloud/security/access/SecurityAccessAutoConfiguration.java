@@ -29,6 +29,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
+import org.springframework.security.jwt.crypto.sign.MacSigner;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
@@ -78,7 +79,7 @@ public class SecurityAccessAutoConfiguration {
 	public UserInfoTokenServices oauth2UserInfoTokenServices(OAuth2ClientContext oauth2ClientContext, OAuth2ProtectedResourceDetails client,
 			ResourceServerProperties resource) {
 		SubjectPrincipalUserInfoTokenServices tokenServices = new SubjectPrincipalUserInfoTokenServices(resource.getUserInfoUri(),
-				resource.getClientId(), new SubjectPrincipalExtractor(), properties.getSecurity().getJwtSigner());
+				resource.getClientId(), new SubjectPrincipalExtractor(), new MacSigner(properties.getSecurity().getJwtKey()));
 		tokenServices.setRestTemplate(new OAuth2RestTemplate(client, oauth2ClientContext));
 		return tokenServices;
 	}
