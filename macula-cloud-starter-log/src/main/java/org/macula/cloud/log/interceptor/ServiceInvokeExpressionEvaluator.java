@@ -23,7 +23,10 @@ public class ServiceInvokeExpressionEvaluator extends CachedExpressionEvaluator 
 			if (StringUtils.isEmpty(expression)) {
 				return expression;
 			}
-			return this.getParser().parseExpression(expression).getValue(evaluationContext, String.class);
+			Object object = this.getParser().parseExpression(expression).getValue(evaluationContext, Object.class);
+			if (object != null) {
+				return object.toString();
+			}
 		} catch (Exception ex) {
 			log.error("getExpressionValue {} error: ", expression, ex);
 		}
