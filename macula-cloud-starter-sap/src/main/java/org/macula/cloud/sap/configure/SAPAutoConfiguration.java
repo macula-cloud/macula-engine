@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import org.hibersap.annotations.Bapi;
 import org.hibersap.configuration.AnnotationConfiguration;
 import org.hibersap.configuration.xml.SessionManagerConfig;
+import org.hibersap.execution.jco.JCoContext;
 import org.hibersap.session.SessionManager;
 import org.macula.cloud.sap.SAPExecution;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -19,8 +20,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.util.ClassUtils;
-
-import com.sap.conn.jco.JCoContext;
 
 @Configuration
 @EnableConfigurationProperties(JcoConfig.class)

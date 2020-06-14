@@ -59,6 +59,7 @@
 		<module>macula-cloud-starter-social</module>
 		<module>macula-cloud-starter-log</module>
 		<module>macula-cloud-starter-sap</module>
+		<module>macula-cloud-starter-mq</module>
 	</modules>
 
 	<dependencyManagement>
@@ -81,6 +82,11 @@
 			<dependency>
 				<groupId>macula-cloud</groupId>
 				<artifactId>macula-cloud-starter-sap</artifactId>
+				<version>${macula-cloud-starters.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>macula-cloud</groupId>
+				<artifactId>macula-cloud-starter-mq</artifactId>
 				<version>${macula-cloud-starters.version}</version>
 			</dependency>
 			<dependency>

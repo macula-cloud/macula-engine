@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @ConditionalOnMissingBean
-@ConfigurationProperties(value = "macula.cloud", ignoreUnknownFields = false)
+@ConfigurationProperties(value = CoreConfigurationProperties.PREFIX, ignoreUnknownFields = true)
 public class CoreConfigurationProperties implements Serializable {
 
 	private static final long serialVersionUID = 1L;
