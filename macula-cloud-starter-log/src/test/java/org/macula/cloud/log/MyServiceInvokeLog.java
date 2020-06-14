@@ -8,7 +8,11 @@ public class MyServiceInvokeLog {
 
 	@ServiceInvokeProxy
 	public String getName(String name) {
-		return "Hello:" + name;
+		return "Hello:" + getInternalName(name);
+	}
+
+	public String getInternalName(String name) {
+		return "InternalName:-> " + name;
 	}
 
 }

@@ -10,7 +10,6 @@ import org.macula.cloud.core.utils.SecurityUtils;
 import org.macula.cloud.core.utils.SystemUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -20,14 +19,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.auditing.DateTimeProvider;
 import org.springframework.data.domain.AuditorAware;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
-@ConditionalOnClass(name = { "org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean", "javax.persistence.EntityManagerFactory" })
+@ConditionalOnProperty(prefix = "spring.data.jpa.repositories", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class CloudJpaConfigure {
 
 	@Bean(name = "macula-cloud-datasource")
@@ -58,8 +55,7 @@ public class CloudJpaConfigure {
 	}
 
 	@Configuration
-	@EnableJpaRepositories
-	@EnableJpaAuditing
+	@ConditionalOnProperty(prefix = "spring.data.jpa.repositories", name = "enabled", havingValue = "true", matchIfMissing = true)
 	static class CloudJpaAuditingConfiguration {
 		@Bean
 		public AuditorAware<String> buildAuditorAwareImpl() {

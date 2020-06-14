@@ -10,8 +10,8 @@ import lombok.ToString;
 
 @MappedSuperclass
 @ToString(callSuper = true)
-public abstract class AbstractPersistable<PK extends Serializable>
-		extends org.springframework.data.jpa.domain.AbstractPersistable<PK> implements Persistable<PK> {
+public abstract class AbstractPersistable<PK extends Serializable> extends org.springframework.data.jpa.domain.AbstractPersistable<PK>
+		implements Persistable<PK> {
 
 	/** 是否已删除标志 */
 	private transient boolean deleted = false;
@@ -31,8 +31,12 @@ public abstract class AbstractPersistable<PK extends Serializable>
 	}
 
 	public AbstractPersistable<PK> clone(AbstractPersistable<PK> entity) {
-		entity.setId(getId());
+		// entity.setId(getId());
 		entity.setDeleted(isDeleted());
 		return entity;
+	}
+
+	public void cloneId(AbstractPersistable<PK> entity) {
+		entity.setId(getId());
 	}
 }

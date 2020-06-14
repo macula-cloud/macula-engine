@@ -17,9 +17,9 @@ public @interface ServiceInvokeProxy {
 
 	String description() default "";
 
-	String source() default "";
+	String source() default "targetMethod.name";
 
-	String sourceMethod() default "";
+	String sourceMethod() default "targetMethod.toString()";
 
 	String sourceMessage() default "";
 
@@ -27,4 +27,5 @@ public @interface ServiceInvokeProxy {
 
 	String targetMethod() default "";
 
+	boolean alarm() default false;
 }

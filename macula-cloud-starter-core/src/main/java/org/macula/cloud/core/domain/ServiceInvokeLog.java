@@ -13,10 +13,10 @@ import lombok.Setter;
 import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@MappedSuperclass
 @ToString(callSuper = true)
 @Getter
 @Setter
+@MappedSuperclass
 public class ServiceInvokeLog extends AbstractAuditable<Long> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -24,7 +24,7 @@ public class ServiceInvokeLog extends AbstractAuditable<Long> implements Seriali
 	/**
 	 * 调用Key值（业务Id）
 	 */
-	private String key;
+	private String dataKey;
 
 	/**
 	 * 调用描述
@@ -95,26 +95,70 @@ public class ServiceInvokeLog extends AbstractAuditable<Long> implements Seriali
 	private String exceptionMessage;
 
 	/**
+	 * 串联起来的ID
+	 */
+	private String transactionId;
+
+	/**
 	 * 备注信息
 	 */
-	@Lob
 	private String comments;
 
-	public ServiceInvokeLog clone(ServiceInvokeLog entity) {
+	public ServiceInvokeLog() {
+
+	}
+
+	public ServiceInvokeLog(Long id) {
+		this.setId(id);
+	}
+
+	public <T extends ServiceInvokeLog> ServiceInvokeLog clone(T entity) {
 		super.clone(entity);
-		entity.setKey(getKey());
-		entity.setSource(getSource());
-		entity.setSourceMethod(getSourceMethod());
-		entity.setSourceMessage(getSourceMessage());
-		entity.setSourceTimestamp(getSourceTimestamp());
-		entity.setTarget(target);
-		entity.setTargetMethod(getTargetMethod());
-		entity.setTargetMessage(getTargetMessage());
-		entity.setTargetTimestamp(getTargetTimestamp());
-		entity.setNode(getNode());
-		entity.setStatus(getStatus());
-		entity.setStatusCode(getStatusCode());
-		entity.setExceptionMessage(getExceptionMessage());
+		if (getDataKey() != null) {
+			entity.setDataKey(getDataKey());
+		}
+		if (getSource() != null) {
+			entity.setSource(getSource());
+		}
+		if (getSourceMethod() != null) {
+			entity.setSourceMethod(getSourceMethod());
+		}
+		if (getSourceMessage() != null) {
+			entity.setSourceMessage(getSourceMessage());
+		}
+		if (getSourceTimestamp() != null) {
+			entity.setSourceTimestamp(getSourceTimestamp());
+		}
+		if (getTarget() != null) {
+			entity.setTarget(getTarget());
+		}
+		if (getTargetMethod() != null) {
+			entity.setTargetMethod(getTargetMethod());
+		}
+		if (getTargetMessage() != null) {
+			entity.setTargetMessage(getTargetMessage());
+		}
+		if (getTargetTimestamp() != null) {
+			entity.setTargetTimestamp(getTargetTimestamp());
+		}
+		if (getNode() != null) {
+			entity.setNode(getNode());
+		}
+		if (getStatus() != null) {
+			entity.setStatus(getStatus());
+		}
+		if (getStatusCode() != null) {
+			entity.setStatusCode(getStatusCode());
+		}
+		if (getExceptionMessage() != null) {
+			entity.setExceptionMessage(getExceptionMessage());
+		}
+		if (getTransactionId() != null) {
+			entity.setTransactionId(getTransactionId());
+		}
+		if (getComments() != null) {
+			entity.setComments(getComments());
+		}
 		return entity;
 	}
 }

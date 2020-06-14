@@ -1,32 +1,85 @@
 package org.macula.cloud.log.interceptor;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.util.Date;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.macula.cloud.core.domain.ServiceInvokeLog;
 import org.macula.cloud.log.annotation.ServiceInvokeProxy;
-import org.macula.cloud.log.service.ServiceInvokeLogService;
+import org.springframework.aop.framework.AopProxyUtils;
+import org.springframework.aop.support.AopUtils;
+import org.springframework.core.BridgeMethodResolver;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Aspect
 @Slf4j
-@AllArgsConstructor
 public class AnnotationServiceInvokeAspect {
 
-	private ServiceInvokeLogService serviceInvokeLogService;
+	private final ServiceInvokeLogService serviceInvokeLogService;
+
+	public AnnotationServiceInvokeAspect(ServiceInvokeLogService serviceInvokeLogService) {
+		this.serviceInvokeLogService = serviceInvokeLogService;
+	}
 
 	@Around("@annotation(serviceInvokeProxy)")
 	public Object around(ProceedingJoinPoint joinPoint, ServiceInvokeProxy serviceInvokeProxy) throws Throwable {
+		ServiceInvokeLog serviceInvokeLog = new ServiceInvokeLog();
+		serviceInvokeLog.setTransactionId(Thread.currentThread().getName());
+		ServiceInvokeRootObject rootObject = createInvokeContext(joinPoint);
+		before(serviceInvokeProxy, rootObject, serviceInvokeLog);
+		Object result = null;
+		Exception exception = null;
 		try {
-			long startTime = System.currentTimeMillis();
-			Object result = joinPoint.proceed();
-			serviceInvokeLogService.doSomething();
-			long timeTaken = System.currentTimeMillis() - startTime;
-			log.info("Time Taken by {} is {}", joinPoint, timeTaken);
+			result = joinPoint.proceed();
 			return result;
+		} catch (Exception ex) {
+			exception = ex;
+			throw ex;
 		} finally {
-
+			rootObject.setResult(result);
+			rootObject.setE(exception);
+			after(serviceInvokeProxy, rootObject, serviceInvokeLog);
 		}
 	}
+
+	protected ServiceInvokeRootObject createInvokeContext(ProceedingJoinPoint joinPoint) {
+		MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+		Method method = methodSignature.getMethod();
+		method = BridgeMethodResolver.findBridgedMethod(method);
+		Object target = joinPoint.getTarget();
+		Object[] args = joinPoint.getArgs();
+		Class<?> targetClass = getTargetClass(target);
+		Method targetMethod = (!Proxy.isProxyClass(targetClass) ? AopUtils.getMostSpecificMethod(method, targetClass) : method);
+		return new ServiceInvokeRootObject(method, args, target, targetClass, targetMethod);
+	}
+
+	protected void before(ServiceInvokeProxy serviceInvokeProxy, ServiceInvokeRootObject rootObject, ServiceInvokeLog serviceInvokeLog) {
+		try {
+			log.info("AnnotationServiceInvokeAspect.before");
+			serviceInvokeLog.setSourceTimestamp(new Date());
+			serviceInvokeLogService.processServiceInvokeLog(serviceInvokeProxy, rootObject, serviceInvokeLog);
+		} catch (Exception ex) {
+			log.error("AnnotationServiceInvokeAspect.before error:", ex);
+		}
+	}
+
+	protected void after(ServiceInvokeProxy serviceInvokeProxy, ServiceInvokeRootObject rootObject, ServiceInvokeLog serviceInvokeLog) {
+		try {
+			log.info("AnnotationServiceInvokeAspect.after");
+			serviceInvokeLog.setTargetTimestamp(new Date());
+			serviceInvokeLogService.processServiceInvokeLog(serviceInvokeProxy, rootObject, serviceInvokeLog);
+		} catch (Exception ex) {
+			log.error("AnnotationServiceInvokeAspect.after error:", ex);
+		}
+	}
+
+	private Class<?> getTargetClass(Object target) {
+		return AopProxyUtils.ultimateTargetClass(target);
+	}
+
 }

@@ -106,11 +106,21 @@ public abstract class AbstractAuditable<PK extends Serializable> extends Abstrac
 
 	public AbstractAuditable<PK> clone(AbstractAuditable<PK> entity) {
 		super.clone(entity);
-		entity.setVersion(getVersion());
-		entity.setCreatedBy(getCreatedBy().orElse(null));
-		entity.setCreatedDate(getCreatedDate().orElse(null));
-		entity.setLastModifiedBy(getLastModifiedBy().orElse(null));
-		entity.setLastModifiedDate(getLastModifiedDate().orElse(null));
+		if (getVersion() != null) {
+			entity.setVersion(getVersion());
+		}
+		if (getCreatedBy().isPresent()) {
+			entity.setCreatedBy(getCreatedBy().orElse(null));
+		}
+		if (getCreatedDate().isPresent()) {
+			entity.setCreatedDate(getCreatedDate().orElse(null));
+		}
+		if (getLastModifiedBy().isPresent()) {
+			entity.setLastModifiedBy(getLastModifiedBy().orElse(null));
+		}
+		if (getLastModifiedDate().isPresent()) {
+			entity.setLastModifiedDate(getLastModifiedDate().orElse(null));
+		}
 		return entity;
 	}
 }
