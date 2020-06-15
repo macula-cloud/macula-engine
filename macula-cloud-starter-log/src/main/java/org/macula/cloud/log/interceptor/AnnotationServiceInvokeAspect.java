@@ -51,11 +51,12 @@ public class AnnotationServiceInvokeAspect {
 		MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
 		Method method = methodSignature.getMethod();
 		method = BridgeMethodResolver.findBridgedMethod(method);
-		Object target = joinPoint.getTarget();
+		Object source = joinPoint.getTarget();
+		Class<?> sourceClass = method.getDeclaringClass();
 		Object[] args = joinPoint.getArgs();
-		Class<?> targetClass = getTargetClass(target);
+		Class<?> targetClass = getTargetClass(source);
 		Method targetMethod = (!Proxy.isProxyClass(targetClass) ? AopUtils.getMostSpecificMethod(method, targetClass) : method);
-		return new ServiceInvokeRootObject(method, args, target, targetClass, targetMethod);
+		return new ServiceInvokeRootObject(method, args, source,sourceClass, targetClass, targetMethod);
 	}
 
 	protected void before(ServiceInvokeProxy serviceInvokeProxy, ServiceInvokeRootObject rootObject, ServiceInvokeLog serviceInvokeLog) {

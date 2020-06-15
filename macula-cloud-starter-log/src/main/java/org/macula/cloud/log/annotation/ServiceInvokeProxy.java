@@ -17,9 +17,9 @@ public @interface ServiceInvokeProxy {
 
 	String description() default "";
 
-	String source() default "targetClass.getSimpleName()";
+	String source() default "sourceClass.getSimpleName()";
 
-	String sourceMethod() default "targetMethod.getName()";
+	String sourceMethod() default "method.getName()";
 
 	String sourceMessage() default "args";
 

@@ -32,7 +32,6 @@ public class ServiceInvokeLogService implements BeanFactoryAware {
 	public void processServiceInvokeLog(ServiceInvokeProxy serviceInvokeProxy, ServiceInvokeRootObject rootObject, ServiceInvokeLog serviceInvokeLog)
 			throws Exception {
 		executors.execute(new SaveInvokeLogRunnable(serviceInvokeProxy, rootObject, serviceInvokeLog));
-		// new SaveInvokeLogRunnable(serviceInvokeProxy, rootObject, serviceInvokeLog).call();
 	}
 
 	@Transactional

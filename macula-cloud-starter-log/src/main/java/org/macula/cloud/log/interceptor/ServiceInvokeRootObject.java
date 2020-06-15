@@ -11,7 +11,9 @@ public class ServiceInvokeRootObject {
 
 	private final Object[] args;
 
-	private final Object target;
+	private final Object source;
+
+	private Class<?> sourceClass;
 
 	private final Class<?> targetClass;
 
@@ -20,11 +22,12 @@ public class ServiceInvokeRootObject {
 	private Object result;
 	private Exception e;
 
-	public ServiceInvokeRootObject(Method method, Object[] args, Object target, Class<?> targetClass, Method targetMethod) {
+	public ServiceInvokeRootObject(Method method, Object[] args, Object source, Class<?> sourceClass, Class<?> targetClass, Method targetMethod) {
 		this.method = method;
-		this.target = target;
-		this.targetClass = targetClass;
 		this.args = args;
+		this.source = source;
+		this.sourceClass = sourceClass;
+		this.targetClass = targetClass;
 		this.targetMethod = targetMethod;
 	}
 
