@@ -56,16 +56,16 @@ public class AnnotationServiceInvokeAspect {
 		Object[] args = joinPoint.getArgs();
 		Class<?> targetClass = getTargetClass(source);
 		Method targetMethod = (!Proxy.isProxyClass(targetClass) ? AopUtils.getMostSpecificMethod(method, targetClass) : method);
-		return new ServiceInvokeRootObject(method, args, source,sourceClass, targetClass, targetMethod);
+		return new ServiceInvokeRootObject(method, args, source, sourceClass, targetClass, targetMethod);
 	}
 
 	protected void before(ServiceInvokeProxy serviceInvokeProxy, ServiceInvokeRootObject rootObject, ServiceInvokeLog serviceInvokeLog) {
 		try {
-			log.info("AnnotationServiceInvokeAspect.before");
+			log.debug("AnnotationServiceInvokeAspect.before");
 			serviceInvokeLog.setSourceTimestamp(new Date());
 			serviceInvokeLogService.processServiceInvokeLog(serviceInvokeProxy, rootObject, serviceInvokeLog);
 		} catch (Exception ex) {
-			log.error("AnnotationServiceInvokeAspect.before error:", ex);
+			log.debug("AnnotationServiceInvokeAspect.before error:", ex);
 		}
 	}
 
