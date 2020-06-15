@@ -1,6 +1,7 @@
 package org.macula.cloud.core.configure;
 
 import org.macula.cloud.core.utils.J2CacheUtils;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,9 +13,11 @@ import net.oschina.j2cache.CacheChannel;
 public class CloudCacheConfigure {
 
 	@Bean
-	public J2CacheUtils j2CacheUtils(CacheChannel cacheChannel) {
-		J2CacheUtils.setCacheChannel(cacheChannel);
-		return new J2CacheUtils();	
+	public J2CacheUtils j2CacheUtils(ObjectProvider<CacheChannel> cacheChannelProvider) {
+		cacheChannelProvider.forEach(cacheChannel -> {
+			J2CacheUtils.setCacheChannel(cacheChannel);
+		});
+		return new J2CacheUtils();
 	}
 
 }

@@ -2,6 +2,9 @@ package org.macula.cloud.core.utils;
 
 import java.util.Collection;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+
 import net.oschina.j2cache.CacheChannel;
 
 public class J2CacheUtils {
@@ -26,6 +29,8 @@ public class J2CacheUtils {
 
 	private static CacheChannel cacheChannel;
 
+	private static final Cache<String, Object> guvaCache = CacheBuilder.newBuilder().build();
+
 	public static void setCacheChannel(CacheChannel theCacheChannel) {
 		cacheChannel = theCacheChannel;
 	}
@@ -43,6 +48,9 @@ public class J2CacheUtils {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T get(String cacheName, String key) {
+		if (cacheChannel == null) {
+			return (T) guvaCache.getIfPresent(getGuavaKey(cacheName, key));
+		}
 		return (T) cacheChannel.get(cacheName, key).getValue();
 	}
 
@@ -54,10 +62,18 @@ public class J2CacheUtils {
 	 * @param value
 	 */
 	public static void set(String cacheName, String key, Object value) {
+		if (cacheChannel == null) {
+			guvaCache.put(getGuavaKey(cacheName, key), value);
+			return;
+		}
 		cacheChannel.set(cacheName, key, value);
 	}
 
 	public static void set(String cacheName, String key, Object value, long timeToLiveInSeconds) {
+		if (cacheChannel == null) {
+			guvaCache.put(getGuavaKey(cacheName, key), value);
+			return;
+		}
 		cacheChannel.set(cacheName, key, value, timeToLiveInSeconds);
 	}
 
@@ -68,6 +84,10 @@ public class J2CacheUtils {
 	 * @param key
 	 */
 	public static void evict(String cacheName, String key) {
+		if (cacheChannel == null) {
+			guvaCache.invalidate(getGuavaKey(cacheName, key));
+			return;
+		}
 		cacheChannel.evict(cacheName, key);
 	}
 
@@ -78,6 +98,9 @@ public class J2CacheUtils {
 	 * @return
 	 */
 	public static Collection<String> keys(String cacheName) {
+		if (cacheChannel == null) {
+			return guvaCache.asMap().keySet();
+		}
 		return cacheChannel.keys(cacheName);
 	}
 
@@ -87,6 +110,10 @@ public class J2CacheUtils {
 	 * @param cacheName: Cache region name
 	 */
 	public static void clear(String cacheName) {
+		if (cacheChannel == null) {
+			guvaCache.cleanUp();
+			return;
+		}
 		cacheChannel.clear(cacheName);
 	}
 
@@ -98,6 +125,9 @@ public class J2CacheUtils {
 	 * @return true if key exists
 	 */
 	public static boolean exists(String region, String key) {
+		if (cacheChannel == null) {
+			return guvaCache.getIfPresent(getGuavaKey(region, key)) != null;
+		}
 		return check(region, key) > 0;
 	}
 
@@ -109,6 +139,13 @@ public class J2CacheUtils {
 	 * @return 0(不存在), 1(一级), 2(二级)
 	 */
 	public static int check(String region, String key) {
+		if (cacheChannel == null) {
+			return -1;
+		}
 		return cacheChannel.check(region, key);
+	}
+
+	private static String getGuavaKey(String cacheName, String key) {
+		return cacheName + "::" + key;
 	}
 }
