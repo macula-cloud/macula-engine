@@ -16,8 +16,6 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -26,8 +24,6 @@ public class ServiceInvokeLogService implements BeanFactoryAware {
 	private final ExecutorService executors = Executors.newFixedThreadPool(2);
 	private final ServiceInvokeLogRepository repository;
 	private BeanFactory beanFactory;
-
-	private static final ObjectMapper mapper = new ObjectMapper();
 
 	public ServiceInvokeLogService(ServiceInvokeLogRepository repository) {
 		this.repository = repository;
@@ -61,27 +57,20 @@ public class ServiceInvokeLogService implements BeanFactoryAware {
 				synchronized (invokeLog) {
 					ServiceInvokeExpressionEvaluator expressionEvaluator = new ServiceInvokeExpressionEvaluator(rootObject, beanFactory);
 
-					invokeLog.setDataKey(expressionEvaluator.getExpressionValue(serviceInvokeProxy.key()));
-					invokeLog.setSourceMethod(expressionEvaluator.getExpressionValue(serviceInvokeProxy.description()));
+					invokeLog.setDataKey(expressionEvaluator.getStringExpression(serviceInvokeProxy.key()));
+					invokeLog.setSourceMethod(expressionEvaluator.getStringExpression(serviceInvokeProxy.description()));
 
 					invokeLog.setNode(ApplicationId.current().getInstanceKey());
-					invokeLog.setSource(expressionEvaluator.getExpressionValue(serviceInvokeProxy.source()));
-					invokeLog.setSourceMethod(expressionEvaluator.getExpressionValue(serviceInvokeProxy.sourceMethod()));
-					if (rootObject.getArgs() != null && rootObject.getArgs().length == 1) {
-						invokeLog.setSourceMessage(mapper.writeValueAsString(rootObject.getArgs()[0]));
-					} else {
-						invokeLog.setSourceMessage(mapper.writeValueAsString(rootObject.getArgs()));
-					}
-					invokeLog.setTarget(expressionEvaluator.getExpressionValue(serviceInvokeProxy.target()));
-					invokeLog.setTargetMethod(expressionEvaluator.getExpressionValue(serviceInvokeProxy.targetMethod()));
-					if (rootObject.getResult() != null) {
-						invokeLog.setTargetMessage(mapper.writeValueAsString(rootObject.getTarget()));
-						invokeLog.setStatus("success");
-					}
-					if (rootObject.getE() != null) {
-						invokeLog.setExceptionMessage(mapper.writeValueAsString(rootObject.getE()));
-						invokeLog.setStatus("error");
-					}
+					invokeLog.setSource(expressionEvaluator.getStringExpression(serviceInvokeProxy.source()));
+					invokeLog.setSourceMethod(expressionEvaluator.getStringExpression(serviceInvokeProxy.sourceMethod()));
+					invokeLog.setSourceMessage(expressionEvaluator.getStringExpression(serviceInvokeProxy.sourceMessage()));
+
+					invokeLog.setTarget(expressionEvaluator.getStringExpression(serviceInvokeProxy.target()));
+					invokeLog.setTargetMethod(expressionEvaluator.getStringExpression(serviceInvokeProxy.targetMethod()));
+					invokeLog.setTargetMessage(expressionEvaluator.getStringExpression(serviceInvokeProxy.targetMessage()));
+					invokeLog.setExceptionMessage(expressionEvaluator.getStringExpression(serviceInvokeProxy.exceptionMessage()));
+
+					invokeLog.setStatus(expressionEvaluator.getBooleanExpression(serviceInvokeProxy.success()) ? "SUCCESS" : "ERROR");
 
 					org.macula.cloud.log.domain.ServiceInvokeLog entity = null;
 					if (invokeLog.getId() != null) {
@@ -101,7 +90,9 @@ public class ServiceInvokeLogService implements BeanFactoryAware {
 				if (serviceInvokeProxy.alarm() && invokeLog.getExceptionMessage() != null) {
 					CloudApplicationContext.getContainer().publishEvent(new ServiceInvokeAlarmEvent(invokeLog));
 				}
-			} catch (Exception ex) {
+			} catch (
+
+			Exception ex) {
 				log.error("Save ServiceInvokeLog error : ", ex);
 			}
 		}

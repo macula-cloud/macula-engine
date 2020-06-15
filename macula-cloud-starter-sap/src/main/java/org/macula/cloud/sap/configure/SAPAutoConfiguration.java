@@ -3,6 +3,7 @@ package org.macula.cloud.sap.configure;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -28,6 +29,9 @@ public class SAPAutoConfiguration {
 	@Bean
 	public SessionManagerConfig createSessionManagerConfig(JcoConfig config) {
 		SessionManagerConfig sessionManagerConfig = new SessionManagerConfig(config.getName()).setContext(JCoContext.class.getName());
+		for (Entry<String, String> entry : config.getProps().entrySet()) {
+			sessionManagerConfig.setProperty(entry.getKey(), entry.getValue());
+		}
 		Map<String, String> bapis = getBapiMap(config);
 		for (Map.Entry<String, String> entry : bapis.entrySet()) {
 			String className = entry.getValue();

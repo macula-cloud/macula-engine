@@ -13,19 +13,25 @@ import java.lang.annotation.Target;
 @Documented
 public @interface ServiceInvokeProxy {
 
-	String key() default "";
+	String key() default "args[0]";
 
 	String description() default "";
 
-	String source() default "targetMethod.name";
+	String source() default "targetClass.getSimpleName()";
 
-	String sourceMethod() default "targetMethod.toString()";
+	String sourceMethod() default "targetMethod.getName()";
 
-	String sourceMessage() default "";
+	String sourceMessage() default "args";
 
 	String target() default "";
 
 	String targetMethod() default "";
+
+	String targetMessage() default "result";
+
+	String exceptionMessage() default "e";
+
+	String success() default "result!=null && e==null";
 
 	boolean alarm() default false;
 }

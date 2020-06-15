@@ -84,11 +84,6 @@ public class ServiceInvokeLog extends AbstractAuditable<Long> implements Seriali
 	private String status;
 
 	/**
-	 * 异常代码
-	 */
-	private String statusCode;
-
-	/**
 	 * 异常信息
 	 */
 	@Lob
@@ -146,9 +141,6 @@ public class ServiceInvokeLog extends AbstractAuditable<Long> implements Seriali
 		}
 		if (getStatus() != null) {
 			entity.setStatus(getStatus());
-		}
-		if (getStatusCode() != null) {
-			entity.setStatusCode(getStatusCode());
 		}
 		if (getExceptionMessage() != null) {
 			entity.setExceptionMessage(getExceptionMessage());
