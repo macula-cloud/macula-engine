@@ -1,6 +1,8 @@
 package org.macula.cloud.core.utils;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.macula.cloud.core.configure.model.SecurityProperties;
@@ -17,6 +19,7 @@ import org.springframework.security.web.authentication.preauth.PreAuthenticatedA
 import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -108,10 +111,11 @@ public final class SecurityUtils {
 		return null;
 	}
 
-	public static SubjectPrincipal convertPrincipal(String jwt, SignatureVerifier jwtSigner) {
+	public static Map<String, Object> convertMap(String jwt, SignatureVerifier jwtSigner) {
 		try {
 			String claims = JwtHelper.decodeAndVerify(jwt, jwtSigner).getClaims();
-			return objectMapper.readValue(claims, SubjectPrincipal.class);
+			return objectMapper.readValue(claims, new TypeReference<HashMap<String, Object>>() {
+			});
 		} catch (JsonProcessingException e) {
 			log.error("convertPrincipal error: ", e);
 		}
