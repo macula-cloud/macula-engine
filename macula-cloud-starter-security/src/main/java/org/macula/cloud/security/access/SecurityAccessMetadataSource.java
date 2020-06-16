@@ -1,8 +1,10 @@
 package org.macula.cloud.security.access;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -26,10 +28,18 @@ public class SecurityAccessMetadataSource implements FilterInvocationSecurityMet
 
 	private static final String URL_ROLE_MAPPING_CACHE = "url_role_mapping";
 	private Map<RequestMatcher, Collection<ConfigAttribute>> metadata = new HashMap<>();
+
+	private List<RequestMatcher> ignoreMetadata = new ArrayList<RequestMatcher>();
 	private SecurityProperties securityConfig;
 
 	public SecurityAccessMetadataSource(SecurityProperties security) {
 		this.securityConfig = security;
+		for (String path : this.securityConfig.getIgnorePaths()) {
+			ignoreMetadata.add(new AntPathRequestMatcher(path));
+		}
+		for (String path : this.securityConfig.getPublicPaths()) {
+			ignoreMetadata.add(new AntPathRequestMatcher(path));
+		}
 	}
 
 	@Scheduled(fixedRate = 3600 * 1000, initialDelay = 1000)
@@ -50,6 +60,13 @@ public class SecurityAccessMetadataSource implements FilterInvocationSecurityMet
 	@Override
 	public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
 		HttpServletRequest request = ((FilterInvocation) object).getHttpRequest();
+
+		for (RequestMatcher requestMatcher : ignoreMetadata) {
+			if (requestMatcher.matches(request)) {
+				return Collections.emptyList();
+			}
+		}
+
 		for (Map.Entry<RequestMatcher, Collection<ConfigAttribute>> entry : metadata.entrySet()) {
 			RequestMatcher matcher = entry.getKey();
 			if (matcher.matches(request)) {

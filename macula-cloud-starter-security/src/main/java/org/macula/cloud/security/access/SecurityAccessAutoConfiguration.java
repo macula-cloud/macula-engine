@@ -147,8 +147,6 @@ public class SecurityAccessAutoConfiguration {
 
 			http.requestMatchers().antMatchers(securityProperties.getResourcePaths());
 
-			http.authorizeRequests().antMatchers(securityProperties.getPublicPaths()).permitAll();
-
 			http.addFilterBefore(filterSecurityInterceptor, FilterSecurityInterceptor.class);
 			http.addFilterAfter(requestAccessLogFilter, SecurityContextPersistenceFilter.class);
 
@@ -258,7 +256,8 @@ public class SecurityAccessAutoConfiguration {
 				logoutConfig.logoutSuccessHandler(logoutSuccessHandler);
 			}
 
-			http.authorizeRequests().antMatchers(securityProperties.getPublicPaths()).permitAll().anyRequest().authenticated();
+			http.authorizeRequests().anyRequest().authenticated();
+
 			http.addFilterBefore(filterSecurityInterceptor, FilterSecurityInterceptor.class);
 			http.addFilterBefore(requestAccessLogFilter, SecurityContextPersistenceFilter.class);
 
