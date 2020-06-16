@@ -141,17 +141,14 @@ public class SecurityAccessAutoConfiguration {
 
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
-			SecurityProperties securityProperties = properties.getSecurity();
-
 			http.csrf().disable();
-
+			SecurityProperties securityProperties = properties.getSecurity();
 			http.requestMatchers().antMatchers(securityProperties.getResourcePaths());
-
-			http.addFilterBefore(filterSecurityInterceptor, FilterSecurityInterceptor.class);
-			http.addFilterAfter(requestAccessLogFilter, SecurityContextPersistenceFilter.class);
+			http.authorizeRequests().anyRequest().authenticated();
+			http.addFilterBefore(filterSecurityInterceptor, FilterSecurityInterceptor.class).addFilterAfter(requestAccessLogFilter,
+					SecurityContextPersistenceFilter.class);
 
 			configurePluginConfigures(http);
-
 			log.info("Security Access Control is enabled on Resource Server Application");
 		}
 	}
