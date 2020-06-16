@@ -10,11 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.collections4.CollectionUtils;
 import org.macula.cloud.core.configure.CoreConfigurationProperties;
 import org.macula.cloud.core.configure.model.SecurityProperties;
-import org.macula.cloud.core.oauth2.SubjectPrincipalExtractor;
 import org.macula.cloud.core.oauth2.SubjectPrincipalUserInfoTokenServices;
 import org.macula.cloud.core.servlet.RequestAccessLogFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.AuthoritiesExtractor;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.context.annotation.Bean;
@@ -77,16 +78,16 @@ public class SecurityAccessAutoConfiguration {
 	@ConditionalOnMissingBean(AuthorizationEndpoint.class)
 	@Conditional(EnableResourceServerCondition.class)
 	public UserInfoTokenServices oauth2UserInfoTokenServices(OAuth2ClientContext oauth2ClientContext, OAuth2ProtectedResourceDetails client,
-			ResourceServerProperties resource) {
+			PrincipalExtractor principalExtractor, AuthoritiesExtractor authoritesExtractor, ResourceServerProperties resource) {
 		SubjectPrincipalUserInfoTokenServices tokenServices = new SubjectPrincipalUserInfoTokenServices(resource.getUserInfoUri(),
-				resource.getClientId(), new SubjectPrincipalExtractor(), new MacSigner(properties.getSecurity().getJwtKey()));
+				resource.getClientId(), principalExtractor, authoritesExtractor, new MacSigner(properties.getSecurity().getJwtKey()));
 		tokenServices.setRestTemplate(new OAuth2RestTemplate(client, oauth2ClientContext));
 		return tokenServices;
 	}
 
 	@Bean
 	public FilterInvocationSecurityMetadataSource securityAccessMetadataSource() {
-		SecurityAccessMetadataSource securityAccessMetadataSource = new SecurityAccessMetadataSource();
+		SecurityAccessMetadataSource securityAccessMetadataSource = new SecurityAccessMetadataSource(properties.getSecurity());
 		return securityAccessMetadataSource;
 	}
 

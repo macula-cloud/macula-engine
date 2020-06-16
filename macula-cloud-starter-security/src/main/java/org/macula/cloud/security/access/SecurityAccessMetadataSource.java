@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.macula.cloud.core.configure.model.SecurityProperties;
 import org.macula.cloud.core.utils.J2CacheUtils;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.ConfigAttribute;
@@ -25,6 +26,11 @@ public class SecurityAccessMetadataSource implements FilterInvocationSecurityMet
 
 	private static final String URL_ROLE_MAPPING_CACHE = "url_role_mapping";
 	private Map<RequestMatcher, Collection<ConfigAttribute>> metadata = new HashMap<>();
+	private SecurityProperties securityConfig;
+
+	public SecurityAccessMetadataSource(SecurityProperties security) {
+		this.securityConfig = security;
+	}
 
 	@Scheduled(fixedRate = 3600 * 1000, initialDelay = 1000)
 	public void loadUrlRoleMappings() {
@@ -34,7 +40,7 @@ public class SecurityAccessMetadataSource implements FilterInvocationSecurityMet
 		if (urlRoleMapping != null) {
 			for (Map.Entry<String, Set<String>> entry : urlRoleMapping.entrySet()) {
 				Set<String> roleCodes = entry.getValue();
-				Collection<ConfigAttribute> configs = CollectionUtils.collect(roleCodes.iterator(), input -> new SecurityConfig(input));
+				Collection<ConfigAttribute> configs = CollectionUtils.collect(roleCodes, input -> new SecurityConfig(input));
 				loadMetadata.put(new AntPathRequestMatcher(entry.getKey()), configs);
 			}
 		}
@@ -50,7 +56,7 @@ public class SecurityAccessMetadataSource implements FilterInvocationSecurityMet
 				return entry.getValue();
 			}
 		}
-		return Collections.emptyList();
+		return CollectionUtils.collect(securityConfig.getResourceAuthorities(), input -> new SecurityConfig(input));
 	}
 
 	@Override

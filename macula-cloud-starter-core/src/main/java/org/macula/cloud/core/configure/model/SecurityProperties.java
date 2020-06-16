@@ -23,6 +23,8 @@ public class SecurityProperties implements Serializable {
 
 	private String ignoreAppIdResource;
 
+	private String defaultRole = "macula-cloud-gateway";
+
 	private String needAuthories = "macula-cloud-gateway";
 
 	private boolean includeDefault = true;

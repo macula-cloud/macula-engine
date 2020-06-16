@@ -4,25 +4,31 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 
+import org.springframework.boot.autoconfigure.security.oauth2.resource.AuthoritiesExtractor;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
+import org.springframework.util.CollectionUtils;
 
 public class SubjectPrincipalConverter extends DefaultAccessTokenConverter {
 
 	private final UserDetailsService userDetailsService;
 	private final ClientDetailsService clientDetailsService;
+	private final AuthoritiesExtractor authoritiesExtractor;
 
-	public SubjectPrincipalConverter() {
-		this(null, null);
+	public SubjectPrincipalConverter(AuthoritiesExtractor authoritiesExtractor) {
+		this(null, null, authoritiesExtractor);
 	}
 
-	public SubjectPrincipalConverter(UserDetailsService userDetailsService, ClientDetailsService clientDetailsService) {
+	public SubjectPrincipalConverter(UserDetailsService userDetailsService, ClientDetailsService clientDetailsService,
+			AuthoritiesExtractor authoritiesExtractor) {
 		this.userDetailsService = userDetailsService;
 		this.clientDetailsService = clientDetailsService;
+		this.authoritiesExtractor = authoritiesExtractor;
 	}
 
 	@Override
@@ -42,7 +48,7 @@ public class SubjectPrincipalConverter extends DefaultAccessTokenConverter {
 				map.put("additionInfo", user.getAdditionInfo());
 			}
 		} else if (details instanceof String) {
-			ClientDetails client = clientDetailsService.loadClientByClientId((String) details);
+			ClientDetails client = clientDetailsService.loadClientByClientId(String.valueOf(details));
 			if (client.getAdditionalInformation() != null) {
 				map.put("additionInfo", client.getAdditionalInformation());
 			}
@@ -60,16 +66,20 @@ public class SubjectPrincipalConverter extends DefaultAccessTokenConverter {
 			((Map<String, Object>) map).put("user_name", ((Map<String, Object>) map).get("username"));
 		}
 		OAuth2Authentication authentication = super.extractAuthentication(map);
-		SubjectPrincipal principal = new SubjectPrincipal(authentication.getName(), "[unknown password]", authentication.getAuthorities());
-		principal.setUserId((String) map.getOrDefault("userId", null));
-		principal.setOrganizationId((String) map.getOrDefault("organizationId", null));
-		principal.setLanguage((String) map.getOrDefault("language", null));
-		principal.setTimeZone((String) map.getOrDefault("timeZone", null));
-		principal.setOrganizationId((String) map.getOrDefault("organizationId", null));
-		principal.setEmail((String) map.getOrDefault("email", null));
-		principal.setMobile((String) map.getOrDefault("mobile", null));
+		Collection<GrantedAuthority> authorities = authentication.getAuthorities();
+		if (CollectionUtils.isEmpty(authorities)) {
+			authorities = authoritiesExtractor.extractAuthorities((Map<String, Object>) map);
+		}
+		SubjectPrincipal principal = new SubjectPrincipal(authentication.getName(), "[unknown password]", authorities);
+		principal.setUserId(String.valueOf(map.getOrDefault("userId", null)));
+		principal.setOrganizationId(String.valueOf(map.getOrDefault("organizationId", null)));
+		principal.setLanguage(String.valueOf(map.getOrDefault("language", null)));
+		principal.setTimeZone(String.valueOf(map.getOrDefault("timeZone", null)));
+		principal.setOrganizationId(String.valueOf(map.getOrDefault("organizationId", null)));
+		principal.setEmail(String.valueOf(map.getOrDefault("email", null)));
+		principal.setMobile(String.valueOf(map.getOrDefault("mobile", null)));
 		if (map.containsKey("clientId")) {
-			principal.setClientId((String) map.getOrDefault("clientId", null));
+			principal.setClientId(String.valueOf(map.getOrDefault("clientId", null)));
 			principal.setClientAccessTokenValiditySeconds((Integer) map.get("clientAccessTokenValiditySeconds"));
 			principal.setClientRefreshTokenValiditySeconds((Integer) map.get("clientRefreshTokenValiditySeconds"));
 			principal.setClientAuthorizedGrantTypes((Collection<String>) map.get("clientAuthorizedGrantTypes"));

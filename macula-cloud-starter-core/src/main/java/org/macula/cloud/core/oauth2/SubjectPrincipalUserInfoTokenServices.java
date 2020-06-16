@@ -2,6 +2,7 @@ package org.macula.cloud.core.oauth2;
 
 import org.macula.cloud.core.principal.SubjectPrincipal;
 import org.macula.cloud.core.utils.SecurityUtils;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.AuthoritiesExtractor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.cache.annotation.Cacheable;
@@ -19,10 +20,13 @@ public class SubjectPrincipalUserInfoTokenServices extends UserInfoTokenServices
 	private String clientId;
 
 	public SubjectPrincipalUserInfoTokenServices(String userInfoEndpointUrl, String clientId, PrincipalExtractor principalExtractor,
-			SignerVerifier signer) {
+			AuthoritiesExtractor authoritiesExtractor, SignerVerifier signer) {
 		super(userInfoEndpointUrl, clientId);
 		if (principalExtractor != null) {
 			super.setPrincipalExtractor(principalExtractor);
+		}
+		if (authoritiesExtractor != null) {
+			super.setAuthoritiesExtractor(authoritiesExtractor);
 		}
 		this.clientId = clientId;
 		this.signer = signer;
