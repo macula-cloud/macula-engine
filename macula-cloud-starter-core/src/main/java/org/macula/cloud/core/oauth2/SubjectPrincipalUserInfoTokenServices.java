@@ -44,12 +44,12 @@ public class SubjectPrincipalUserInfoTokenServices extends UserInfoTokenServices
 		if (accessToken.indexOf(".") > 0) {
 			// JWT token
 			Map<String, Object> principalMap = SecurityUtils.convertMap(accessToken, signer);
-			return extractAuthentication(principalMap);
+			return extractAuthentication2(principalMap);
 		}
 		return super.loadAuthentication(accessToken);
 	}
 
-	private OAuth2Authentication extractAuthentication(Map<String, Object> map) {
+	private OAuth2Authentication extractAuthentication2(Map<String, Object> map) {
 		Object principal = getPrincipal(map);
 		List<GrantedAuthority> authorities = authoritiesExtractor.extractAuthorities(map);
 		OAuth2Request request = new OAuth2Request(null, this.clientId, null, true, null, null, null, null, null);
