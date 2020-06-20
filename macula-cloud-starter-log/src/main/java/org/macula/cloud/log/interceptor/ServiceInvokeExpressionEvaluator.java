@@ -35,7 +35,7 @@ public class ServiceInvokeExpressionEvaluator extends CachedExpressionEvaluator 
 				return (String) object;
 			}
 			if (object instanceof Throwable) {
-				return ExceptionUtils.getMessage((Throwable) object);
+				return ExceptionUtils.getStackTrace((Throwable) object);
 			}
 			return MAPPER.writeValueAsString(object);
 		} catch (Exception ex) {
