@@ -32,12 +32,14 @@
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
-		<dependency>
-			<groupId>io.buildrun</groupId>
-			<artifactId>buildrun-framework-parent</artifactId>
-			<version>${br.version}</version>
-			<type>pom</type>
-			<scope>import</scope>
-		</dependency>
+		<dependencies>
+			<dependency>
+				<groupId>io.buildrun</groupId>
+				<artifactId>buildrun-framework-parent</artifactId>
+				<version>${br.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
 	</dependencyManagement>
 </project>
