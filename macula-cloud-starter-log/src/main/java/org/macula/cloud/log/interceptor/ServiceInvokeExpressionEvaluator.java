@@ -1,6 +1,7 @@
 package org.macula.cloud.log.interceptor;
 
 import org.apache.commons.lang3.StringUtils;
+import org.macula.cloud.core.utils.ExceptionUtils;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.expression.CachedExpressionEvaluator;
 import org.springframework.context.expression.MethodBasedEvaluationContext;
@@ -32,6 +33,9 @@ public class ServiceInvokeExpressionEvaluator extends CachedExpressionEvaluator 
 			}
 			if (object instanceof String) {
 				return (String) object;
+			}
+			if (object instanceof Throwable) {
+				return ExceptionUtils.getMessage((Throwable) object);
 			}
 			return MAPPER.writeValueAsString(object);
 		} catch (Exception ex) {
