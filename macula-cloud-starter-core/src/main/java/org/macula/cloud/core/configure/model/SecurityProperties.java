@@ -3,6 +3,7 @@ package org.macula.cloud.core.configure.model;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -53,6 +54,8 @@ public class SecurityProperties implements Serializable {
 
 	private boolean standalone = false;
 
+	private Map<String, String> openApi;
+
 	public Set<String> getIgnoreAppIdResources() {
 		if (getIgnoreAppIdResource() != null) {
 			return StringUtils.commaDelimitedListToSet(getIgnoreAppIdResource());
@@ -79,4 +82,7 @@ public class SecurityProperties implements Serializable {
 		return CollectionUtils.emptyCollection();
 	}
 
+	public Map<String, String> getOpenApi() {
+		return this.openApi;
+	}
 }

@@ -12,6 +12,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import feign.MethodMetadata;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +40,11 @@ public class JWTFeignRequestInterceptor implements RequestInterceptor {
 
 	@Override
 	public void apply(RequestTemplate template) {
+		MethodMetadata methodMeta = template.methodMetadata();
+		OpenApi openApiAnnotation = methodMeta.method().getDeclaringClass().getAnnotation(OpenApi.class);
+		if (openApiAnnotation != null) {
+			return;
+		}
 		String token = getAuthenticationHeaderToken();
 		if (token == null) {
 			token = generatePrincipalToken();

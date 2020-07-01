@@ -2,6 +2,7 @@ package org.macula.cloud.core.utils;
 
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
 
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -81,19 +82,21 @@ public final class ServerRequestUtils {
 		return StringUtils.isEmpty(ip) ? request.getRemoteAddress().toString() : ip;
 	}
 
-	public static TreeMap<String, String> getOpenApiRequestParams(ServerHttpRequest request) {
+	public static TreeMap<String, String> getOpenApiRequestParams(ServerHttpRequest request, Set<String> excludes) {
 		MultiValueMap<String, String> queryParams = request.getQueryParams();
 		TreeMap<String, String> params = new TreeMap<String, String>();
 		for (Entry<String, List<String>> entry : queryParams.entrySet()) {
 			String name = entry.getKey();
-			String[] values = entry.getValue().toArray(new String[0]);
-			if (values != null) {
-				StringBuffer str = new StringBuffer(values[0]);
-				// 多值合并
-				for (int i = 1; i < values.length; i++) {
-					str.append(name).append(values[i]);
+			if (excludes == null || !excludes.contains(name)) {
+				String[] values = entry.getValue().toArray(new String[0]);
+				if (values != null) {
+					StringBuffer str = new StringBuffer(values[0]);
+					// 多值合并
+					for (int i = 1; i < values.length; i++) {
+						str.append(name).append(values[i]);
+					}
+					params.put(name, str.toString());
 				}
-				params.put(name, str.toString());
 			}
 		}
 		return params;
