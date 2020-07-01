@@ -82,7 +82,4 @@ public class SecurityProperties implements Serializable {
 		return CollectionUtils.emptyCollection();
 	}
 
-	public Map<String, String> getOpenApi() {
-		return this.openApi;
-	}
 }
