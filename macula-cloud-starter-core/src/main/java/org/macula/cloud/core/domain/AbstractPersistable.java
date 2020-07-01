@@ -3,11 +3,11 @@ package org.macula.cloud.core.domain;
 import java.io.Serializable;
 
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.util.ProxyUtils;
 import org.springframework.lang.Nullable;
@@ -16,8 +16,7 @@ import org.springframework.lang.Nullable;
 public abstract class AbstractPersistable<PK extends Serializable> // extends org.springframework.data.jpa.domain.AbstractPersistable<PK>
 		implements Persistable<PK> {
 
-	@GeneratedValue(generator = "GivenDomainId")
-	@GenericGenerator(name = "GivenDomainId", strategy = "org.macula.cloud.core.domain.GivenDomainId")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private @Nullable PK id;
 
