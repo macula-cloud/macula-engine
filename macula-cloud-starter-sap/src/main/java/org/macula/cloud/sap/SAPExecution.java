@@ -25,8 +25,12 @@ public class SAPExecution {
 			session = sessionManager.openSession();
 			transaction = session.beginTransaction();
 			session.execute(bapi);
-			if (autoCommit) {
-				transaction.commit();
+			if (bapi.hasSuccess()) {
+				if (autoCommit) {
+					transaction.commit();
+				}
+			} else {
+				transaction.rollback();
 			}
 			return bapi;
 		} catch (RuntimeException ex) {
