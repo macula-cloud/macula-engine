@@ -11,8 +11,8 @@
 	<artifactId>macula-cloud-starter-sap</artifactId>
 
 	<properties>
-		<hibersap.version>1.3.0</hibersap.version>
-		<sapjco3.version>3.0.8</sapjco3.version>
+		<hibersap.version>1.4.0</hibersap.version>
+		<sapjco3.version>3.0.19</sapjco3.version>
 	</properties>
 
 	<dependencies>
