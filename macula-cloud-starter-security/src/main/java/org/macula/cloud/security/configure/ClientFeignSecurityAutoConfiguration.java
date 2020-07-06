@@ -43,6 +43,7 @@ public class ClientFeignSecurityAutoConfiguration {
 		return new OpenApiFeignInterceptor(properties.getSecurity().getOpenApi());
 	}
 
+	@ConditionalOnBean(ClientCredentialsResourceDetails.class)
 	@Bean
 	public OAuth2RestTemplate clientCredentialsRestTemplate(ClientCredentialsResourceDetails clientDetails) {
 		return new OAuth2RestTemplate(clientDetails);

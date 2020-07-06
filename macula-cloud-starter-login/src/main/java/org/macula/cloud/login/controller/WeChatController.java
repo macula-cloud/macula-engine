@@ -2,6 +2,7 @@ package org.macula.cloud.login.controller;
 
 import org.macula.cloud.login.command.WechatLoginCredential;
 import org.macula.cloud.login.service.WeChatService;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +22,8 @@ public class WeChatController {
 	private WeChatService weChatService;
 
 	@Autowired
-	public WeChatController(WeChatService weChatService) {
-		this.weChatService = weChatService;
+	public WeChatController(ObjectProvider<WeChatService> weChatService) {
+		this.weChatService = weChatService.getIfAvailable();
 	}
 
 	@ApiOperation(value = "用户登录并关联用户")
