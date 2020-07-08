@@ -13,12 +13,12 @@ public class SAPExecution {
 	private SessionManager sessionManager;
 
 	@ServiceInvokeProxy(key = "args[0]", source = "args[1].getClass().getSimpleName()", target = "'SAP'", targetMethod = "args[1].getName()", alarm = true)
-	public ExecuteBapi execute(Object key, ExecuteBapi bapi) {
+	public <T extends ExecuteBapi> T execute(Object key, T bapi) {
 		return execute(key, bapi, true);
 	}
 
 	@ServiceInvokeProxy(key = "args[0]", source = "args[1].getClass().getSimpleName()", target = "'SAP'", targetMethod = "args[1].getName()", alarm = true)
-	public ExecuteBapi execute(Object key, ExecuteBapi bapi, boolean autoCommit) {
+	public <T extends ExecuteBapi> T execute(Object key, T bapi, boolean autoCommit) {
 		Session session = null;
 		Transaction transaction = null;
 		try {

@@ -29,9 +29,9 @@ public class ServiceInvokeLogService implements BeanFactoryAware {
 		this.repository = repository;
 	}
 
-	public void processServiceInvokeLog(ServiceInvokeProxy serviceInvokeProxy, ServiceInvokeRootObject rootObject, ServiceInvokeLog serviceInvokeLog)
-			throws Exception {
-		executors.execute(new SaveInvokeLogRunnable(serviceInvokeProxy, rootObject, serviceInvokeLog));
+	public void processServiceInvokeLog(ServiceInvokeProxy serviceInvokeProxy, ServiceInvokeRootObject rootObject, ServiceInvokeLog serviceInvokeLog,
+			boolean before) throws Exception {
+		executors.execute(new SaveInvokeLogRunnable(serviceInvokeProxy, rootObject, serviceInvokeLog, before));
 	}
 
 	@Transactional
@@ -43,11 +43,14 @@ public class ServiceInvokeLogService implements BeanFactoryAware {
 		private final ServiceInvokeLog invokeLog;
 		private final ServiceInvokeProxy serviceInvokeProxy;
 		private final ServiceInvokeRootObject rootObject;
+		private final boolean before;
 
-		private SaveInvokeLogRunnable(ServiceInvokeProxy serviceInvokeProxy, ServiceInvokeRootObject rootObject, ServiceInvokeLog invokeLog) {
+		private SaveInvokeLogRunnable(ServiceInvokeProxy serviceInvokeProxy, ServiceInvokeRootObject rootObject, ServiceInvokeLog invokeLog,
+				boolean before) {
 			this.serviceInvokeProxy = serviceInvokeProxy;
 			this.rootObject = rootObject;
 			this.invokeLog = invokeLog;
+			this.before = before;
 		}
 
 		@Override
@@ -56,20 +59,20 @@ public class ServiceInvokeLogService implements BeanFactoryAware {
 				synchronized (invokeLog) {
 					ServiceInvokeExpressionEvaluator expressionEvaluator = new ServiceInvokeExpressionEvaluator(rootObject, beanFactory);
 
-					invokeLog.setDataKey(expressionEvaluator.getStringExpression(serviceInvokeProxy.key()));
-					invokeLog.setSourceMethod(expressionEvaluator.getStringExpression(serviceInvokeProxy.description()));
-
-					invokeLog.setNode(ApplicationId.current().getInstanceKey());
-					invokeLog.setSource(expressionEvaluator.getStringExpression(serviceInvokeProxy.source()));
-					invokeLog.setSourceMethod(expressionEvaluator.getStringExpression(serviceInvokeProxy.sourceMethod()));
-					invokeLog.setSourceMessage(expressionEvaluator.getStringExpression(serviceInvokeProxy.sourceMessage()));
-
-					invokeLog.setTarget(expressionEvaluator.getStringExpression(serviceInvokeProxy.target()));
-					invokeLog.setTargetMethod(expressionEvaluator.getStringExpression(serviceInvokeProxy.targetMethod()));
-					invokeLog.setTargetMessage(expressionEvaluator.getStringExpression(serviceInvokeProxy.targetMessage()));
-					invokeLog.setExceptionMessage(expressionEvaluator.getStringExpression(serviceInvokeProxy.exceptionMessage()));
-
-					invokeLog.setStatus(expressionEvaluator.getBooleanExpression(serviceInvokeProxy.success()) ? "SUCCESS" : "ERROR");
+					if (before) {
+						invokeLog.setDataKey(expressionEvaluator.getStringExpression(serviceInvokeProxy.key()));
+						invokeLog.setSourceMethod(expressionEvaluator.getStringExpression(serviceInvokeProxy.description()));
+						invokeLog.setNode(ApplicationId.current().getInstanceKey());
+						invokeLog.setSource(expressionEvaluator.getStringExpression(serviceInvokeProxy.source()));
+						invokeLog.setSourceMethod(expressionEvaluator.getStringExpression(serviceInvokeProxy.sourceMethod()));
+						invokeLog.setSourceMessage(expressionEvaluator.getStringExpression(serviceInvokeProxy.sourceMessage()));
+						invokeLog.setTarget(expressionEvaluator.getStringExpression(serviceInvokeProxy.target()));
+						invokeLog.setTargetMethod(expressionEvaluator.getStringExpression(serviceInvokeProxy.targetMethod()));
+					} else {
+						invokeLog.setTargetMessage(expressionEvaluator.getStringExpression(serviceInvokeProxy.targetMessage()));
+						invokeLog.setExceptionMessage(expressionEvaluator.getStringExpression(serviceInvokeProxy.exceptionMessage()));
+						invokeLog.setStatus(expressionEvaluator.getBooleanExpression(serviceInvokeProxy.success()) ? "SUCCESS" : "ERROR");
+					}
 
 					org.macula.cloud.log.domain.ServiceInvokeLog entity = null;
 					if (invokeLog.getId() != null) {

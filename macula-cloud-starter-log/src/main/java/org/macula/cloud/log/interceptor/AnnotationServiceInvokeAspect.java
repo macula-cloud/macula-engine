@@ -63,7 +63,7 @@ public class AnnotationServiceInvokeAspect {
 		try {
 			log.debug("AnnotationServiceInvokeAspect.before");
 			serviceInvokeLog.setSourceTimestamp(new Date());
-			serviceInvokeLogService.processServiceInvokeLog(serviceInvokeProxy, rootObject, serviceInvokeLog);
+			serviceInvokeLogService.processServiceInvokeLog(serviceInvokeProxy, rootObject, serviceInvokeLog, true);
 		} catch (Exception ex) {
 			log.debug("AnnotationServiceInvokeAspect.before error:", ex);
 		}
@@ -73,7 +73,7 @@ public class AnnotationServiceInvokeAspect {
 		try {
 			log.info("AnnotationServiceInvokeAspect.after");
 			serviceInvokeLog.setTargetTimestamp(new Date());
-			serviceInvokeLogService.processServiceInvokeLog(serviceInvokeProxy, rootObject, serviceInvokeLog);
+			serviceInvokeLogService.processServiceInvokeLog(serviceInvokeProxy, rootObject, serviceInvokeLog, false);
 		} catch (Exception ex) {
 			log.error("AnnotationServiceInvokeAspect.after error:", ex);
 		}
