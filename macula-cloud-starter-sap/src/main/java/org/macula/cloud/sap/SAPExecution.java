@@ -5,6 +5,9 @@ import org.hibersap.session.SessionManager;
 import org.hibersap.session.Transaction;
 import org.macula.cloud.log.annotation.ServiceInvokeProxy;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -42,6 +45,16 @@ public class SAPExecution {
 			if (session != null) {
 				session.close();
 			}
+		}
+	}
+
+	private static final ObjectMapper mapper = new ObjectMapper();
+
+	public static String getReturnMessage(Object value) {
+		try {
+			return mapper.writeValueAsString(value);
+		} catch (JsonProcessingException e) {
+			return value != null ? value.toString() : "";
 		}
 	}
 }

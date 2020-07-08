@@ -15,4 +15,9 @@ public abstract class AbstractBapi implements ExecuteBapi {
 		return bapi == null ? "" : bapi.value();
 	}
 
+	@Override
+	public String getResultMessage() {
+		return "";
+	}
+
 }
