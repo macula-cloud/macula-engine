@@ -12,6 +12,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.Auditable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -26,16 +30,20 @@ public abstract class AbstractAuditable<PK extends Serializable> extends Abstrac
 	@Column(name = "OBJECT_VERSION_NUMBER", nullable = false, length = 50)
 	private Long version;
 
+	@CreatedBy
 	@Column(name = "CREATED_BY", nullable = false, length = 50)
 	private String createdBy;
 
+	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "CREATED_TIME", nullable = false)
 	private Date createdDate;
 
+	@LastModifiedBy
 	@Column(name = "LAST_UPDATED_BY", nullable = false, length = 50)
 	private String lastModifiedBy;
 
+	@LastModifiedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "LAST_UPDATED_TIME", nullable = false)
 	private Date lastModifiedDate;

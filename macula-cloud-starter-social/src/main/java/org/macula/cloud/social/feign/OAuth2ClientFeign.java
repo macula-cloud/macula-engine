@@ -1,4 +1,4 @@
-package org.macula.cloud.login.feign;
+package org.macula.cloud.social.feign;
 
 import java.util.Map;
 
@@ -17,7 +17,7 @@ public interface OAuth2ClientFeign {
 			@RequestParam(value = "grant_type", defaultValue = "password") String grantType, @RequestParam("username") String username,
 			@RequestParam("password") String password);
 
-	@PutMapping("/v1/social/create")
+	@PutMapping("/api/v1/social/create")
 	String createSocialUser(@RequestBody CreateSocialUserCommand command);
 
 }

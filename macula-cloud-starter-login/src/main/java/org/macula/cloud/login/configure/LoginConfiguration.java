@@ -2,15 +2,12 @@ package org.macula.cloud.login.configure;
 
 import java.util.Properties;
 
-import org.macula.cloud.login.service.WeChatService;
 import org.macula.cloud.security.configure.ClientFeignSecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
@@ -20,12 +17,6 @@ import com.google.code.kaptcha.util.Config;
 @EnableFeignClients(basePackages = "org.macula.cloud.login")
 @AutoConfigureAfter(ClientFeignSecurityAutoConfiguration.class)
 public class LoginConfiguration {
-
-	@ConditionalOnBean(ClientCredentialsResourceDetails.class)
-	@Bean
-	public WeChatService wechatService() {
-		return new WeChatService();
-	}
 
 	@Bean
 	public DefaultKaptcha getKaptchaBean() {

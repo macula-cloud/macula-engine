@@ -1,6 +1,6 @@
-package org.macula.cloud.login.util;
+package org.macula.cloud.social.util;
 
-import org.macula.cloud.login.configure.WxMaConfiguration;
+import org.macula.cloud.social.configure.WxMaConfiguration;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
 

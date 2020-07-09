@@ -1,4 +1,4 @@
-package org.macula.cloud.login.configure;
+package org.macula.cloud.social.configure;
 
 import java.util.List;
 

@@ -1,13 +1,13 @@
-package org.macula.cloud.login.service;
+package org.macula.cloud.social.service;
 
 import java.util.Map;
 
 import org.macula.cloud.core.command.CreateSocialUserCommand;
 import org.macula.cloud.core.domain.OAuth2User;
 import org.macula.cloud.core.domain.UserSocial;
-import org.macula.cloud.login.command.WechatLoginCredential;
-import org.macula.cloud.login.feign.OAuth2ClientFeign;
-import org.macula.cloud.login.util.WxaUtils;
+import org.macula.cloud.social.command.WechatLoginCredential;
+import org.macula.cloud.social.feign.OAuth2ClientFeign;
+import org.macula.cloud.social.util.WxaUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;

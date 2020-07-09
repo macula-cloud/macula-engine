@@ -1,4 +1,4 @@
-package org.macula.cloud.login.configure;
+package org.macula.cloud.social.configure;
 
 import java.io.File;
 import java.util.List;
@@ -10,7 +10,6 @@ import javax.annotation.PostConstruct;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -27,7 +26,6 @@ import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.bean.result.WxMediaUploadResult;
 import me.chanjar.weixin.common.error.WxErrorException;
 
-@Configuration
 @EnableConfigurationProperties(WxMaProperties.class)
 @Slf4j
 public class WxMaConfiguration {

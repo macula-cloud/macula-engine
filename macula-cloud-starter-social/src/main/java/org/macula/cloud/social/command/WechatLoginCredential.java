@@ -1,4 +1,4 @@
-package org.macula.cloud.login.command;
+package org.macula.cloud.social.command;
 
 import org.macula.cloud.core.principal.LoginCredential;
 
