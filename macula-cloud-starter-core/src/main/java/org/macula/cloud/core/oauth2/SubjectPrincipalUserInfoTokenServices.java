@@ -8,12 +8,12 @@ import org.springframework.boot.autoconfigure.security.oauth2.resource.Authoriti
 import org.springframework.boot.autoconfigure.security.oauth2.resource.FixedAuthoritiesExtractor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.jwt.crypto.sign.SignerVerifier;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.client.OAuth2RestTemplate;
+import org.springframework.security.oauth2.client.resource.BaseOAuth2ProtectedResourceDetails;
 import org.springframework.security.oauth2.common.exceptions.InvalidTokenException;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
@@ -36,10 +36,14 @@ public class SubjectPrincipalUserInfoTokenServices extends UserInfoTokenServices
 		}
 		this.clientId = clientId;
 		this.signer = signer;
+		BaseOAuth2ProtectedResourceDetails resource = new BaseOAuth2ProtectedResourceDetails();
+		resource.setClientId(this.clientId);
+		OAuth2RestTemplate template = new OAuth2RestTemplate(resource);
+		setRestTemplate(template);
 	}
 
 	@Override
-	@Cacheable(cacheNames = OAuth2AccessToken.ACCESS_TOKEN, key = "#accessToken", unless = "#result == null")
+	// @Cacheable(cacheNames = OAuth2AccessToken.ACCESS_TOKEN, key = "#accessToken", unless = "#result == null")
 	public OAuth2Authentication loadAuthentication(String accessToken) throws AuthenticationException, InvalidTokenException {
 		if (accessToken.indexOf(".") > 0) {
 			// JWT token

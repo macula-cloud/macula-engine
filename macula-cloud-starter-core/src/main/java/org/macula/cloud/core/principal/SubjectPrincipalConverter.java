@@ -2,6 +2,7 @@ package org.macula.cloud.core.principal;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.boot.autoconfigure.security.oauth2.resource.AuthoritiesExtractor;
@@ -12,7 +13,6 @@ import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
-import org.springframework.util.CollectionUtils;
 
 public class SubjectPrincipalConverter extends DefaultAccessTokenConverter {
 
@@ -65,11 +65,9 @@ public class SubjectPrincipalConverter extends DefaultAccessTokenConverter {
 		if (!map.containsKey("user_name")) {
 			((Map<String, Object>) map).put("user_name", ((Map<String, Object>) map).get("username"));
 		}
+		List<GrantedAuthority> authorities = authoritiesExtractor.extractAuthorities((Map<String, Object>) map);
+		map.remove("authorities");
 		OAuth2Authentication authentication = super.extractAuthentication(map);
-		Collection<GrantedAuthority> authorities = authentication.getAuthorities();
-		if (CollectionUtils.isEmpty(authorities)) {
-			authorities = authoritiesExtractor.extractAuthorities((Map<String, Object>) map);
-		}
 		SubjectPrincipal principal = new SubjectPrincipal(authentication.getName(), "[unknown password]", authorities);
 		principal.setUserId(String.valueOf(map.getOrDefault("userId", null)));
 		principal.setOrganizationId(String.valueOf(map.getOrDefault("organizationId", null)));

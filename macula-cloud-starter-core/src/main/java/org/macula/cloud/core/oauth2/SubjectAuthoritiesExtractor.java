@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.util.CollectionUtils;
 
 public class SubjectAuthoritiesExtractor extends FixedAuthoritiesExtractor {
+	private static final String AUTHORITIES = "authorities";
 	private String defaultRole;
 
 	public SubjectAuthoritiesExtractor(String defaultRole) {
@@ -19,10 +20,28 @@ public class SubjectAuthoritiesExtractor extends FixedAuthoritiesExtractor {
 
 	@Override
 	public List<GrantedAuthority> extractAuthorities(Map<String, Object> map) {
+		Object theMap = getAuthorities(map);
+		if (theMap != null) {
+			map.put(AUTHORITIES, theMap);
+		}
 		List<GrantedAuthority> authorities = super.extractAuthorities(map);
 		if (CollectionUtils.isEmpty(authorities) && StringUtils.isNotEmpty(defaultRole)) {
 			authorities = Collections.singletonList(new SimpleGrantedAuthority(defaultRole));
 		}
 		return authorities;
+	}
+
+	Object getAuthorities(Map<String, Object> map) {
+		Object o = map.get(AUTHORITIES);
+		if (o instanceof Map<?, ?>) {
+			@SuppressWarnings("unchecked")
+			Map<String, Object> o2 = (Map<String, Object>) o;
+			if (o2.containsKey(AUTHORITIES)) {
+				return getAuthorities(o2);
+			} else {
+				return o2.values();
+			}
+		}
+		return o;
 	}
 }
