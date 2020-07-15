@@ -6,6 +6,6 @@ public interface ExecuteBapi {
 
 	boolean hasSuccess();
 
-	String getResultMessage();
+	String getErrorMessage();
 
 }

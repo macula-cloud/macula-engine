@@ -16,7 +16,7 @@ public abstract class AbstractBapi implements ExecuteBapi {
 	}
 
 	@Override
-	public String getResultMessage() {
+	public String getErrorMessage() {
 		return "";
 	}
 
