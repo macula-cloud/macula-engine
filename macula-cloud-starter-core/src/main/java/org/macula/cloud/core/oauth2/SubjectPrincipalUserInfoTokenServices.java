@@ -58,24 +58,24 @@ public class SubjectPrincipalUserInfoTokenServices extends UserInfoTokenServices
 		if (accessToken.indexOf(".") > 0) {
 			// JWT token
 			Map<String, Object> principalMap = SecurityUtils.convertMap(accessToken, signer);
-			return extractAuthentication(principalMap);
+			return customExtractAuthentication(principalMap);
 		}
 		return loadInternalAuthentication(accessToken);
 	}
 
 	public OAuth2Authentication loadInternalAuthentication(String accessToken) throws AuthenticationException, InvalidTokenException {
-		Map<String, Object> map = getMap(this.userInfoEndpointUrl, accessToken);
+		Map<String, Object> map = customGetMap(this.userInfoEndpointUrl, accessToken);
 		if (map.containsKey("error")) {
 			if (this.logger.isDebugEnabled()) {
 				this.logger.debug("userinfo returned error: " + map.get("error"));
 			}
 			throw new InvalidTokenException(accessToken);
 		}
-		return extractAuthentication(map);
+		return customExtractAuthentication(map);
 	}
 
 	@SuppressWarnings({ "unchecked" })
-	private Map<String, Object> getMap(String path, String accessToken) {
+	private Map<String, Object> customGetMap(String path, String accessToken) {
 		if (this.logger.isDebugEnabled()) {
 			this.logger.debug("Getting user info from: " + path);
 		}
@@ -99,7 +99,7 @@ public class SubjectPrincipalUserInfoTokenServices extends UserInfoTokenServices
 		}
 	}
 
-	private OAuth2Authentication extractAuthentication(Map<String, Object> map) {
+	private OAuth2Authentication customExtractAuthentication(Map<String, Object> map) {
 		Object principal = getPrincipal(map);
 		List<GrantedAuthority> authorities = this.authoritiesExtractor.extractAuthorities(map);
 		OAuth2Request request = new OAuth2Request(null, this.clientId, null, true, null, null, null, null, null);
