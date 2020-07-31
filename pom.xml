@@ -61,6 +61,7 @@
 		<module>macula-cloud-starter-sap</module>
 		<module>macula-cloud-starter-mq</module>
 		<module>macula-cloud-starter-br</module>
+		<module>macula-cloud-starter-cainiao</module>
 	</modules>
 
 	<dependencyManagement>
@@ -98,6 +99,11 @@
 			<dependency>
 				<groupId>macula-cloud</groupId>
 				<artifactId>macula-cloud-starter-registry</artifactId>
+				<version>${macula-cloud-starters.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>macula-cloud</groupId>
+				<artifactId>macula-cloud-starter-cainiao</artifactId>
 				<version>${macula-cloud-starters.version}</version>
 			</dependency>
 			<dependency>
