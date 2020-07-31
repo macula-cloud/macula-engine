@@ -11,7 +11,7 @@ public class DivisionVO {
 	private String divisionTname;
 	private String divisionId;
 	private String divisionAbbName;
-	private boolean deleted;
+	private boolean isdeleted;
 	private String version;
 	private String parentId;
 }

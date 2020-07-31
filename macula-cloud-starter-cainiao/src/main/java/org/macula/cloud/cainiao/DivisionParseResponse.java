@@ -1,5 +1,7 @@
 package org.macula.cloud.cainiao;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -7,6 +9,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class DivisionParseResponse extends CainiaoResponse {
 
+	@JsonProperty("ParseDivisionResult")
 	private ParseDivisionResult parseDivisionResult;
-	
+
 }

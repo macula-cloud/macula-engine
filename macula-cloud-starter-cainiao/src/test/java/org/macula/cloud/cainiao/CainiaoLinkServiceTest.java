@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.macula.cloud.cainiao.AddressClassifyRequest.LinkQueryAddress;
 import org.macula.cloud.cainiao.configure.CainiaoConfig;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -16,7 +18,7 @@ public class CainiaoLinkServiceTest {
 	private CainiaoLinkService service = new CainiaoLinkService(new CainiaoConfig());
 
 	@Test
-	public void testGetChinaSubDivisions() {
+	public void testGetChinaSubDivisions() throws JsonProcessingException {
 		service.initialRestTemplate();
 		log.info("--------------------------- CNDZK_CHINA_SUB_DIVISIONS -------------------");
 		SubDivisionsResponse response = service.getChinaSubDivisions(SubDivisionsRequest.of("1"));
@@ -27,7 +29,7 @@ public class CainiaoLinkServiceTest {
 	}
 
 	@Test
-	public void testGetChinaDivision() {
+	public void testGetChinaDivision() throws JsonProcessingException {
 		service.initialRestTemplate();
 		log.info("--------------------------- CNDZK_CHINA_DIVISION -------------------");
 		DivisionResponse response = service.getChinaDivision(DivisionsRequest.of("110100"));
@@ -35,7 +37,7 @@ public class CainiaoLinkServiceTest {
 	}
 
 	@Test
-	public void testGetDivisionVersionList() {
+	public void testGetDivisionVersionList() throws JsonProcessingException {
 		service.initialRestTemplate();
 		log.info("--------------------------- CNDZK_DIVISION_VERSION_LIST -------------------");
 		DivisionVersionListResponse response = service.getDivisionVersionList(DivisionVersionListRequest.of("", null, "1", "1"));
@@ -43,7 +45,7 @@ public class CainiaoLinkServiceTest {
 	}
 
 	@Test
-	public void testGetVersionChangeList() {
+	public void testGetVersionChangeList() throws JsonProcessingException {
 		service.initialRestTemplate();
 		log.info("--------------------------- CNDZK_VERSION_CHANGE_LIST -------------------");
 		VersionChangeListResponse response = service.getVersionChangeList(VersionChangeListRequest.of("20180510001", null, "1", "1"));
@@ -51,7 +53,7 @@ public class CainiaoLinkServiceTest {
 	}
 
 	@Test
-	public void testGetAddressClassify() {
+	public void testGetAddressClassify() throws JsonProcessingException {
 		service.initialRestTemplate();
 		log.info("--------------------------- CNDZK_ADDRESS_CLASSIFY -------------------");
 		AddressClassifyResponse response = service.getAddressClassify(
@@ -60,11 +62,11 @@ public class CainiaoLinkServiceTest {
 	}
 
 	@Test
-	public void testGetDivisionParse() {
+	public void testGetDivisionParse() throws JsonProcessingException {
 		service.initialRestTemplate();
 		log.info("--------------------------- CNDZK_DIVISION_PARSE -------------------");
 		Map<Integer, String> areas = new HashMap<Integer, String>();
-		for (int i = 1; i < 1000; i++) {
+		for (int i = 1; i < 2; i++) {
 			DivisionParseResponse response = service.getDivisionParse(DivisionParseRequest.of("广东省广州市海珠区龙凤街道宝岗大道" + i + "号", "LATEST"));
 			areas.put(i, response.getParseDivisionResult().getTown());
 		}
