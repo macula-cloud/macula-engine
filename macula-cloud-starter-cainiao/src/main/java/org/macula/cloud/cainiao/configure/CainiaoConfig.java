@@ -11,10 +11,12 @@ import org.springframework.http.RequestEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import lombok.Getter;
 import lombok.Setter;
 
-@ConfigurationProperties("macula.cloud.cainiao")
+@Getter
 @Setter
+@ConfigurationProperties("macula.cloud.cainiao")
 public class CainiaoConfig {
 
 	private String appKey = "348295";
@@ -49,7 +51,4 @@ public class CainiaoConfig {
 		}
 	}
 
-	public String getVersion() {
-		return version;
-	}
 }
