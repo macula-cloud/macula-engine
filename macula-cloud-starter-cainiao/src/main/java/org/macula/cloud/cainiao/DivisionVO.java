@@ -1,5 +1,7 @@
 package org.macula.cloud.cainiao;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Data;
 
 @Data
@@ -11,7 +13,8 @@ public class DivisionVO {
 	private String divisionTname;
 	private String divisionId;
 	private String divisionAbbName;
-	private boolean isdeleted;
+	@JsonProperty(value = "isdeleted")
+	private boolean deleted;
 	private String version;
 	private String parentId;
 }
