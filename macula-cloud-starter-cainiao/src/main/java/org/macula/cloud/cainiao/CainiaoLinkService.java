@@ -44,61 +44,85 @@ public class CainiaoLinkService {
 	/**
 	 * 查询四级地址
 	 */
-	public DivisionResponse getChinaDivision(DivisionsRequest request) throws JsonProcessingException {
-		String messageType = "CNDZK_CHINA_DIVISION";
-		String logisticsInterface = MAPPER.writeValueAsString(request);
-		String response = queryLinkApi(messageType, logisticsInterface);
-		return MAPPER.readValue(response, DivisionResponse.class);
+	public DivisionResponse getChinaDivision(DivisionsRequest request) {
+		try {
+			String messageType = "CNDZK_CHINA_DIVISION";
+			String logisticsInterface = MAPPER.writeValueAsString(request);
+			String response = queryLinkApi(messageType, logisticsInterface);
+			return MAPPER.readValue(response, DivisionResponse.class);
+		} catch (JsonProcessingException ex) {
+			throw new CainiaoException(ex.getMessage(), ex);
+		}
 	}
 
 	/**
 	 * 四级地址新版本查询
 	 */
-	public DivisionVersionListResponse getDivisionVersionList(DivisionVersionListRequest request) throws JsonProcessingException {
-		String messageType = "CNDZK_DIVISION_VERSION_LIST";
-		String logisticsInterface = MAPPER.writeValueAsString(request);
-		String response = queryLinkApi(messageType, logisticsInterface);
-		return MAPPER.readValue(response, DivisionVersionListResponse.class);
+	public DivisionVersionListResponse getDivisionVersionList(DivisionVersionListRequest request) {
+		try {
+			String messageType = "CNDZK_DIVISION_VERSION_LIST";
+			String logisticsInterface = MAPPER.writeValueAsString(request);
+			String response = queryLinkApi(messageType, logisticsInterface);
+			return MAPPER.readValue(response, DivisionVersionListResponse.class);
+		} catch (JsonProcessingException ex) {
+			throw new CainiaoException(ex.getMessage(), ex);
+		}
 	}
 
 	/**
 	 * 地址质量分类
 	 */
-	public AddressClassifyResponse getAddressClassify(AddressClassifyRequest request) throws JsonProcessingException {
-		String messageType = "CNDZK_ADDRESS_CLASSIFY";
-		String logisticsInterface = MAPPER.writeValueAsString(request);
-		String response = queryLinkApi(messageType, logisticsInterface);
-		return MAPPER.readValue(response, AddressClassifyResponse.class);
+	public AddressClassifyResponse getAddressClassify(AddressClassifyRequest request) {
+		try {
+			String messageType = "CNDZK_ADDRESS_CLASSIFY";
+			String logisticsInterface = MAPPER.writeValueAsString(request);
+			String response = queryLinkApi(messageType, logisticsInterface);
+			return MAPPER.readValue(response, AddressClassifyResponse.class);
+		} catch (JsonProcessingException ex) {
+			throw new CainiaoException(ex.getMessage(), ex);
+		}
 	}
 
 	/**
 	 * 四级地址升级履历查询
 	 */
-	public VersionChangeListResponse getVersionChangeList(VersionChangeListRequest request) throws JsonProcessingException {
-		String messageType = "CNDZK_VERSION_CHANGE_LIST";
-		String logisticsInterface = MAPPER.writeValueAsString(request);
-		String response = queryLinkApi(messageType, logisticsInterface);
-		return MAPPER.readValue(response, VersionChangeListResponse.class);
+	public VersionChangeListResponse getVersionChangeList(VersionChangeListRequest request) {
+		try {
+			String messageType = "CNDZK_VERSION_CHANGE_LIST";
+			String logisticsInterface = MAPPER.writeValueAsString(request);
+			String response = queryLinkApi(messageType, logisticsInterface);
+			return MAPPER.readValue(response, VersionChangeListResponse.class);
+		} catch (JsonProcessingException ex) {
+			throw new CainiaoException(ex.getMessage(), ex);
+		}
 	}
 
 	/**
 	 * 查询下级四级地址
 	 */
-	public SubDivisionsResponse getChinaSubDivisions(SubDivisionsRequest request) throws JsonProcessingException {
-		String messageType = "CNDZK_CHINA_SUB_DIVISIONS";
-		String logisticsInterface = MAPPER.writeValueAsString(request);
-		String response = queryLinkApi(messageType, logisticsInterface);
-		return MAPPER.readValue(response, SubDivisionsResponse.class);
+	public SubDivisionsResponse getChinaSubDivisions(SubDivisionsRequest request) {
+		try {
+			String messageType = "CNDZK_CHINA_SUB_DIVISIONS";
+			String logisticsInterface = MAPPER.writeValueAsString(request);
+			String response = queryLinkApi(messageType, logisticsInterface);
+			return MAPPER.readValue(response, SubDivisionsResponse.class);
+		} catch (JsonProcessingException ex) {
+			throw new CainiaoException(ex.getMessage(), ex);
+		}
 	}
 
 	/**
 	 * 四级地址纠正
 	 */
-	public DivisionParseResponse getDivisionParse(DivisionParseRequest request) throws JsonProcessingException {
-		String messageType = "CNDZK_DIVISION_PARSE";
-		String logisticsInterface = MAPPER.writeValueAsString(request);
-		String response = queryLinkApi(messageType, logisticsInterface);
-		return MAPPER.readValue(response, DivisionParseResponse.class);
+	public DivisionParseResponse getDivisionParse(DivisionParseRequest request) {
+		try {
+			String messageType = "CNDZK_DIVISION_PARSE";
+			String logisticsInterface = MAPPER.writeValueAsString(request);
+			String response = queryLinkApi(messageType, logisticsInterface);
+			return MAPPER.readValue(response, DivisionParseResponse.class);
+		} catch (JsonProcessingException ex) {
+			throw new CainiaoException(ex.getMessage(), ex);
+		}
 	}
 
 	public String queryLinkApi(String messageType, String logisticsInterface) {

@@ -10,7 +10,6 @@ import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Version;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -25,10 +24,6 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AbstractAuditable<PK extends Serializable> extends AbstractPersistable<PK> implements Auditable<String, PK, Instant> {
-
-	@Version
-	@Column(name = "OBJECT_VERSION_NUMBER", nullable = false, length = 50)
-	private Long version;
 
 	@CreatedBy
 	@Column(name = "CREATED_BY", nullable = false, length = 50)
@@ -47,20 +42,6 @@ public abstract class AbstractAuditable<PK extends Serializable> extends Abstrac
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "LAST_UPDATED_TIME", nullable = false)
 	private Date lastModifiedDate;
-
-	/**
-	 * @return
-	 */
-	public Long getVersion() {
-		return version;
-	}
-
-	/**
-	 * @param version
-	 */
-	public void setVersion(Long version) {
-		this.version = version;
-	}
 
 	@Override
 	public Optional<String> getCreatedBy() {
@@ -114,9 +95,6 @@ public abstract class AbstractAuditable<PK extends Serializable> extends Abstrac
 
 	public AbstractAuditable<PK> clone(AbstractAuditable<PK> entity) {
 		super.clone(entity);
-		if (getVersion() != null) {
-			entity.setVersion(getVersion());
-		}
 		if (getCreatedBy().isPresent()) {
 			entity.setCreatedBy(getCreatedBy().orElse(null));
 		}
