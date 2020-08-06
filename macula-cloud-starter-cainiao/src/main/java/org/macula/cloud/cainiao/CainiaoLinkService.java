@@ -42,6 +42,13 @@ public class CainiaoLinkService {
 	}
 
 	/**
+	 * 获取菜鸟设置
+	 */
+	public CainiaoConfig getConfig() {
+		return this.config;
+	}
+
+	/**
 	 * 查询四级地址
 	 */
 	public DivisionResponse getChinaDivision(DivisionsRequest request) {

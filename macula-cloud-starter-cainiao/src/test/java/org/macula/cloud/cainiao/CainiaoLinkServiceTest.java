@@ -67,7 +67,8 @@ public class CainiaoLinkServiceTest {
 		log.info("--------------------------- CNDZK_DIVISION_PARSE -------------------");
 		Map<Integer, String> areas = new HashMap<Integer, String>();
 		for (int i = 1; i < 2; i++) {
-			DivisionParseResponse response = service.getDivisionParse(DivisionParseRequest.of("广东省广州市海珠区龙凤街道宝岗大道" + i + "号", "LATEST"));
+			DivisionParseResponse response = service
+					.getDivisionParse(DivisionParseRequest.of("广东省广州市海珠区龙凤街道宝岗大道" + i + "号", service.getConfig().getVersion()));
 			areas.put(i, response.getParseDivisionResult().getTown());
 		}
 		System.out.println(areas);
