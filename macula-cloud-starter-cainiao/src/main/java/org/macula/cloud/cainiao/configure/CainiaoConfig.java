@@ -23,7 +23,8 @@ public class CainiaoConfig {
 	private String secretKey = "2sf48559Wp2eI86757P1h7DFsICE54Hs";
 	private String providerId = "746ef6ea271c4aecf69e6ed458964f9c";
 	private String url = "https://link.cainiao.com/gateway/link.do";
-	private String version = "LATEST";
+	private String version = "18Q4";
+	private String publishVersion = "20190509001";
 	private String charset = "utf-8";
 
 	public RequestEntity<MultiValueMap<String, String>> createRequestEntity(String messageType, String logisticsInterface) {
