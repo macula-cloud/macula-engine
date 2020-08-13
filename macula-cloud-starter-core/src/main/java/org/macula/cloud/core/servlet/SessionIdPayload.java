@@ -1,12 +1,12 @@
 package org.macula.cloud.core.servlet;
 
+import java.util.Optional;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.macula.cloud.core.session.SessionId;
-
-import java.util.Optional;
 
 public class SessionIdPayload {
 

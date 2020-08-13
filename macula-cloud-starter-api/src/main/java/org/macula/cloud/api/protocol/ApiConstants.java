@@ -1,11 +1,11 @@
-package org.macula.cloud.core.utils;
+package org.macula.cloud.api.protocol;
 
 /**
  * <p>
  * <b>CloudConstants</b> is define constants.
  * </p>
  */
-public class CloudConstants {
+public class ApiConstants {
 
 	/** 数据绑定错误码 */
 	public final static String MACULA_CORE_VALID_CODE = "bind";
@@ -28,5 +28,6 @@ public class CloudConstants {
 	/** UserSession 在SerlvetRequest中的属性名 */
 	public final static String USER_SESSION_IN_REQUEST = "__USER_SESSION_IN_REQUEST__";
 
+	/** 应用版本 */
 	public static final String APPLICATION_VERSION = "2.0.0";
 }

@@ -3,6 +3,7 @@ package org.macula.cloud.core.exception;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.macula.cloud.api.exception.MaculaException;
 import org.macula.cloud.core.constant.GlobalConstant;
 import org.macula.cloud.core.context.CloudApplicationContext;
 import org.springframework.util.StringUtils;

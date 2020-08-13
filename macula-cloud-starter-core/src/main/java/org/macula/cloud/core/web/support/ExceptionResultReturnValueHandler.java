@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.macula.cloud.core.protocol.Response;
+import org.macula.cloud.api.protocol.Response;
 import org.macula.cloud.core.utils.HttpRequestUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -35,15 +35,14 @@ public class ExceptionResultReturnValueHandler extends RequestResponseBodyMethod
 	}
 
 	@Override
-	public void handleReturnValue(Object returnValue, MethodParameter returnType, ModelAndViewContainer mavContainer,
-			NativeWebRequest webRequest) throws IOException, HttpMediaTypeNotAcceptableException {
+	public void handleReturnValue(Object returnValue, MethodParameter returnType, ModelAndViewContainer mavContainer, NativeWebRequest webRequest)
+			throws IOException, HttpMediaTypeNotAcceptableException {
 		if (HttpRequestUtils.isAjaxOrOpenAPIRequest(webRequest.getNativeRequest(HttpServletRequest.class))) {
 			mavContainer.setRequestHandled(true);
 			if (returnValue != null) {
 				super.handleReturnValue(returnValue, returnType, mavContainer, webRequest);
 			}
-		}
-		else {
+		} else {
 			mavContainer.setRequestHandled(false);
 			mavContainer.addAttribute("errors", returnValue);
 			mavContainer.setViewName("/error");

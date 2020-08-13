@@ -1,7 +1,12 @@
 package org.macula.cloud.core.web.support;
-import org.macula.cloud.core.protocol.ExecuteResponse;
-import org.macula.cloud.core.protocol.PageResponse;
-import org.macula.cloud.core.protocol.Response;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import org.macula.cloud.api.protocol.ExecuteResponse;
+import org.macula.cloud.api.protocol.PageResponse;
+import org.macula.cloud.api.protocol.Response;
 import org.macula.cloud.core.web.annotation.OpenApi;
 import org.springframework.core.MethodParameter;
 import org.springframework.data.domain.Page;
@@ -11,10 +16,6 @@ import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -39,8 +40,8 @@ public class OpenApiReturnValueHandler extends RequestResponseBodyMethodProcesso
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void handleReturnValue(Object returnValue, MethodParameter returnType, ModelAndViewContainer mavContainer,
-			NativeWebRequest webRequest) throws IOException, HttpMediaTypeNotAcceptableException {
+	public void handleReturnValue(Object returnValue, MethodParameter returnType, ModelAndViewContainer mavContainer, NativeWebRequest webRequest)
+			throws IOException, HttpMediaTypeNotAcceptableException {
 		mavContainer.setRequestHandled(true);
 		Object newValue = returnValue;
 		Class<?> returnParaType = returnType.getParameterType();

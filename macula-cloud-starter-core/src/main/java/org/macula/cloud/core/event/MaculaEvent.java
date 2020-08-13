@@ -1,9 +1,9 @@
 package org.macula.cloud.core.event;
 
-import org.springframework.context.ApplicationEvent;
-
 import java.io.Serializable;
 import java.util.List;
+
+import org.springframework.context.ApplicationEvent;
 
 /**
  * <p>

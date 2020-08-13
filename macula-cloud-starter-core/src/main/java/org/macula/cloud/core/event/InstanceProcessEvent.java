@@ -1,10 +1,10 @@
 package org.macula.cloud.core.event;
 
+import java.util.UUID;
+
 import org.macula.cloud.core.application.ApplicationId;
 import org.macula.cloud.core.utils.J2CacheUtils;
 import org.springframework.context.ApplicationEvent;
-
-import java.util.UUID;
 
 /**
  * 按Application级别，每个应用只有一个实例会响应该事件

@@ -1,5 +1,6 @@
 package org.macula.cloud.core.exception;
 
+import org.macula.cloud.api.exception.MaculaException;
 import org.macula.cloud.core.constant.GlobalConstant;
 
 public class OpenApiParameterException extends MaculaException {

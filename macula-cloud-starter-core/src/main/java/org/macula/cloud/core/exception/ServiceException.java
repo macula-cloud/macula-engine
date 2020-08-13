@@ -1,7 +1,8 @@
 package org.macula.cloud.core.exception;
 
 
-import org.macula.cloud.core.utils.CloudConstants;
+import org.macula.cloud.api.exception.MaculaException;
+import org.macula.cloud.api.protocol.ApiConstants;
 
 /**
  * <p>
@@ -23,7 +24,7 @@ public class ServiceException extends MaculaException {
 
 	@Override
 	public String getParentCode() {
-		return CloudConstants.MACULA_CORE_SERVICE_CODE;
+		return ApiConstants.MACULA_CORE_SERVICE_CODE;
 	}
 
 }

@@ -12,8 +12,8 @@ import org.hibernate.exception.GenericJDBCException;
 import org.hibernate.exception.JDBCConnectionException;
 import org.hibernate.exception.LockAcquisitionException;
 import org.hibernate.exception.SQLGrammarException;
+import org.macula.cloud.api.exception.MaculaException;
 import org.macula.cloud.core.exception.HibernateDataAccessException;
-import org.macula.cloud.core.exception.MaculaException;
 import org.macula.cloud.core.utils.ExceptionUtils;
 
 /**

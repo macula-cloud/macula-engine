@@ -9,8 +9,8 @@ import javax.persistence.PersistenceException;
 import javax.persistence.RollbackException;
 import javax.persistence.TransactionRequiredException;
 
+import org.macula.cloud.api.exception.MaculaException;
 import org.macula.cloud.core.exception.JpaDataAccessException;
-import org.macula.cloud.core.exception.MaculaException;
 import org.macula.cloud.core.utils.ExceptionUtils;
 
 /**

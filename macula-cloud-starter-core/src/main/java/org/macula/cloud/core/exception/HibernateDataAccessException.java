@@ -1,7 +1,8 @@
 package org.macula.cloud.core.exception;
 
 
-import org.macula.cloud.core.utils.CloudConstants;
+import org.macula.cloud.api.exception.MaculaException;
+import org.macula.cloud.api.protocol.ApiConstants;
 
 /**
  * <p>
@@ -26,7 +27,7 @@ public class HibernateDataAccessException extends MaculaException {
 
 	@Override
 	public String getParentCode() {
-		return CloudConstants.MACULA_DATA_HIBERNATE_ERROR_CODE;
+		return ApiConstants.MACULA_DATA_HIBERNATE_ERROR_CODE;
 	}
 
 }

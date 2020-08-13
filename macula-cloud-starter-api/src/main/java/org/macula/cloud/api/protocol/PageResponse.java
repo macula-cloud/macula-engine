@@ -1,4 +1,4 @@
-package org.macula.cloud.core.protocol;
+package org.macula.cloud.api.protocol;
 
 import java.util.List;
 
@@ -8,12 +8,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * <p>
+ * <b>PageResponse</b> 是分页返回数据对象
+ * </p>
+ */
 @Getter
 @Setter
 @NoArgsConstructor
 public class PageResponse<T> extends Response {
-
-	private static final long serialVersionUID = 1L;
 
 	/** 本次请求的记录数 */
 	private int size;

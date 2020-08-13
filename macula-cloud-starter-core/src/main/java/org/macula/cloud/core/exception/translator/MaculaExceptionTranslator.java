@@ -1,6 +1,6 @@
 package org.macula.cloud.core.exception.translator;
 
-import org.macula.cloud.core.exception.MaculaException;
+import org.macula.cloud.api.exception.MaculaException;
 import org.springframework.core.Ordered;
 
 /**

@@ -13,6 +13,10 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>macula-cloud</groupId>
+			<artifactId>macula-cloud-starter-api</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>net.oschina.j2cache</groupId>
 			<artifactId>j2cache-core</artifactId>
 		</dependency>

@@ -1,9 +1,8 @@
-package org.macula.cloud.core.exception;
-
+package org.macula.cloud.api.exception;
 
 import java.util.Locale;
 
-import org.macula.cloud.core.context.CloudApplicationContext;
+import org.macula.cloud.api.context.CloudApplicationContext;
 
 /**
  * <p>

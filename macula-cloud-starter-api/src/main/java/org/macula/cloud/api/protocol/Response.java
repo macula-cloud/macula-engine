@@ -1,39 +1,39 @@
+package org.macula.cloud.api.protocol;
 
-package org.macula.cloud.core.protocol;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.macula.cloud.core.context.CloudApplicationContext;
-import org.macula.cloud.core.exception.FormBindException;
-import org.macula.cloud.core.exception.MaculaException;
-import org.macula.cloud.core.utils.StringUtils;
+import org.macula.cloud.api.context.CloudApplicationContext;
+import org.macula.cloud.api.exception.FormBindException;
+import org.macula.cloud.api.exception.MaculaException;
+import org.springframework.util.StringUtils;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * <p>
+ * <b>Response</b> 返回数据结构的基类
+ * </p>
+ */
 @Getter
 @Setter
 @NoArgsConstructor
-public class Response implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Response {
 
 	/** 是否成功标识 */
-	private boolean success = true;
-
-	/** HTTP响应码 */
-	private String httpStatus;
+	private boolean success;
 
 	/** 系统级错误代码 */
 	private String errorCode;
+
 	/** 系统级错误信息 */
 	private String errorMessage;
 
 	/** 业务级错误代码 */
 	private String exceptionCode;
+
 	/** 业务级错误信息 */
 	private String exceptionMessage;
 

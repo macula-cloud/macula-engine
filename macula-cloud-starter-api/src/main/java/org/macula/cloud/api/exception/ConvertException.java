@@ -1,7 +1,6 @@
-package org.macula.cloud.core.exception;
+package org.macula.cloud.api.exception;
 
-
-import org.macula.cloud.core.utils.CloudConstants;
+import org.macula.cloud.api.protocol.ApiConstants;
 
 /**
  * <p>
@@ -18,7 +17,7 @@ public class ConvertException extends MaculaException {
 
 	@Override
 	public String getParentCode() {
-		return CloudConstants.MACULA_CORE_CONVERT_CODE;
+		return ApiConstants.MACULA_CORE_CONVERT_CODE;
 	}
 
 }

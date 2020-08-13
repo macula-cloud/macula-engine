@@ -1,9 +1,10 @@
-package org.macula.cloud.core.protocol;
+package org.macula.cloud.api.protocol;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class FieldOption implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -27,13 +29,6 @@ public class FieldOption implements Serializable {
 
 	public FieldOption(Object code, String label) {
 		this(null, code, label);
-
-	}
-
-	public FieldOption(Object id, Object code, String label) {
-		this.id = id;
-		this.code = code;
-		this.label = label;
 	}
 
 }

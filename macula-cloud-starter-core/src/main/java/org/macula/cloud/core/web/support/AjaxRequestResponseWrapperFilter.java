@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
+import org.macula.cloud.api.exception.MaculaException;
+import org.macula.cloud.api.protocol.Response;
 import org.macula.cloud.core.constant.GlobalConstant;
 import org.macula.cloud.core.context.CloudApplicationContext;
-import org.macula.cloud.core.exception.MaculaException;
 import org.macula.cloud.core.exception.OpenApiAuthenticationException;
 import org.macula.cloud.core.exception.OpenApiParameterException;
 import org.macula.cloud.core.exception.translator.MaculaExceptionTranslator;
-import org.macula.cloud.core.protocol.Response;
 import org.macula.cloud.core.utils.ExceptionUtils;
 import org.macula.cloud.core.utils.HttpRequestUtils;
 import org.macula.cloud.core.utils.StringUtils;
@@ -63,8 +63,7 @@ public class AjaxRequestResponseWrapperFilter extends OncePerRequestFilter {
 		if (!HttpRequestUtils.isAjaxOrOpenAPIRequest(request)) {
 			try {
 				chain.doFilter(request, response);
-			}
-			catch (Exception ex) {
+			} catch (Exception ex) {
 				if (shouldLogException(ex)) {
 					log.error(StringUtils.EMPTY, ex);
 				}
@@ -89,27 +88,22 @@ public class AjaxRequestResponseWrapperFilter extends OncePerRequestFilter {
 		Exception t = null;
 		try {
 			chain.doFilter(request, negotiateResponse);
-		}
-		catch (OpenApiAuthenticationException at) {
+		} catch (OpenApiAuthenticationException at) {
 			t = at;
 			negotiateResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-		}
-		catch (OpenApiParameterException ae) {
+		} catch (OpenApiParameterException ae) {
 			t = ae;
 			negotiateResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			if (shouldLogException(e)) {
 				log.error(StringUtils.EMPTY, e);
 			}
 			t = e;
 			negotiateResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-		}
-		finally {
+		} finally {
 			if (negotiateResponse.isAbnormal() && !negotiateResponse.isCommitted()) {
-				Response result = createResponse(request, t, negotiateResponse.getStatus(),
-						negotiateResponse.isSuccess());
-				result.setHttpStatus(GlobalConstant.MACULA_BASE_HTTP_CODE + "." + negotiateResponse.getStatus());
+				Response result = createResponse(request, t, negotiateResponse.getStatus(), negotiateResponse.isSuccess());
+				result.setExceptionCode(GlobalConstant.MACULA_BASE_HTTP_CODE + "." + negotiateResponse.getStatus());
 				result.setRedirection(negotiateResponse.getRedirection());
 				handleResponseBody(result, request, response);
 			}
@@ -137,8 +131,7 @@ public class AjaxRequestResponseWrapperFilter extends OncePerRequestFilter {
 			result.setExceptionCode(GlobalConstant.MACULA_BASE_HTTP_CODE + '.' + status);
 		}
 		if (result.getExceptionMessage() == null && result.getExceptionCode() != null) {
-			result.setExceptionMessage(CloudApplicationContext.getContainer().getMessage(result.getExceptionCode(),
-					null, request.getLocale()));
+			result.setExceptionMessage(CloudApplicationContext.getContainer().getMessage(result.getExceptionCode(), null, request.getLocale()));
 		}
 		result.setSuccess(success && throwable == null);
 		return result;
@@ -156,8 +149,8 @@ public class AjaxRequestResponseWrapperFilter extends OncePerRequestFilter {
 		return ExceptionUtils.getRecursionCauseException(ex, MaculaException.class);
 	}
 
-	private ModelAndView handleResponseBody(Object returnValue, HttpServletRequest webRequest,
-			HttpServletResponse webResponse) throws ServletException, IOException {
+	private ModelAndView handleResponseBody(Object returnValue, HttpServletRequest webRequest, HttpServletResponse webResponse)
+			throws ServletException, IOException {
 		HttpInputMessage inputMessage = new ServletServerHttpRequest(webRequest);
 		List<MediaType> acceptedMediaTypes = inputMessage.getHeaders().getAccept();
 		if (acceptedMediaTypes.isEmpty()) {
@@ -178,12 +171,10 @@ public class AjaxRequestResponseWrapperFilter extends OncePerRequestFilter {
 				}
 			}
 			if (logger.isWarnEnabled()) {
-				logger.warn("Could not find HttpMessageConverter that supports return type [" + returnValueType
-						+ "] and " + acceptedMediaTypes);
+				logger.warn("Could not find HttpMessageConverter that supports return type [" + returnValueType + "] and " + acceptedMediaTypes);
 			}
 			return null;
-		}
-		finally {
+		} finally {
 			outputMessage.close();
 		}
 	}

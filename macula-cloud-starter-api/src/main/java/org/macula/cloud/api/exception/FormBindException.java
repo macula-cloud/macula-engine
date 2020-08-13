@@ -1,15 +1,18 @@
-package org.macula.cloud.core.exception;
-
-import org.macula.cloud.core.context.CloudApplicationContext;
-import org.macula.cloud.core.protocol.FieldError;
-import org.macula.cloud.core.utils.CloudConstants;
-import org.springframework.util.StringUtils;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
+package org.macula.cloud.api.exception;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.macula.cloud.api.context.CloudApplicationContext;
+import org.macula.cloud.api.protocol.ApiConstants;
+import org.macula.cloud.api.protocol.FieldError;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+
+import lombok.Getter;
+
+@Getter
 public class FormBindException extends MaculaException {
 
 	private static final long serialVersionUID = 1L;
@@ -30,13 +33,11 @@ public class FormBindException extends MaculaException {
 						// 字段级的错误，ObjectName+.+字段名返回错误信息
 						if (!StringUtils.isEmpty(objectError.getObjectName())) {
 							FieldError fieldError = new FieldError(
-									objectError.getObjectName() + "."
-											+ ((org.springframework.validation.FieldError) objectError).getField(),
+									objectError.getObjectName() + "." + ((org.springframework.validation.FieldError) objectError).getField(),
 									CloudApplicationContext.getMessage(objectError));
 							fieldErrors.add(fieldError);
 						} else {
-							FieldError fieldError = new FieldError(
-									((org.springframework.validation.FieldError) objectError).getField(),
+							FieldError fieldError = new FieldError(((org.springframework.validation.FieldError) objectError).getField(),
 									CloudApplicationContext.getMessage(objectError));
 							fieldErrors.add(fieldError);
 						}
@@ -49,32 +50,9 @@ public class FormBindException extends MaculaException {
 		}
 	}
 
-	public BindingResult[] getBindingResults() {
-		// 这里不克隆，减少内存操作
-		return this.bindingResults;
-	}
-
 	@Override
 	public String getParentCode() {
-		return CloudConstants.MACULA_CORE_VALID_CODE;
+		return ApiConstants.MACULA_CORE_VALID_CODE;
 	}
 
-	@Override
-	public String getFullStackMessage() {
-		return fullMessage.toString();
-	}
-
-	/**
-	 * @return the fieldErrors
-	 */
-	public List<FieldError> getFieldErrors() {
-		return fieldErrors;
-	}
-
-	/**
-	 * @return the fullMessage
-	 */
-	public StringBuilder getFullMessage() {
-		return fullMessage;
-	}
 }

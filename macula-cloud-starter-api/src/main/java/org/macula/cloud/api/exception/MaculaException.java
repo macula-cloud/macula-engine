@@ -1,4 +1,4 @@
-package org.macula.cloud.core.exception;
+package org.macula.cloud.api.exception;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
