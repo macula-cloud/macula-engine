@@ -1,9 +1,12 @@
-{
-	"properties": [
-		{
-			"name": "macula.cloud",
-			"type": "org.macula.cloud.core.configure.SDKConfigurationProperties",
-			"description": "Macula Cloud Configurations"
-		}
-	]
-}
+{"properties": [
+  {
+    "name": "macula.cloud",
+    "type": "org.macula.cloud.core.configure.SDKConfigurationProperties",
+    "description": "Macula Cloud Configurations"
+  },
+  {
+    "name": "spring.redis.hosts",
+    "type": "java.lang.String",
+    "description": "J2Cache settings for 'spring.redis.hosts'"
+  }
+]}
