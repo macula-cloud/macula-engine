@@ -18,17 +18,18 @@ public class OAuth2FeignRequestInterceptor extends org.springframework.cloud.sec
 	@Override
 	public void apply(RequestTemplate template) {
 		MethodMetadata methodMeta = template.methodMetadata();
-		OpenApi openApiAnnotation = methodMeta.method().getDeclaringClass().getAnnotation(OpenApi.class);
-		if (openApiAnnotation != null) {
-			return;
-		}
-		if (template.headers().containsKey(AUTHORIZATION)) {
-			return;
-		}
-		try {
-			super.apply(template);
-		} catch (Exception ex) {
-			log.error("Apply OAuth2FeignRequest error: ", ex);
+		OAuth2Api oauth2ApiAnnotation = methodMeta.method().getDeclaringClass().getAnnotation(OAuth2Api.class);
+		if (oauth2ApiAnnotation != null) {
+			String clientId = oauth2ApiAnnotation.clientId();
+			// TODO load OAuth2ProtectedResourceDetails from clientId
+			if (template.headers().containsKey(AUTHORIZATION)) {
+				return;
+			}
+			try {
+				super.apply(template);
+			} catch (Exception ex) {
+				log.error("Apply OAuth2FeignRequest error: ", ex);
+			}
 		}
 	}
 
