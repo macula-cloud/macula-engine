@@ -1,5 +1,7 @@
 package org.macula.cloud.security.configure;
 
+import java.util.List;
+
 import org.macula.cloud.core.configure.CoreConfigurationProperties;
 import org.macula.cloud.security.feign.JWTFeignRequestInterceptor;
 import org.macula.cloud.security.feign.OAuth2FeignRequestInterceptor;
@@ -11,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
+import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
 import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
 
 import feign.RequestInterceptor;
@@ -33,7 +36,7 @@ public class ClientFeignSecurityAutoConfiguration {
 	@ConditionalOnBean(ClientCredentialsResourceDetails.class)
 	@Bean
 	@Order(200)
-	public RequestInterceptor oauth2FeignRequestInterceptor(ClientCredentialsResourceDetails clientDetails) {
+	public RequestInterceptor oauth2FeignRequestInterceptor(List<? extends OAuth2ProtectedResourceDetails> clientDetails) {
 		return new OAuth2FeignRequestInterceptor(new DefaultOAuth2ClientContext(), clientDetails);
 	}
 
