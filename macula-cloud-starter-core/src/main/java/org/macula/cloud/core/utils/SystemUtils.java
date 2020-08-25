@@ -1,6 +1,7 @@
 package org.macula.cloud.core.utils;
 
 import java.time.Instant;
+import java.util.Calendar;
 import java.util.Date;
 
 public final class SystemUtils {
@@ -23,6 +24,17 @@ public final class SystemUtils {
 
 	public static final void setTimeGap(long timeGap) {
 		DB_TIME_GAP = timeGap;
+	}
+
+	public static final Date getTomorrowZeropoint() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(getCurrentTime());
+		calendar.add(Calendar.DAY_OF_YEAR, 1);
+		calendar.set(Calendar.HOUR, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		return calendar.getTime();
 	}
 
 }
