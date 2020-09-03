@@ -1,5 +1,7 @@
 package org.macula.cloud.security.feign;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -36,6 +38,8 @@ public class FeignOpenApiHelper {
 
 	public final static String SIGN_METHOD_HMAC = "hmac";
 
+	private final static String CHAESET = "utf-8";
+
 	public static Map<String, String> createOpenApiSignMap(String clientId, String clientSecret, Map<String, Collection<String>> queries) {
 		TreeMap<String, String> params = new TreeMap<String, String>();
 		params.put(APP_KEY, clientId);
@@ -46,9 +50,9 @@ public class FeignOpenApiHelper {
 			queries.forEach((name, value) -> {
 				List<String> values = new ArrayList<String>(value);
 				Collections.sort(values);
-				StringBuilder combine = new StringBuilder(values.get(0));
+				StringBuilder combine = new StringBuilder(getDecodeValue(values.get(0)));
 				for (int i = 1; i < values.size(); i++) {
-					combine.append(name).append(values.get(i));
+					combine.append(name).append(getDecodeValue(values.get(i)));
 				}
 				candicateParams.put(name, combine.toString());
 			});
@@ -58,4 +62,11 @@ public class FeignOpenApiHelper {
 		return params;
 	}
 
+	protected static String getDecodeValue(String value) {
+		try {
+			return URLDecoder.decode(value, CHAESET);
+		} catch (UnsupportedEncodingException ex) {
+			return value;
+		}
+	}
 }

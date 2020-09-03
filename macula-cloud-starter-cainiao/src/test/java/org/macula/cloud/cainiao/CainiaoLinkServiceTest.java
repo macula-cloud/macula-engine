@@ -1,7 +1,6 @@
 package org.macula.cloud.cainiao;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,10 +20,11 @@ public class CainiaoLinkServiceTest {
 	public void testGetChinaSubDivisions() throws JsonProcessingException {
 		service.initialRestTemplate();
 		log.info("--------------------------- CNDZK_CHINA_SUB_DIVISIONS -------------------");
-		SubDivisionsResponse response = service.getChinaSubDivisions(SubDivisionsRequest.of("1"));
+		SubDivisionsResponse response = service.getChinaSubDivisions(SubDivisionsRequest.of("320584"));
 		response.getDivisionsList().forEach(vo -> {
 			log.info(vo.getDivisionName());
 		});
+		System.out.println(response);
 		Assertions.assertTrue(response.isSuccess());
 	}
 
@@ -65,13 +65,8 @@ public class CainiaoLinkServiceTest {
 	public void testGetDivisionParse() throws JsonProcessingException {
 		service.initialRestTemplate();
 		log.info("--------------------------- CNDZK_DIVISION_PARSE -------------------");
-		Map<Integer, String> areas = new HashMap<Integer, String>();
-		for (int i = 1; i < 2; i++) {
-			DivisionParseResponse response = service
-					.getDivisionParse(DivisionParseRequest.of("广东省广州市海珠区龙凤街道宝岗大道" + i + "号", service.getConfig().getVersion()));
-			areas.put(i, response.getParseDivisionResult().getTown());
-		}
-		System.out.println(areas);
+		DivisionParseResponse response = service.getDivisionParse(DivisionParseRequest.of("中国江苏省苏州市吴江区太湖新城镇", ""));
+		System.out.println(response);
 	}
 
 }
