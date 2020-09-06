@@ -1,7 +1,7 @@
 package org.macula.cloud.core.configure;
 
+import org.macula.cloud.api.context.CloudApplicationContext;
 import org.macula.cloud.core.application.ApplicationId;
-import org.macula.cloud.core.context.CloudApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;

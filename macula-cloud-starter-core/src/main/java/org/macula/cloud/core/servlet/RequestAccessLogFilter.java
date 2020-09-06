@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.macula.cloud.api.context.CloudApplicationContext;
 import org.macula.cloud.core.application.ApplicationId;
-import org.macula.cloud.core.context.CloudApplicationContext;
 import org.macula.cloud.core.domain.AccessLog;
 import org.macula.cloud.core.event.AccessLogEvent;
 import org.macula.cloud.core.event.InstanceProcessEvent;

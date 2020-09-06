@@ -2,7 +2,7 @@ package org.macula.cloud.core;
 
 import java.io.IOException;
 
-import org.macula.cloud.core.context.CloudApplicationContext;
+import org.macula.cloud.api.context.CloudApplicationContext;
 import org.macula.cloud.core.event.BroadcastEvent;
 import org.macula.cloud.core.event.InstanceProcessEvent;
 import org.macula.cloud.core.utils.J2CacheUtils;

@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
+import org.macula.cloud.api.context.CloudApplicationContext;
 import org.macula.cloud.api.exception.MaculaException;
 import org.macula.cloud.api.protocol.Response;
 import org.macula.cloud.core.constant.GlobalConstant;
-import org.macula.cloud.core.context.CloudApplicationContext;
 import org.macula.cloud.core.exception.OpenApiAuthenticationException;
 import org.macula.cloud.core.exception.OpenApiParameterException;
 import org.macula.cloud.core.exception.translator.MaculaExceptionTranslator;

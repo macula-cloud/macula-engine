@@ -6,8 +6,8 @@ import java.util.concurrent.Executors;
 
 import javax.transaction.Transactional;
 
+import org.macula.cloud.api.context.CloudApplicationContext;
 import org.macula.cloud.core.application.ApplicationId;
-import org.macula.cloud.core.context.CloudApplicationContext;
 import org.macula.cloud.core.domain.ServiceInvokeLog;
 import org.macula.cloud.log.annotation.ServiceInvokeProxy;
 import org.macula.cloud.log.event.ServiceInvokeAlarmEvent;
