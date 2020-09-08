@@ -7,7 +7,6 @@ import java.util.Optional;
 
 import javax.annotation.Nullable;
 import javax.persistence.Column;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -18,11 +17,9 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.domain.Auditable;
 import org.springframework.data.domain.Persistable;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.data.util.ProxyUtils;
 
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
 public class LegacyUpdateAuditable<PK extends Serializable> implements Auditable<String, PK, Instant>, Persistable<PK>, Serializable {
 
 	private static final long serialVersionUID = 1L;
