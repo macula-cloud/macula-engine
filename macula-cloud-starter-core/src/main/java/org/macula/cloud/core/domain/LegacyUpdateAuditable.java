@@ -16,8 +16,6 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.domain.Auditable;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -25,7 +23,7 @@ import org.springframework.data.util.ProxyUtils;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class LegacyAuditable<PK extends Serializable> implements Auditable<String, PK, Instant>, Persistable<PK>, Serializable {
+public class LegacyUpdateAuditable<PK extends Serializable> implements Auditable<String, PK, Instant>, Persistable<PK>, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -41,13 +39,10 @@ public class LegacyAuditable<PK extends Serializable> implements Auditable<Strin
 	@Column(name = "LAST_UPDATED_TIME")
 	private Date lastUpdatedTime;
 
-	@CreatedBy
-	@Column(name = "CREATED_BY", nullable = false, length = 50)
+	@Transient
 	private String createdBy;
 
-	@CreatedDate
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATED_TIME", nullable = false)
+	@Transient
 	private Date createdDate;
 
 	@Nullable
@@ -103,7 +98,7 @@ public class LegacyAuditable<PK extends Serializable> implements Auditable<Strin
 			return false;
 		}
 
-		LegacyAuditable<?> that = (LegacyAuditable<?>) obj;
+		LegacyUpdateAuditable<?> that = (LegacyUpdateAuditable<?>) obj;
 
 		return null == this.getId() ? false : this.getId().equals(that.getId());
 	}
@@ -139,13 +134,13 @@ public class LegacyAuditable<PK extends Serializable> implements Auditable<Strin
 		this.deleted = deleted;
 	}
 
-	public LegacyAuditable<PK> clone(LegacyAuditable<PK> entity) {
+	public LegacyUpdateAuditable<PK> clone(LegacyUpdateAuditable<PK> entity) {
 		// entity.setId(getId());
 		entity.setDeleted(isDeleted());
 		return entity;
 	}
 
-	public void cloneId(LegacyAuditable<PK> entity) {
+	public void cloneId(LegacyUpdateAuditable<PK> entity) {
 		entity.setId(getId());
 	}
 
