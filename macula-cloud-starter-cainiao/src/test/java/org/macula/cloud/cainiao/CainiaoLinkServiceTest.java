@@ -65,7 +65,7 @@ public class CainiaoLinkServiceTest {
 	public void testGetDivisionParse() throws JsonProcessingException {
 		service.initialRestTemplate();
 		log.info("--------------------------- CNDZK_DIVISION_PARSE -------------------");
-		DivisionParseResponse response = service.getDivisionParse(DivisionParseRequest.of("中国江苏省苏州市吴江区太湖新城镇", ""));
+		DivisionParseResponse response = service.getDivisionParse(DivisionParseRequest.of("上海市闸北区城区城区中山北路966号30幢101室", "18Q4"));
 		System.out.println(response);
 	}
 

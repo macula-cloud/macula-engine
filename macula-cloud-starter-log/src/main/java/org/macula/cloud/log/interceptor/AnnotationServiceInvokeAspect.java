@@ -2,13 +2,13 @@ package org.macula.cloud.log.interceptor;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.Date;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.macula.cloud.core.domain.ServiceInvokeLog;
+import org.macula.cloud.core.utils.SystemUtils;
 import org.macula.cloud.log.annotation.ServiceInvokeProxy;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.aop.support.AopUtils;
@@ -62,7 +62,7 @@ public class AnnotationServiceInvokeAspect {
 	protected void before(ServiceInvokeProxy serviceInvokeProxy, ServiceInvokeRootObject rootObject, ServiceInvokeLog serviceInvokeLog) {
 		try {
 			log.debug("AnnotationServiceInvokeAspect.before");
-			serviceInvokeLog.setSourceTimestamp(new Date());
+			serviceInvokeLog.setSourceTimestamp(SystemUtils.getCurrentTime());
 			serviceInvokeLogService.processServiceInvokeLog(serviceInvokeProxy, rootObject, serviceInvokeLog, true);
 		} catch (Exception ex) {
 			log.debug("AnnotationServiceInvokeAspect.before error:", ex);
@@ -72,7 +72,7 @@ public class AnnotationServiceInvokeAspect {
 	protected void after(ServiceInvokeProxy serviceInvokeProxy, ServiceInvokeRootObject rootObject, ServiceInvokeLog serviceInvokeLog) {
 		try {
 			log.info("AnnotationServiceInvokeAspect.after");
-			serviceInvokeLog.setTargetTimestamp(new Date());
+			serviceInvokeLog.setTargetTimestamp(SystemUtils.getCurrentTime());
 			serviceInvokeLogService.processServiceInvokeLog(serviceInvokeProxy, rootObject, serviceInvokeLog, false);
 		} catch (Exception ex) {
 			log.error("AnnotationServiceInvokeAspect.after error:", ex);
