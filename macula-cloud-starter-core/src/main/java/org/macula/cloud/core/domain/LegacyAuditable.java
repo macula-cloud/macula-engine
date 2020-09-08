@@ -1,9 +1,7 @@
 package org.macula.cloud.core.domain;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.Date;
-import java.util.Optional;
 
 import javax.annotation.Nullable;
 import javax.persistence.Column;
@@ -15,12 +13,11 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.domain.Auditable;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.util.ProxyUtils;
 
 @MappedSuperclass
-public class LegacyAuditable<PK extends Serializable> implements Auditable<String, PK, Instant>, Persistable<PK>, Serializable {
+public class LegacyAuditable<PK extends Serializable> implements Persistable<PK>, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -41,7 +38,7 @@ public class LegacyAuditable<PK extends Serializable> implements Auditable<Strin
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "CREATED_TIME", nullable = false)
-	private Date createdDate;
+	private Date createdTime;
 
 	@Nullable
 	@Override
@@ -142,54 +139,60 @@ public class LegacyAuditable<PK extends Serializable> implements Auditable<Strin
 		entity.setId(getId());
 	}
 
-	@Override
-	public Optional<String> getCreatedBy() {
-		return Optional.ofNullable(createdBy);
+	/**
+	 * @return the lastUpdatedBy
+	 */
+	public String getLastUpdatedBy() {
+		return lastUpdatedBy;
 	}
 
-	@Override
-	public void setCreatedBy(final String createdBy) {
+	/**
+	 * @param lastUpdatedBy the lastUpdatedBy to set
+	 */
+	public void setLastUpdatedBy(String lastUpdatedBy) {
+		this.lastUpdatedBy = lastUpdatedBy;
+	}
+
+	/**
+	 * @return the lastUpdatedTime
+	 */
+	public Date getLastUpdatedTime() {
+		return lastUpdatedTime;
+	}
+
+	/**
+	 * @param lastUpdatedTime the lastUpdatedTime to set
+	 */
+	public void setLastUpdatedTime(Date lastUpdatedTime) {
+		this.lastUpdatedTime = lastUpdatedTime;
+	}
+
+	/**
+	 * @return the createdBy
+	 */
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	/**
+	 * @param createdBy the createdBy to set
+	 */
+	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
 
-	@Override
-	public Optional<Instant> getCreatedDate() {
-		if (createdDate == null) {
-			return Optional.empty();
-		}
-		return Optional.of(Instant.ofEpochMilli(createdDate.getTime()));
+	/**
+	 * @return the createdTime
+	 */
+	public Date getCreatedTime() {
+		return createdTime;
 	}
 
-	@Override
-	public Optional<String> getLastModifiedBy() {
-		return Optional.ofNullable(lastUpdatedBy);
-	}
-
-	@Override
-	public void setLastModifiedBy(final String lastModifiedBy) {
-		this.lastUpdatedBy = lastModifiedBy;
-	}
-
-	@Override
-	public Optional<Instant> getLastModifiedDate() {
-		if (lastUpdatedTime == null) {
-			return Optional.empty();
-		}
-		return Optional.of(Instant.ofEpochMilli(lastUpdatedTime.getTime()));
-	}
-
-	@Override
-	public void setCreatedDate(Instant creationDate) {
-		if (creationDate != null) {
-			this.createdDate = new Date(creationDate.toEpochMilli());
-		}
-	}
-
-	@Override
-	public void setLastModifiedDate(Instant lastModifiedDate) {
-		if (lastModifiedDate != null) {
-			this.lastUpdatedTime = new Date(lastModifiedDate.toEpochMilli());
-		}
+	/**
+	 * @param createdTime the createdTime to set
+	 */
+	public void setCreatedTime(Date createdTime) {
+		this.createdTime = createdTime;
 	}
 
 }
