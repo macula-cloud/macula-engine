@@ -33,12 +33,6 @@ public class LegacyUpdateable<PK extends Serializable> implements Persistable<PK
 	@Column(name = "LAST_UPDATED_TIME")
 	private Date lastUpdatedTime;
 
-	@Transient
-	private String createdBy;
-
-	@Transient
-	private Date createdTime;
-
 	@Nullable
 	@Override
 	public PK getId() {
@@ -164,34 +158,6 @@ public class LegacyUpdateable<PK extends Serializable> implements Persistable<PK
 	 */
 	public void setLastUpdatedTime(Date lastUpdatedTime) {
 		this.lastUpdatedTime = lastUpdatedTime;
-	}
-
-	/**
-	 * @return the createdBy
-	 */
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	/**
-	 * @param createdBy the createdBy to set
-	 */
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	/**
-	 * @return the createdTime
-	 */
-	public Date getCreatedTime() {
-		return createdTime;
-	}
-
-	/**
-	 * @param createdTime the createdTime to set
-	 */
-	public void setCreatedTime(Date createdTime) {
-		this.createdTime = createdTime;
 	}
 
 }
