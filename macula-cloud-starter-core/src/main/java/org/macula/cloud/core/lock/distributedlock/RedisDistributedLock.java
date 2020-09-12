@@ -3,12 +3,14 @@ package org.macula.cloud.core.lock.distributedlock;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 import org.macula.cloud.core.utils.StringUtils;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.lang.NonNull;
 
+import io.lettuce.core.api.async.RedisAsyncCommands;
 import lombok.extern.slf4j.Slf4j;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
@@ -63,10 +65,25 @@ public class RedisDistributedLock extends AbstractDistributedLock {
 	private boolean setRedis(String key, long expire) {
 		try {
 			String result = redisTemplate.execute((RedisCallback<String>) connection -> {
-				JedisCommands commands = (JedisCommands) connection.getNativeConnection();
 				String value = key + "-" + UUID.randomUUID().toString();
 				lockFlag.set(value);
-				return commands.set(key, value, SetParams.setParams().nx().px(expire));
+				Object nativeConnection = connection.getNativeConnection();
+				if (nativeConnection instanceof JedisCommands) {
+					JedisCommands commands = (JedisCommands) nativeConnection;
+					return commands.set(key, value, SetParams.setParams().nx().px(expire));
+				}
+				if (nativeConnection instanceof RedisAsyncCommands) {
+					@SuppressWarnings("unchecked")
+					RedisAsyncCommands<String, Object> commands = (RedisAsyncCommands<String, Object>) nativeConnection;
+					try {
+						return commands.psetex(key, expire, value).get();
+					} catch (Exception e) {
+					}
+				}
+				if (nativeConnection instanceof JedisCluster) {
+					return ((JedisCluster) nativeConnection).psetex(key, expire, value);
+				}
+				return null;
 			});
 			return !StringUtils.isEmpty(result);
 		} catch (Exception e) {

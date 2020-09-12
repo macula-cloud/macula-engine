@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ConditionalOnProperty(prefix = "macula.cloud", name = "zookeeper.lock", havingValue = "true", matchIfMissing = false)
-public class CloudLockConfigure {
+public class CloudZookeeperLockConfigure {
 
 	@Bean
 	public ZookeeperDistributedLock zookeeperDistributedLock(CuratorFramework curatorFramework) {

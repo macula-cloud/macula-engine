@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
 import org.macula.cloud.core.lock.annotation.RedisLock;
 import org.macula.cloud.core.lock.distributedlock.DistributedLock;
 import org.macula.cloud.core.lock.enums.LockFailedPolicy;
@@ -11,6 +12,7 @@ import org.springframework.lang.NonNull;
 
 import lombok.extern.slf4j.Slf4j;
 
+@Aspect
 @Slf4j
 public class RedisLockAop extends AbstractLockAop {
 
@@ -36,11 +38,9 @@ public class RedisLockAop extends AbstractLockAop {
 		log.debug("get lock success : " + key);
 		try {
 			joinPoint.proceed();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			log.error("execute redis locked method occured an exception", e);
-		}
-		finally {
+		} finally {
 			boolean releaseResult = distributedLock.releaseLock(key);
 			log.debug("release redis lock : " + key + (releaseResult ? " success" : " failed"));
 		}
