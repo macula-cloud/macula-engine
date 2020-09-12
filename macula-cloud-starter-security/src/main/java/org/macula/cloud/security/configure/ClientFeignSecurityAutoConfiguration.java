@@ -7,8 +7,11 @@ import org.macula.cloud.security.feign.JWTFeignRequestInterceptor;
 import org.macula.cloud.security.feign.OAuth2FeignRequestInterceptor;
 import org.macula.cloud.security.feign.OpenApiFeignInterceptor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.openfeign.support.PageJacksonModule;
+import org.springframework.cloud.openfeign.support.SortJacksonModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
@@ -16,9 +19,23 @@ import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
 import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
 
+import com.fasterxml.jackson.databind.Module;
+
 import feign.RequestInterceptor;
 
 public class ClientFeignSecurityAutoConfiguration {
+
+	@Bean
+	@ConditionalOnMissingBean
+	public PageJacksonModule pageJacksonModule() {
+		return new PageJacksonModule();
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public Module sortModule() {
+		return new SortJacksonModule();
+	}
 
 	@Bean
 	@ConditionalOnProperty("security.oauth2.client.client-id")
