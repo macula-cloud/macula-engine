@@ -3,7 +3,6 @@ package org.macula.cloud.core.lock.distributedlock;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 import org.macula.cloud.core.utils.StringUtils;
 import org.springframework.data.redis.core.RedisCallback;
@@ -74,10 +73,11 @@ public class RedisDistributedLock extends AbstractDistributedLock {
 				}
 				if (nativeConnection instanceof RedisAsyncCommands) {
 					@SuppressWarnings("unchecked")
-					RedisAsyncCommands<String, Object> commands = (RedisAsyncCommands<String, Object>) nativeConnection;
+					RedisAsyncCommands<byte[], Object> commands = (RedisAsyncCommands<byte[], Object>) nativeConnection;
 					try {
-						return commands.psetex(key, expire, value).get();
+						return commands.psetex(key.getBytes(), expire, value.getBytes()).get();
 					} catch (Exception e) {
+						e.printStackTrace();
 					}
 				}
 				if (nativeConnection instanceof JedisCluster) {
