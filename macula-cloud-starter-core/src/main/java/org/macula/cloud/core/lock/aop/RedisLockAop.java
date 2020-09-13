@@ -31,7 +31,7 @@ public class RedisLockAop extends AbstractLockAop {
 
 		boolean lock = distributedLock.lock(key, redisLock.expireTime(), retryTimes, redisLock.sleepMills());
 		if (!lock) {
-			log.debug("get lock failed : " + key);
+			log.error("Get lock failed : " + key);
 			return;
 		}
 		// 得到锁,执行方法，释放锁

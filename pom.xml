@@ -22,7 +22,8 @@
 		<spring-cloud.version>Hoxton.SR8</spring-cloud.version>
 		<spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
 		<spring-boot-admin.version>2.3.0</spring-boot-admin.version>
-        <oauth2-version>2.5.0.RELEASE</oauth2-version>
+		<oauth2-version>2.5.0.RELEASE</oauth2-version>
+		<redisson.version>3.13.4</redisson.version>
 		<cas-client.version>3.5.1</cas-client.version>
 		<javase.version>3.4.0</javase.version>
 		<commons-collections.version>4.4</commons-collections.version>
@@ -264,6 +265,11 @@
 				<groupId>org.apache.curator</groupId>
 				<artifactId>curator-recipes</artifactId>
 				<version>${curator.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.redisson</groupId>
+				<artifactId>redisson-spring-boot-starter</artifactId>
+				<version>${redisson.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>io.springfox</groupId>
