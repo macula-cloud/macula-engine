@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.util.CollectionUtils;
 
 import com.aliyun.openservices.ons.api.Consumer;
 import com.aliyun.openservices.ons.api.ONSFactory;
@@ -31,7 +32,13 @@ public class AliMQAutoConfiguration implements ApplicationListener<ContextRefres
 	public Consumer getOrderConsumer(AliMQConfig config, List<AliMQMessageListener> listeners) {
 		this.consumer = ONSFactory.createConsumer(config.getProperties());
 		listeners.forEach(listener -> {
-			this.consumer.subscribe(listener.getTopic(), listener.getSubExpression(), listener);
+			String topic = listener.getTopic();
+			List<String> expressions = listener.getSubExpression();
+			if (topic != null && !CollectionUtils.isEmpty(expressions)) {
+				expressions.forEach(expression -> {
+					this.consumer.subscribe(topic, expression, listener);
+				});
+			}
 		});
 		return this.consumer;
 	}
