@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import com.aliyun.openservices.ons.api.Consumer;
 import com.aliyun.openservices.ons.api.ONSFactory;
@@ -35,9 +36,7 @@ public class AliMQAutoConfiguration implements ApplicationListener<ContextRefres
 			String topic = listener.getTopic();
 			List<String> expressions = listener.getSubExpression();
 			if (topic != null && !CollectionUtils.isEmpty(expressions)) {
-				expressions.forEach(expression -> {
-					this.consumer.subscribe(topic, expression, listener);
-				});
+				this.consumer.subscribe(topic, StringUtils.collectionToDelimitedString(expressions, "||"), listener);
 			}
 		});
 		return this.consumer;
