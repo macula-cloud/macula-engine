@@ -23,26 +23,25 @@ public class RedisLockAop extends AbstractLockAop {
 	}
 
 	@Around("@annotation(redisLock)")
-	public void execute(ProceedingJoinPoint joinPoint, RedisLock redisLock) throws Throwable {
+	public Object execute(ProceedingJoinPoint joinPoint, RedisLock redisLock) throws Throwable {
 		String lockKey = redisLock.value();
 		Method method = getMethod(joinPoint);
 		String key = redisLock.prefix() + ":" + parseKey(lockKey, method, joinPoint.getArgs());
 		int retryTimes = redisLock.action().equals(LockFailedPolicy.CONTINUE) ? redisLock.retryTimes() : 0;
 
 		boolean lock = distributedLock.lock(key, redisLock.expireTime(), retryTimes, redisLock.sleepMills());
-		if (!lock) {
-			log.error("Get lock failed : " + key);
-			return;
+		if (lock) {
+			// 得到锁,执行方法，释放锁
+			log.debug("get lock success : " + key);
+			try {
+				return joinPoint.proceed();
+			} catch (Exception e) {
+				log.error("execute redis locked method occured an exception", e);
+			} finally {
+				boolean releaseResult = distributedLock.releaseLock(key);
+				log.debug("release redis lock : " + key + (releaseResult ? " success" : " failed"));
+			}
 		}
-		// 得到锁,执行方法，释放锁
-		log.debug("get lock success : " + key);
-		try {
-			joinPoint.proceed();
-		} catch (Exception e) {
-			log.error("execute redis locked method occured an exception", e);
-		} finally {
-			boolean releaseResult = distributedLock.releaseLock(key);
-			log.debug("release redis lock : " + key + (releaseResult ? " success" : " failed"));
-		}
+		throw new RuntimeException(String.format("Error get redis distributed lock %s", redisLock.value()));
 	}
 }
