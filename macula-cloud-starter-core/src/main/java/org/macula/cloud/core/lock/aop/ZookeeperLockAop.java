@@ -35,8 +35,6 @@ public class ZookeeperLockAop extends AbstractLockAop {
 			log.debug("get lock success : " + key);
 			try {
 				return joinPoint.proceed();
-			} catch (Exception e) {
-				log.error("execute zookeeper locked method occured an exception", e);
 			} finally {
 				boolean releaseResult = distributedLock.releaseLock(key);
 				log.debug("release zookeeper lock : " + key + (releaseResult ? " success" : " failed"));

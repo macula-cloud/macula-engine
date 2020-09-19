@@ -35,8 +35,6 @@ public class RedisLockAop extends AbstractLockAop {
 			log.debug("get lock success : " + key);
 			try {
 				return joinPoint.proceed();
-			} catch (Exception e) {
-				log.error("execute redis locked method occured an exception", e);
 			} finally {
 				boolean releaseResult = distributedLock.releaseLock(key);
 				log.debug("release redis lock : " + key + (releaseResult ? " success" : " failed"));
