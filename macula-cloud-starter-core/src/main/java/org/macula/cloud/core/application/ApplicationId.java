@@ -1,6 +1,5 @@
 package org.macula.cloud.core.application;
 
-
 import java.io.Serializable;
 
 import org.macula.cloud.core.utils.StringUtils;

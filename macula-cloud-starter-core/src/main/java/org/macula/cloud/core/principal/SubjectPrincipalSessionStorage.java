@@ -1,9 +1,9 @@
 package org.macula.cloud.core.principal;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.macula.cloud.cache.utils.J2CacheUtils;
 import org.macula.cloud.core.session.Session;
 import org.macula.cloud.core.session.Sessions;
-import org.macula.cloud.core.utils.J2CacheUtils;
 import org.macula.cloud.core.utils.SystemUtils;
 
 public class SubjectPrincipalSessionStorage {

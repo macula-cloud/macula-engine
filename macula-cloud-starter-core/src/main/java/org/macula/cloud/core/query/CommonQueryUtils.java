@@ -16,13 +16,12 @@ public class CommonQueryUtils {
 
 	public static final int ORACLE_IN_MAX = 900;
 
-	public static <T> Map<String, Collection<T>> createQuerySegement(String column, Collection<T> list,
-			StringBuilder sql) {
+	public static <T> Map<String, Collection<T>> createQuerySegement(String column, Collection<T> list, StringBuilder sql) {
 		return createQuerySegement(column, TokenCreator.SIMLPLE, list, sql);
 	}
 
-	public static <T> Map<String, Collection<T>> createQuerySegement(String column, TokenCreator tokenCreator,
-			Collection<T> list, StringBuilder sql) {
+	public static <T> Map<String, Collection<T>> createQuerySegement(String column, TokenCreator tokenCreator, Collection<T> list,
+			StringBuilder sql) {
 
 		if (list.size() <= ORACLE_IN_MAX) {
 			String token = tokenCreator.create(column);

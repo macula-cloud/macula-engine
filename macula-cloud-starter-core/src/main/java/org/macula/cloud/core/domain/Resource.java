@@ -16,19 +16,19 @@ public class Resource extends ApplicationAsset {
 
 	@Column(name = "TYPE", nullable = false)
 	private String type;
-	
+
 	@Column(name = "DESCRIPTION", nullable = false)
 	private String description;
-	
+
 	@Column(name = "URL", nullable = false)
 	private String url;
-	
+
 	@Column(name = "ICON", nullable = false)
 	private String icon;
-	
+
 	@Column(name = "IS_VISIBLE", nullable = false)
 	private boolean visible;
-	
+
 	@Column(name = "ORERED", nullable = false)
 	private int ordered;
 

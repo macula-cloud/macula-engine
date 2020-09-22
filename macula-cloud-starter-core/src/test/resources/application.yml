@@ -6,14 +6,8 @@ macula:
          oauth2: true
       event:
          kafka: ${KAFKA_EVENT_ENABLE:true}
-      zookeeper:
-         zk-servers: ${ZOOKEEPER_SERVER:172.20.72.133:2181}
-         session-timeout: 20000
-         lock: ${ZOOKEEPER_LOCK_ENABLE:false}
       cat:
          enable: ${CAT_ENABLE:true}
-      cache:
-         j2cache: ${J2CACHE_ENABLE:true}
       providers:
       -  appId: macula-cloud-demo-provider
          appKey: ${APP_KEY:MCwwDQYJKoZIhvcNAQEBBQADGwAwGAIRAKV9f6m/4vyOrpOdBCPKmBcCAwEAAQ==}

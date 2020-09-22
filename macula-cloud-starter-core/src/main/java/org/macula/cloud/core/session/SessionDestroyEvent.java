@@ -1,6 +1,5 @@
 package org.macula.cloud.core.session;
 
-
 import org.macula.cloud.core.event.MaculaEvent;
 
 public class SessionDestroyEvent extends MaculaEvent<Session> {

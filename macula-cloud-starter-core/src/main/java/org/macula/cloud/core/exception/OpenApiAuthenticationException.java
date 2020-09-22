@@ -29,8 +29,7 @@ public class OpenApiAuthenticationException extends MaculaException {
 		setRequest(request, response);
 	}
 
-	public OpenApiAuthenticationException(HttpServletRequest request, HttpServletResponse response, String message,
-			Throwable ex) {
+	public OpenApiAuthenticationException(HttpServletRequest request, HttpServletResponse response, String message, Throwable ex) {
 		super(message, ex);
 		setRequest(request, response);
 	}
@@ -45,8 +44,7 @@ public class OpenApiAuthenticationException extends MaculaException {
 		// 以便getMessage时可以得到Locale
 		RequestAttributes previousRequestAttributes = RequestContextHolder.getRequestAttributes();
 		ServletRequestAttributes requestAttributes = null;
-		if (previousRequestAttributes == null
-				|| previousRequestAttributes.getClass().equals(ServletRequestAttributes.class)) {
+		if (previousRequestAttributes == null || previousRequestAttributes.getClass().equals(ServletRequestAttributes.class)) {
 			requestAttributes = new ServletRequestAttributes(request);
 			RequestContextHolder.setRequestAttributes(requestAttributes, false);
 		}
@@ -54,8 +52,8 @@ public class OpenApiAuthenticationException extends MaculaException {
 		// 处理请求中的locale参数
 		String newLocale = request.getParameter(LocaleChangeInterceptor.DEFAULT_PARAM_NAME);
 		if (newLocale != null) {
-			LocaleResolver localeResolver = CloudApplicationContext.getContainer()
-					.getBean(DispatcherServlet.LOCALE_RESOLVER_BEAN_NAME, LocaleResolver.class);
+			LocaleResolver localeResolver = CloudApplicationContext.getContainer().getBean(DispatcherServlet.LOCALE_RESOLVER_BEAN_NAME,
+					LocaleResolver.class);
 			if (localeResolver != null) {
 				request.setAttribute(DispatcherServlet.LOCALE_RESOLVER_ATTRIBUTE, localeResolver);
 				localeResolver.setLocale(request, response, StringUtils.parseLocaleString(newLocale));

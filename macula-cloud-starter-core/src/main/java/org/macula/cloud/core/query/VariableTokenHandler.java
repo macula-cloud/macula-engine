@@ -40,8 +40,7 @@ public class VariableTokenHandler implements TokenHandler {
 		if (result instanceof Collection) {
 			List<String> stringList = new ArrayList<String>();
 			for (Object item : (Collection<?>) result) {
-				String itemValue = ExpressionUtils.convertTypedValue(evaluationContext, new TypedValue(item),
-						String.class);
+				String itemValue = ExpressionUtils.convertTypedValue(evaluationContext, new TypedValue(item), String.class);
 				itemValue = filter(itemValue, useQuote);
 				stringList.add(itemValue);
 			}
@@ -52,8 +51,7 @@ public class VariableTokenHandler implements TokenHandler {
 			return ExpressionUtils.convertTypedValue(evaluationContext, new TypedValue(result), String.class);
 		}
 
-		return filter(ExpressionUtils.convertTypedValue(evaluationContext, new TypedValue(result), String.class),
-				useQuote);
+		return filter(ExpressionUtils.convertTypedValue(evaluationContext, new TypedValue(result), String.class), useQuote);
 	}
 
 	protected boolean isUseQuote(String content) {

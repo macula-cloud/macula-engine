@@ -18,8 +18,7 @@ public class UserSessionArgumentResolver implements HandlerMethodArgumentResolve
 	private final HttpSessionIdResolver sessionIdResolver;
 	private final SubjectPrincipalSessionStorage sessionStorage;
 
-	public UserSessionArgumentResolver(SubjectPrincipalSessionStorage sessionStorage,
-			HttpSessionIdResolver sessionIdResolver) {
+	public UserSessionArgumentResolver(SubjectPrincipalSessionStorage sessionStorage, HttpSessionIdResolver sessionIdResolver) {
 		this.sessionIdResolver = sessionIdResolver;
 		this.sessionStorage = sessionStorage;
 	}
@@ -30,10 +29,9 @@ public class UserSessionArgumentResolver implements HandlerMethodArgumentResolve
 	}
 
 	@Override
-	public Session resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-			NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-		List<String> sessionIds = sessionIdResolver
-				.resolveSessionIds((HttpServletRequest) webRequest.getNativeRequest());
+	public Session resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest,
+			WebDataBinderFactory binderFactory) throws Exception {
+		List<String> sessionIds = sessionIdResolver.resolveSessionIds((HttpServletRequest) webRequest.getNativeRequest());
 		for (String sessionId : sessionIds) {
 			Session userSession = sessionStorage.checkoutSession(sessionId);
 			if (userSession != null) {

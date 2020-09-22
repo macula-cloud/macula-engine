@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.macula.cloud.core.lock.annotation.ZookeeperLock;
+import org.macula.cloud.core.annotation.RedisLock;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.Ordered;
 
@@ -23,7 +23,7 @@ public class SubjectPrincipalCreatedListener implements ApplicationListener<Subj
 	}
 
 	@Override
-	@ZookeeperLock(value = "SubjectPrincipalCreatedListener")
+	@RedisLock(prefix = "SubjectPrincipalCreatedListener", value = "#event.guid")
 	public void onApplicationEvent(SubjectPrincipalCreatedEvent event) {
 		String guid = event.getSource();
 		SubjectPrincipal subjectPrincipal = sessionStorage.checkoutPrincipal(guid);

@@ -61,10 +61,9 @@ public class SysCompany implements Serializable {
 		this.name = name;
 	}
 
-	public SysCompany(Long id, Long createBy, Date createTime, Long updateBy, Date updateTime, String name,
-			String shortName, String englishName, String code, String legalPerson, String businessLicense,
-			String contact, String phone, String mail, String address, String source, Date effectiveTime,
-			Date inactiveTime, Integer isEnabled, Integer isDeleted, String comments) {
+	public SysCompany(Long id, Long createBy, Date createTime, Long updateBy, Date updateTime, String name, String shortName, String englishName,
+			String code, String legalPerson, String businessLicense, String contact, String phone, String mail, String address, String source,
+			Date effectiveTime, Date inactiveTime, Integer isEnabled, Integer isDeleted, String comments) {
 		this.id = id;
 		this.createBy = createBy;
 		this.createTime = createTime;

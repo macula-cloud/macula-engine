@@ -12,10 +12,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @EnableConfigurationProperties(CoreConfigurationProperties.class)
-@Import({
-		// CloudEventKafkaConfigure.class,
-		CloudCacheConfigure.class, CloudJpaConfigure.class, CloudRedisLockConfigure.class, CloudZookeeperLockConfigure.class,
-		CloudPrincipalSessionConfigure.class })
+@Import({ CloudJpaConfigure.class, CloudRedisLockConfigure.class, CloudPrincipalSessionConfigure.class })
 @ComponentScan({ "org.macula.cloud.core", "org.macula.cloud.security" })
 public class CloudConfiguration {
 

@@ -3,9 +3,9 @@ package org.macula.cloud.core;
 import java.io.IOException;
 
 import org.macula.cloud.api.context.CloudApplicationContext;
+import org.macula.cloud.cache.utils.J2CacheUtils;
 import org.macula.cloud.core.event.BroadcastEvent;
 import org.macula.cloud.core.event.InstanceProcessEvent;
-import org.macula.cloud.core.utils.J2CacheUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -33,9 +33,9 @@ public class CorePackageApplication {
 		InstanceProcessEvent<?> instanceValue = J2CacheUtils.get(J2CacheUtils.CACHE_REGION, "my-instance-event");
 		System.out.println("====二级缓存==== broadcastEvent: " + broadcastValue + " instanceEvent: " + instanceValue);
 
-		TestZookeeperLock testLock = CloudApplicationContext.getContainer().getBean(TestZookeeperLock.class);
-		testLock.testZookeeperLock();
-
+		TestRedisLock testLock = CloudApplicationContext.getContainer().getBean(TestRedisLock.class);
+		String result = testLock.testRedisLock();
+		System.out.println("TestLock get Result: " + result);
 		CloudApplicationContext.getContainer().publishEvent(broadcastEvent);
 
 	}

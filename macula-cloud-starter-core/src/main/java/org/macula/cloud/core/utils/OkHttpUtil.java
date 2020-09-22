@@ -18,16 +18,14 @@ public final class OkHttpUtil {
 	private static final int READ_TIMEOUT = 3000000;
 	private static final int HTTP_STATUS_INTERNEL_SERVER_ERROR = 500;
 
-	private static final OkHttpClient client = (new OkHttpClient()).newBuilder()
-			.connectTimeout(OkHttpUtil.CONN_TIMEOUT, TimeUnit.MILLISECONDS)
+	private static final OkHttpClient client = (new OkHttpClient()).newBuilder().connectTimeout(OkHttpUtil.CONN_TIMEOUT, TimeUnit.MILLISECONDS)
 			.readTimeout(OkHttpUtil.READ_TIMEOUT, TimeUnit.MILLISECONDS).build();
 
 	public static String get(String url) throws IOException {
 		Request request = (new Builder()).url(url).build();
 		Response response = client.newCall(request).execute();
 		if (OkHttpUtil.HTTP_STATUS_INTERNEL_SERVER_ERROR == response.code()) {
-			throw new RuntimeException(
-					String.format("Call url [%s], response : [%s] code [500]", url, response.body().string()));
+			throw new RuntimeException(String.format("Call url [%s], response : [%s] code [500]", url, response.body().string()));
 		}
 		return response.body().string();
 	}

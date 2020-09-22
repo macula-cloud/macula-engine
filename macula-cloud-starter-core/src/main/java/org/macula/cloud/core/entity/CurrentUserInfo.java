@@ -23,8 +23,8 @@ public class CurrentUserInfo {
 	public CurrentUserInfo() {
 	}
 
-	public CurrentUserInfo(Long userId, String username, String email, String phone, String employeeId, String company,
-			String department, String origin) {
+	public CurrentUserInfo(Long userId, String username, String email, String phone, String employeeId, String company, String department,
+			String origin) {
 		this.userId = userId;
 		this.username = username;
 		this.email = email;

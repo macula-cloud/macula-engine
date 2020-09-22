@@ -61,10 +61,9 @@ public class UserVO implements Serializable {
 	public UserVO() {
 	}
 
-	public UserVO(Long createBy, Date createTime, Long updateBy, Date updateTime, String userName, String fullName,
-			String nickName, String password, String sex, String code, Date birthday, String grade, String position,
-			String phone, String mail, String imageUrl, String source, Integer isEnabled, Integer isDeleted,
-			String comments, SysDepartment department, List<Role> roles, Long companyId, SysCompany company) {
+	public UserVO(Long createBy, Date createTime, Long updateBy, Date updateTime, String userName, String fullName, String nickName, String password,
+			String sex, String code, Date birthday, String grade, String position, String phone, String mail, String imageUrl, String source,
+			Integer isEnabled, Integer isDeleted, String comments, SysDepartment department, List<Role> roles, Long companyId, SysCompany company) {
 		this.createBy = createBy;
 		this.createTime = createTime;
 		this.updateBy = updateBy;

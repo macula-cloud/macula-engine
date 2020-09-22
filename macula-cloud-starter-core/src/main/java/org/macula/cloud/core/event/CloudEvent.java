@@ -8,7 +8,7 @@ import org.springframework.context.ApplicationEvent;
  * <b>AsyncMaculaEvent</b> 异步响应事件，和发送事件方不在同一个线程中
  * </p>
  */
-abstract class CloudEvent<T extends ApplicationEvent> extends MaculaEvent<T> {
+public abstract class CloudEvent<T extends ApplicationEvent> extends MaculaEvent<T> {
 
 	private static final long serialVersionUID = 1L;
 

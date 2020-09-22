@@ -1,8 +1,8 @@
 package org.macula.cloud.security.authentication;
 
+import org.macula.cloud.cache.utils.J2CacheUtils;
 import org.macula.cloud.core.configure.CoreConfigurationProperties;
 import org.macula.cloud.core.configure.model.SecurityProperties;
-import org.macula.cloud.core.utils.J2CacheUtils;
 import org.springframework.stereotype.Service;
 
 @Service

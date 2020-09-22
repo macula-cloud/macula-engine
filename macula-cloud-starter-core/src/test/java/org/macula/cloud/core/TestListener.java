@@ -9,11 +9,10 @@ import org.springframework.stereotype.Component;
  * @Description:
  */
 @Component
-public class TestListener  implements ApplicationListener<TestBroadcastMessage>{
+public class TestListener implements ApplicationListener<TestBroadcastMessage> {
 
-
-    @Override
-    public void onApplicationEvent(TestBroadcastMessage testBroadcastMessage) {
-        System.out.println("=============TestListener============"+testBroadcastMessage.getSource());
-    }
+	@Override
+	public void onApplicationEvent(TestBroadcastMessage testBroadcastMessage) {
+		System.out.println("=============TestListener============" + testBroadcastMessage.getSource());
+	}
 }

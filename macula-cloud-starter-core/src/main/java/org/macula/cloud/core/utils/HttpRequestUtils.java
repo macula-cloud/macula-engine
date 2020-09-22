@@ -6,6 +6,7 @@ import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.macula.cloud.cache.utils.J2CacheUtils;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.util.UriUtils;
 

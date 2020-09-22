@@ -2,8 +2,8 @@ package org.macula.cloud.core.event;
 
 import java.util.UUID;
 
+import org.macula.cloud.cache.utils.J2CacheUtils;
 import org.macula.cloud.core.application.ApplicationId;
-import org.macula.cloud.core.utils.J2CacheUtils;
 import org.springframework.context.ApplicationEvent;
 
 /**

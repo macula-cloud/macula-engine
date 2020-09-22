@@ -11,8 +11,7 @@ public class EvaluationContextUtils {
 
 	public static EvaluationContext createEvaluationContext(SubjectPrincipal subjectPrincipal) {
 		EvaluationContext evalutionContext = new StandardEvaluationContext(subjectPrincipal);
-		evalutionContext.getPropertyAccessors()
-				.add(new CustomMethodPropertyAccessor(SubjectPrincipal.class, "getUserProperty", null));
+		evalutionContext.getPropertyAccessors().add(new CustomMethodPropertyAccessor(SubjectPrincipal.class, "getUserProperty", null));
 		return evalutionContext;
 	}
 

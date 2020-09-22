@@ -66,11 +66,10 @@ public class Role implements Serializable {
 		this.parentId = parentId;
 	}
 
-	public Role(Long id, Long createBy, Date createTime, Long updateBy, Date updateTime, String code, String name,
-			Long parentId, Integer isExtends, Long extendsFrom, Integer isAssignable, Long isResignable,
-			Integer isGroup, Integer isExecutable, Integer isRuleRole, String ruleExpresssion, Long companyId,
-			String comments, Integer dataAuthority, List<Long> permissionIds, List<Long> menuIds, Long[] parentList,
-			String parentListStr) {
+	public Role(Long id, Long createBy, Date createTime, Long updateBy, Date updateTime, String code, String name, Long parentId, Integer isExtends,
+			Long extendsFrom, Integer isAssignable, Long isResignable, Integer isGroup, Integer isExecutable, Integer isRuleRole,
+			String ruleExpresssion, Long companyId, String comments, Integer dataAuthority, List<Long> permissionIds, List<Long> menuIds,
+			Long[] parentList, String parentListStr) {
 		this.id = id;
 		this.createBy = createBy;
 		this.createTime = createTime;

@@ -46,8 +46,7 @@ public class QueryBuilder {
 	private void build() {
 		for (Map.Entry<TokenHolder, TokenHandler> entry : tokenHandlers.entrySet()) {
 			TokenHolder holder = entry.getKey();
-			GenericTokenParser parse = new GenericTokenParser(holder.getOpenToken(), holder.getCloseToken(),
-					entry.getValue());
+			GenericTokenParser parse = new GenericTokenParser(holder.getOpenToken(), holder.getCloseToken(), entry.getValue());
 			query = parse.parse(query);
 		}
 	}

@@ -12,4 +12,19 @@
 
 	<artifactId>macula-cloud-starter-event</artifactId>
 
+	<dependencies>
+		<dependency>
+			<groupId>macula-cloud</groupId>
+			<artifactId>macula-cloud-starter-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-stream-kafka</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream-binder-kafka</artifactId>
+		</dependency>
+	</dependencies>
+
 </project>
