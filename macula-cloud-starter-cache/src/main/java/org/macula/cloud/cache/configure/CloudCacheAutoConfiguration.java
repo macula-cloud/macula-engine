@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @AutoConfigureAfter(RedisAutoConfiguration.class)
-public class CloudCacheAutoConfigure extends MultiCacheAutoConfig {
+public class CloudCacheAutoConfiguration extends MultiCacheAutoConfig {
 
 	@Bean
 	public J2CacheUtils j2CacheUtils(CacheManager cacheManager) {
