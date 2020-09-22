@@ -1,10 +1,10 @@
-package org.macula.cloud.log;
+package org.macula.cloud.log.test;
 
 import org.macula.cloud.log.annotation.ServiceInvokeProxy;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MyServiceInvokeLog {
+public class MyServiceTest implements ServiceTest {
 
 	@ServiceInvokeProxy
 	public String getName(String name) {

@@ -5,11 +5,17 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.macula.cloud.api.context.CloudApplicationContext;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-public class ServletApplicationContext {
+public class ServletApplicationContext extends CloudApplicationContext {
+
+	static {
+		CloudApplicationContext.setDelegate(new ServletApplicationContext());
+	}
+
 	/**
 	 * 获取当前HTTP请求的Request，只有在HTTP请求线程中调用生效
 	 */

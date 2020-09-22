@@ -1,12 +1,15 @@
 
 package org.macula.cloud.api.context;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Locale;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.context.NoSuchMessageException;
+import org.springframework.util.ReflectionUtils;
 
 /**
  * <p>
@@ -16,7 +19,8 @@ import org.springframework.context.NoSuchMessageException;
 public class CloudApplicationContext {
 
 	/** Spring container */
-	protected static ApplicationContext container;
+	private static ApplicationContext container;
+	private static Object delegate;
 
 	/**
 	 * 获取bean
@@ -83,8 +87,7 @@ public class CloudApplicationContext {
 	 * @return i18n字符串
 	 */
 	public static String getMessage(String code, Object[] args) {
-		// Locale locale = getCurrentUserLocale();
-		Locale locale = null;
+		Locale locale = getCurrentUserLocale();
 		if (null == locale) {
 			// 获取操作系统默认的地区
 			locale = Locale.getDefault();
@@ -139,13 +142,26 @@ public class CloudApplicationContext {
 	}
 
 	public static String getMessage(MessageSourceResolvable messagesourceresolvable) {
-		// Locale locale = getCurrentUserLocale();
-		Locale locale = null;
+		Locale locale = getCurrentUserLocale();
 		if (null == locale) {
 			// 获取操作系统默认的地区
 			locale = Locale.getDefault();
 		}
 		return getMessage(messagesourceresolvable, locale);
+	}
+
+	public static Locale getCurrentUserLocale() {
+		if (delegate != null) {
+			try {
+				Method method = ReflectionUtils.findMethod(delegate.getClass(), "getCurrentUserLocale");
+				if (method != null) {
+					return (Locale) method.invoke(delegate);
+				}
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			}
+		}
+		return null;
+
 	}
 
 	public static synchronized ApplicationContext getContainer() {
@@ -154,5 +170,12 @@ public class CloudApplicationContext {
 
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		container = applicationContext;
+	}
+
+	/**
+	 * @param delegate the delegate to set
+	 */
+	public static void setDelegate(Object delegate) {
+		CloudApplicationContext.delegate = delegate;
 	}
 }

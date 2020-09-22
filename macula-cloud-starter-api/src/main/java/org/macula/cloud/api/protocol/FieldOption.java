@@ -17,9 +17,9 @@ public class FieldOption implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final String ID = "id";
-	public static final String CODE = "code";
-	public static final String LABEL = "label";
+	public static final String ID_PARAM = "id";
+	public static final String CODE_PARAM = "code";
+	public static final String LABEL_PARAM = "label";
 
 	private Object id;
 	private Object code;

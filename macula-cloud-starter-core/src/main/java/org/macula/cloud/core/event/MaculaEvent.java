@@ -14,19 +14,17 @@ public abstract class MaculaEvent<T extends Serializable> extends ApplicationEve
 
 	private static final long serialVersionUID = 1L;
 
-	protected T source;
-
 	/** Application Scope **/
 	protected List<String> scope;
 
 	public MaculaEvent(T source) {
 		super(source);
-		this.source = source;
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public T getSource() {
-		return source;
+		return (T) source;
 	}
 
 	public List<String> getScope() {
