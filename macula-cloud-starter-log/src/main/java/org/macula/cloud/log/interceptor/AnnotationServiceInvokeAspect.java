@@ -61,7 +61,6 @@ public class AnnotationServiceInvokeAspect {
 
 	protected void before(ServiceInvokeProxy serviceInvokeProxy, ServiceInvokeRootObject rootObject, ServiceInvokeLog serviceInvokeLog) {
 		try {
-			log.debug("AnnotationServiceInvokeAspect.before");
 			serviceInvokeLog.setSourceTimestamp(SystemUtils.getCurrentTime());
 			serviceInvokeLogService.processServiceInvokeLog(serviceInvokeProxy, rootObject, serviceInvokeLog, true);
 		} catch (Exception ex) {
