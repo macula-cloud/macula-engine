@@ -15,6 +15,10 @@ public final class SystemUtils {
 		return new Date(System.currentTimeMillis() + DB_TIME_GAP);
 	}
 
+	public static Date getDate(long timestamp) {
+		return new Date(timestamp + DB_TIME_GAP);
+	}
+
 	/**
 	 * 获取当前时间.
 	 */
