@@ -7,6 +7,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.macula.cloud.core.application.ApplicationId;
 import org.macula.cloud.core.domain.ServiceInvokeLog;
 import org.macula.cloud.core.utils.SystemUtils;
 import org.macula.cloud.log.annotation.ServiceInvokeProxy;
@@ -29,7 +30,7 @@ public class AnnotationServiceInvokeAspect {
 	@Around("@annotation(serviceInvokeProxy)")
 	public Object around(ProceedingJoinPoint joinPoint, ServiceInvokeProxy serviceInvokeProxy) throws Throwable {
 		ServiceInvokeLog serviceInvokeLog = new ServiceInvokeLog();
-		serviceInvokeLog.setTransactionId(Thread.currentThread().getName());
+		serviceInvokeLog.setTransactionId(Thread.currentThread().getName() + "@" + ApplicationId.current().getApplicationKey());
 		ServiceInvokeRootObject rootObject = createInvokeContext(joinPoint);
 		before(serviceInvokeProxy, rootObject, serviceInvokeLog);
 		Object result = null;
