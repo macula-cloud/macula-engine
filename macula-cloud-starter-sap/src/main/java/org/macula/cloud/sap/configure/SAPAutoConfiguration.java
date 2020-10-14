@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibersap.annotations.Bapi;
 import org.hibersap.configuration.AnnotationConfiguration;
 import org.hibersap.configuration.xml.SessionManagerConfig;
@@ -22,6 +23,9 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.util.ClassUtils;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Configuration
 @EnableConfigurationProperties(JcoConfig.class)
 public class SAPAutoConfiguration {
@@ -30,8 +34,23 @@ public class SAPAutoConfiguration {
 	public SessionManagerConfig createSessionManagerConfig(JcoConfig config) {
 		SessionManagerConfig sessionManagerConfig = new SessionManagerConfig(config.getName()).setContext(JCoContext.class.getName());
 		for (Entry<String, String> entry : config.getProps().entrySet()) {
-			sessionManagerConfig.setProperty(entry.getKey(), entry.getValue());
+			String key = entry.getKey();
+			String value = entry.getValue();
+			if (!key.contains("-")) {
+				log.info("Set property {} -> {} ", key, value);
+				sessionManagerConfig.setProperty(entry.getKey(), value);
+			}
 		}
+		for (Entry<String, String> entry : config.getProps().entrySet()) {
+			String key = entry.getKey();
+			String value = entry.getValue();
+			if (key.contains("-")) {
+				key = StringUtils.replaceChars(entry.getKey(), '-', '.');
+				log.info("Set property {} -> {} ", key, value);
+				sessionManagerConfig.setProperty(entry.getKey(), value);
+			}
+		}
+
 		Map<String, String> bapis = getBapiMap(config);
 		for (Map.Entry<String, String> entry : bapis.entrySet()) {
 			String className = entry.getValue();
