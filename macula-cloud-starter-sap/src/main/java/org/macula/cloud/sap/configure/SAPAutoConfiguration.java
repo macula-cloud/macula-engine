@@ -34,7 +34,7 @@ public class SAPAutoConfiguration {
 	public SessionManagerConfig createSessionManagerConfig(JcoConfig config) {
 		SessionManagerConfig sessionManagerConfig = new SessionManagerConfig(config.getName()).setContext(JCoContext.class.getName());
 		for (Entry<String, String> entry : config.getProps().entrySet()) {
-			String key = entry.getKey();
+			String key = entry.getKey().toLowerCase();
 			String value = entry.getValue();
 			if (!key.contains("-")) {
 				log.info("Set property {} -> {} ", key, value);
@@ -42,7 +42,7 @@ public class SAPAutoConfiguration {
 			}
 		}
 		for (Entry<String, String> entry : config.getProps().entrySet()) {
-			String key = entry.getKey();
+			String key = entry.getKey().toLowerCase();
 			String value = entry.getValue();
 			if (key.contains("-")) {
 				key = StringUtils.replaceChars(entry.getKey(), '-', '.');
