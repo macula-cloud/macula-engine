@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.macula.cloud.core.configure.model.ApplicationProperties;
-import org.macula.cloud.core.configure.model.CacheProperties;
 import org.macula.cloud.core.configure.model.CatProperties;
 import org.macula.cloud.core.configure.model.EventProperties;
 import org.macula.cloud.core.configure.model.FeignProperties;
@@ -35,9 +34,6 @@ public class CoreConfigurationProperties implements Serializable {
 
 	@NestedConfigurationProperty
 	private EventProperties event = new EventProperties();
-
-	@NestedConfigurationProperty
-	private CacheProperties cache = new CacheProperties();
 
 	@NestedConfigurationProperty
 	private ZookeeperProperties zookeeper = new ZookeeperProperties();
