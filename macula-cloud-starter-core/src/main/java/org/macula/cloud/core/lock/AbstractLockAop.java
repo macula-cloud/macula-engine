@@ -3,6 +3,8 @@ package org.macula.cloud.core.lock;
 import java.lang.reflect.Method;
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.context.expression.MethodBasedEvaluationContext;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.expression.ExpressionParser;
@@ -26,15 +28,16 @@ public class AbstractLockAop {
 	 * @return
 	 */
 	Method getMethod(ProceedingJoinPoint pjp) {
-		// 获取参数的类型
-		Object[] args = pjp.getArgs();
-		Class<?>[] argTypes = new Class[pjp.getArgs().length];
-		for (int i = 0; i < args.length; i++) {
-			argTypes[i] = args[i].getClass();
+		Signature sig = pjp.getSignature();
+		MethodSignature msig = null;
+		if (!(sig instanceof MethodSignature)) {
+			throw new IllegalArgumentException("该注解只能用于方法");
 		}
+		msig = (MethodSignature) sig;
+		Object target = pjp.getTarget();
 		Method method = null;
 		try {
-			method = pjp.getTarget().getClass().getMethod(pjp.getSignature().getName(), argTypes);
+			method = target.getClass().getMethod(msig.getName(), msig.getParameterTypes());
 		} catch (NoSuchMethodException e) {
 			log.error("GetMethod error:", e);
 		}

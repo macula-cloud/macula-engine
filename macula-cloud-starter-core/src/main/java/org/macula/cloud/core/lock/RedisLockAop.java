@@ -10,13 +10,16 @@ import org.macula.cloud.core.annotation.RedisLock;
 import org.macula.cloud.core.annotation.RedisLock.LockFailedPolicy;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Aspect
 @Slf4j
+@Aspect
 @AllArgsConstructor
+@Order(Ordered.HIGHEST_PRECEDENCE + 100)
 public class RedisLockAop extends AbstractLockAop {
 
 	private RedissonClient redissonClient;
