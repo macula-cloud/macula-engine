@@ -60,6 +60,7 @@
 		<module>macula-cloud-starter-br</module>
 		<module>macula-cloud-starter-cainiao</module>
 		<module>macula-cloud-starter-api</module>
+		<module>macula-cloud-starter-data</module>
 	</modules>
 
 	<dependencyManagement>
@@ -82,6 +83,11 @@
 			<dependency>
 				<groupId>macula-cloud</groupId>
 				<artifactId>macula-cloud-starter-log</artifactId>
+				<version>${macula-cloud-starters.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>macula-cloud</groupId>
+				<artifactId>macula-cloud-starter-data</artifactId>
 				<version>${macula-cloud-starters.version}</version>
 			</dependency>
 			<dependency>

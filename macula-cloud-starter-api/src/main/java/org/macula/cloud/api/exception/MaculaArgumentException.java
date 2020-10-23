@@ -8,14 +8,14 @@ import org.macula.cloud.api.protocol.ApiConstants;
  * </p>
  * 
  */
-public class ApiArgumentException extends MaculaException {
+public class MaculaArgumentException extends MaculaException {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @param ex
 	 */
-	public ApiArgumentException(IllegalArgumentException ex) {
+	public MaculaArgumentException(IllegalArgumentException ex) {
 		super(ex.getMessage(), ex);
 	}
 
@@ -23,7 +23,7 @@ public class ApiArgumentException extends MaculaException {
 	 * @param code
 	 * @param args
 	 */
-	public ApiArgumentException(String code, Object... args) {
+	public MaculaArgumentException(String code, Object... args) {
 		super(code, args);
 	}
 

@@ -155,11 +155,17 @@ public class SubjectPrincipal extends User implements Principal, Serializable {
 		// TODO
 	}
 
-	public void addAdditionInfo(Map<String, Serializable> properties) {
+	public SubjectPrincipal addAdditionInfo(Map<String, ?> properties) {
 		// TODO  
+		return this;
 	}
 
 	public void addAuthority(String string) {
 		// TODO Auto-generated method stub
+	}
+
+	public Object resolve(String string) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
