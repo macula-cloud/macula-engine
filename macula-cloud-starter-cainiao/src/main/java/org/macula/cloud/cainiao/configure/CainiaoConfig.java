@@ -19,9 +19,9 @@ import lombok.Setter;
 @ConfigurationProperties("macula.cloud.cainiao")
 public class CainiaoConfig {
 
-	private String appKey = "348295";
-	private String secretKey = "2sf48559Wp2eI86757P1h7DFsICE54Hs";
-	private String providerId = "746ef6ea271c4aecf69e6ed458964f9c";
+	private String appKey;
+	private String secretKey;
+	private String providerId;
 	private String url = "https://link.cainiao.com/gateway/link.do";
 	private String version = "18Q4";
 	private String publishVersion = "20190509001";

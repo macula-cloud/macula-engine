@@ -12,7 +12,7 @@
 
 	<properties>
 		<hibersap.version>1.4.0</hibersap.version>
-		<sapjco3.version>3.0.19</sapjco3.version>
+		<sapjco3.version>3.0.0</sapjco3.version>
 	</properties>
 
 	<dependencies>
