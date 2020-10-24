@@ -10,6 +10,7 @@ import lombok.Setter;
 public class ServiceProviderProperties implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
 	private String appId;
 
 	private String appKey;
