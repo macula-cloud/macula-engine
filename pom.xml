@@ -56,7 +56,7 @@
 		<jasypt.version>3.0.3</jasypt.version>
 		<hutool.version>5.4.2</hutool.version>
 		<guava.version>28.2-jre</guava.version>
-		<docker.registry>registry.cn-hangzhou.aliyuncs.com</docker.registry>
+		<docker.registry>registry.cn-shanghai.aliyuncs.com</docker.registry>
 	</properties>
 
 	<modules>
@@ -314,6 +314,19 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>macula-cloud-nexus</id>
+			<name>ReleasesProxy</name>
+			<url>${env.NEXUS_REPO_RELEASE_URL}</url>
+		</repository>
+		<snapshotRepository>
+			<id>macula-cloud-nexus</id>
+			<name>SnapshotsProxy</name>
+			<url>${env.NEXUS_REPO_SNAPSHOT_URL}</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 
 </project>
