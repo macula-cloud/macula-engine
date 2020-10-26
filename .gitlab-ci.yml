@@ -1,8 +1,8 @@
 image: registry.cn-shanghai.aliyuncs.com/c7n/cibase:0.10.1
 
 variables:
-  MAVEN_CLI_OPTS: -s .m2/settings.xml --batch-mode
-  
+  MAVEN_OPTS: -s .m2/settings.xml --batch-mode -Dmaven.repo.local=.m2/repository
+
 stages:
 - build
 - release
@@ -10,7 +10,7 @@ stages:
 build-branches:
   stage: build
   script:
-  - mvn clean package org.jacoco:jacoco-maven-plugin:prepare-agent test -Dmaven.test.failure.ignore=true -Dmaven.test.skip=true -U
+  - mvn $MAVEN_OPTS clean package org.jacoco:jacoco-maven-plugin:prepare-agent test -Dmaven.test.failure.ignore=true -Dmaven.test.skip=true -U
   only:
   - branches
   except:
@@ -22,7 +22,7 @@ build-branches:
 build-main:
   stage: build
   script:
-  - mvn clean package org.jacoco:jacoco-maven-plugin:prepare-agent  test -Dmaven.test.failure.ignore=true -Dmaven.test.skip=true -U
+  - mvn $MAVEN_OPTS clean package org.jacoco:jacoco-maven-plugin:prepare-agent  test -Dmaven.test.failure.ignore=true -Dmaven.test.skip=true -U
   only:
     refs:
     - master
@@ -33,7 +33,7 @@ build-main:
 release-main:
   stage: release
   script:
-  - mvn package deploy -Dmaven.test.skip=true
+  - mvn $MAVEN_OPTS package deploy -Dmaven.test.skip=true
   only:
   - master
   - tags
