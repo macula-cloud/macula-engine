@@ -10,7 +10,7 @@ stages:
 build-branches:
   stage: build
   script:
-  - mvn $MAVEN_OPTS clean package org.jacoco:jacoco-maven-plugin:prepare-agent test -Dmaven.test.failure.ignore=true -Dmaven.test.skip=true -U
+  - mvn clean package org.jacoco:jacoco-maven-plugin:prepare-agent test -Dmaven.test.failure.ignore=true -Dmaven.test.skip=true -U $MAVEN_OPTS
   only:
   - branches
   except:
@@ -22,7 +22,7 @@ build-branches:
 build-main:
   stage: build
   script:
-  - mvn $MAVEN_OPTS clean package org.jacoco:jacoco-maven-plugin:prepare-agent  test -Dmaven.test.failure.ignore=true -Dmaven.test.skip=true -U
+  - mvn clean package org.jacoco:jacoco-maven-plugin:prepare-agent  test -Dmaven.test.failure.ignore=true -Dmaven.test.skip=true -U $MAVEN_OPTS
   only:
     refs:
     - master
@@ -33,7 +33,7 @@ build-main:
 release-main:
   stage: release
   script:
-  - mvn $MAVEN_OPTS package deploy -Dmaven.test.skip=true
+  - mvn package deploy -Dmaven.test.skip=true $MAVEN_OPTS
   only:
   - master
   - tags
