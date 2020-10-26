@@ -1,38 +1,41 @@
 image: registry.cn-shanghai.aliyuncs.com/c7n/cibase:0.10.1
 
+variables:
+  MAVEN_CLI_OPTS: -s .m2/settings.xml --batch-mode
+  
 stages:
-  - build
-  - release
+- build
+- release
 
 build-branches:
   stage: build
   script:
-    - mvn clean package org.jacoco:jacoco-maven-plugin:prepare-agent test -Dmaven.test.failure.ignore=true -Dmaven.test.skip=true -U
+  - mvn clean package org.jacoco:jacoco-maven-plugin:prepare-agent test -Dmaven.test.failure.ignore=true -Dmaven.test.skip=true -U
   only:
-    - branches
+  - branches
   except:
-    - master
-    - tags
-    - /^release-.*$/
-    - /^hotfix-.*$/
+  - master
+  - tags
+  - /^release-.*$/
+  - /^hotfix-.*$/
 
-build:
+build-main:
   stage: build
   script:
-    - mvn clean package org.jacoco:jacoco-maven-plugin:prepare-agent  test -Dmaven.test.failure.ignore=true -Dmaven.test.skip=true -U
+  - mvn clean package org.jacoco:jacoco-maven-plugin:prepare-agent  test -Dmaven.test.failure.ignore=true -Dmaven.test.skip=true -U
   only:
     refs:
-      - master
-      - tags
-      - /^release-.*$/
-      - /^hotfix-.*$/
-
-release:
-  stage: release
-  script:
-    - mvn package deploy -Dmaven.test.skip=true
-  only:
     - master
     - tags
     - /^release-.*$/
     - /^hotfix-.*$/
+
+release-main:
+  stage: release
+  script:
+  - mvn package deploy -Dmaven.test.skip=true
+  only:
+  - master
+  - tags
+  - /^release-.*$/
+  - /^hotfix-.*$/

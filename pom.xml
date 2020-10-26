@@ -301,28 +301,14 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<repositories>
-		<repository>
-			<id>maven-center</id>
-			<name>maven-center</name>
-			<url>https://maven.aliyun.com/repository/central</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
 	<distributionManagement>
 		<repository>
-			<id>macula-maven</id>
+			<id>macula-deploy-maven</id>
 			<name>ReleasesProxy</name>
 			<url>${env.NEXUS_REPO_RELEASE_URL}</url>
 		</repository>
 		<snapshotRepository>
-			<id>macula-maven</id>
+			<id>macula-deploy-maven</id>
 			<name>SnapshotsProxy</name>
 			<url>${env.NEXUS_REPO_SNAPSHOT_URL}</url>
 		</snapshotRepository>
