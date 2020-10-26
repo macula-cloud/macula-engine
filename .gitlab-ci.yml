@@ -15,7 +15,7 @@ stages:
 build-branches:
   stage: build
   script:
-  - mvn clean test package org.jacoco:jacoco-maven-plugin:prepare-agent
+  - mvn clean test package org.jacoco:jacoco-maven-plugin:prepare-agent ${MAVEN_CLI_OPTS} ${MAVEN_OPTS}
   only:
   - branches
   except:
@@ -27,7 +27,7 @@ build-branches:
 build-main:
   stage: build
   script:
-  - mvn clean test package org.jacoco:jacoco-maven-plugin:prepare-agent
+  - mvn clean test package org.jacoco:jacoco-maven-plugin:prepare-agent ${MAVEN_CLI_OPTS} ${MAVEN_OPTS}
   only:
     refs:
     - master
@@ -38,7 +38,7 @@ build-main:
 release-main:
   stage: release
   script:
-  - mvn package deploy
+  - mvn package deploy ${MAVEN_CLI_OPTS} ${MAVEN_OPTS}
   only:
   - master
   - tags
