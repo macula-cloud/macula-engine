@@ -301,18 +301,4 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<distributionManagement>
-		<repository>
-			<id>macula-deploy-maven</id>
-			<name>ReleasesProxy</name>
-			<url>${env.NEXUS_REPO_RELEASE_URL}</url>
-		</repository>
-		<snapshotRepository>
-			<id>macula-deploy-maven</id>
-			<name>SnapshotsProxy</name>
-			<url>${env.NEXUS_REPO_SNAPSHOT_URL}</url>
-		</snapshotRepository>
-	</distributionManagement>
-
-
 </project>
