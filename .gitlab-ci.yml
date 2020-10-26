@@ -38,7 +38,7 @@ build-main:
 release-main:
   stage: release
   script:
-  - mvn package deploy ${MAVEN_CLI_OPTS} ${MAVEN_OPTS} --NEXUS_REPO_PWD=${env.NEXUS_REPO_PWD} --NEXUS_REPO_USER=${env.NEXUS_REPO_USER}
+  - mvn package deploy ${MAVEN_CLI_OPTS} ${MAVEN_OPTS}
   only:
   - master
   - tags
