@@ -305,7 +305,7 @@
 		<repository>
 			<id>maven-center</id>
 			<name>maven-center</name>
-			<url>https://repo1.maven.org/maven2</url>
+			<url>https://maven.aliyun.com/repository/central</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -317,12 +317,12 @@
 
 	<distributionManagement>
 		<repository>
-			<id>macula-cloud-nexus</id>
+			<id>macula-maven</id>
 			<name>ReleasesProxy</name>
 			<url>${env.NEXUS_REPO_RELEASE_URL}</url>
 		</repository>
 		<snapshotRepository>
-			<id>macula-cloud-nexus</id>
+			<id>macula-maven</id>
 			<name>SnapshotsProxy</name>
 			<url>${env.NEXUS_REPO_SNAPSHOT_URL}</url>
 		</snapshotRepository>
