@@ -1,7 +1,0 @@
-{"properties": [
-  {
-    "name": "macula.cloud",
-    "type": "org.macula.cloud.core.configure.SDKConfigurationProperties",
-    "description": "Macula Cloud Configurations"
-  }
-]}

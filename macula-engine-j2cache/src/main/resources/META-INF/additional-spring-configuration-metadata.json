@@ -1,0 +1,52 @@
+{"properties": [
+  {
+    "name": "macula.j2cache.open-circuit-breaker",
+    "type": "java.lang.String",
+    "description": "A description for 'macula.j2cache.open-circuit-breaker'"
+  },
+  {
+    "name": "macula.j2cache.circuit-breaker.failure-rate-threshold",
+    "type": "java.lang.String",
+    "description": "A description for 'macula.j2cache.circuit-breaker.failure-rate-threshold'"
+  },
+  {
+    "name": "macula.j2cache.circuit-breaker.slow-call-rate-threshold",
+    "type": "java.lang.String",
+    "description": "A description for 'macula.j2cache.circuit-breaker.slow-call-rate-threshold'"
+  },
+  {
+    "name": "macula.j2cache.circuit-breaker.slow-call-duration-threshold",
+    "type": "java.lang.String",
+    "description": "A description for 'macula.j2cache.circuit-breaker.slow-call-duration-threshold'"
+  },
+  {
+    "name": "macula.j2cache.circuit-breaker.sliding-window-type",
+    "type": "java.lang.String",
+    "description": "A description for 'macula.j2cache.circuit-breaker.sliding-window-type'"
+  },
+  {
+    "name": "macula.j2cache.circuit-breaker.permitted-number-of-calls-in-half-open-state",
+    "type": "java.lang.String",
+    "description": "A description for 'macula.j2cache.circuit-breaker.permitted-number-of-calls-in-half-open-state'"
+  },
+  {
+    "name": "macula.j2cache.circuit-breaker.max-wait-duration-in-half-open-state",
+    "type": "java.lang.String",
+    "description": "A description for 'macula.j2cache.circuit-breaker.max-wait-duration-in-half-open-state'"
+  },
+  {
+    "name": "macula.j2cache.circuit-breaker.sliding-window-size",
+    "type": "java.lang.String",
+    "description": "A description for 'macula.j2cache.circuit-breaker.sliding-window-size'"
+  },
+  {
+    "name": "macula.j2cache.circuit-breaker.minimum-number-of-calls",
+    "type": "java.lang.String",
+    "description": "A description for 'macula.j2cache.circuit-breaker.minimum-number-of-calls'"
+  },
+  {
+    "name": "macula.j2cache.circuit-breaker.wait-duration-in-open-state",
+    "type": "java.lang.String",
+    "description": "A description for 'macula.j2cache.circuit-breaker.wait-duration-in-open-state'"
+  }
+]}

@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.6.6</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<groupId>macula-cloud</groupId>
+	<artifactId>macula-engine-dependencies</artifactId>
+	<version>${macula-engine.version}</version>
+	<packaging>pom</packaging>
+	<name>macula-cloud-dependencies</name>
+	<description>Macula Engine based on Spring Cloud and Alibaba dependencies</description>
+
+	<licenses>
+		<license>
+			<name>The MIT License</name>
+			<url>http://opensource.org/licenses/MIT</url>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/macula-cloud/macula-engine</url>
+		<connection> scm:git:git://github.com/macula-cloud/macula-engine.git</connection>
+		<developerConnection>scm:git:ssh://github.com/macula-cloud/macula-engine.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+	<developers>
+		<developer>
+			<id>macula-engine</id>
+			<name>Jokeway</name>
+			<email>jokeway@gmail.com</email>
+			<timezone>+8</timezone>
+		</developer>
+	</developers>
+
+	<properties>
+		<!-- Project Settings-->
+		<java.version>1.8</java.version>
+		<resource.delimiter>@</resource.delimiter>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<!-- Macula Engine -->
+		<macula-engine.version>1.0.0</macula-engine.version>
+
+		<!-- Spring Family -->
+		<spring-boot-dependencies.version>2.6.6</spring-boot-dependencies.version>
+		<spring-cloud-dependencies.version>2021.0.2</spring-cloud-dependencies.version>
+		<spring-cloud-alibaba-dependencies.version>2021.1</spring-cloud-alibaba-dependencies.version>
+		<spring-boot-admin.version>2.6.6</spring-boot-admin.version>
+
+		<!-- Maven Plugin Compoments -->
+		<archetype-packaging.verison>3.2.1</archetype-packaging.verison>
+		<docker-maven-plugin.version>0.39.1</docker-maven-plugin.version>
+		<git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
+		<mapstruct-processor.version>1.4.2.Final</mapstruct-processor.version>
+		<maven-archetype-plugin.version>3.2.1</maven-archetype-plugin.version>
+		<maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
+		<maven-embedder.version>3.8.5</maven-embedder.version>
+		<maven-compat.version>3.8.5</maven-compat.version>
+		<maven-invoker.verison>3.1.0</maven-invoker.verison>
+
+		<!-- Open Source Common Tools -->
+		<antisamy.version>1.6.7</antisamy.version>
+		<commons-collections4.version>4.4</commons-collections4.version>
+		<commons-text.version>1.9</commons-text.version>
+		<commons-beanutils.version>1.9.4</commons-beanutils.version>
+		<commons-io.version>2.11.0</commons-io.version>
+		<guava.version>31.1-jre</guava.version>
+		<jackson-component.version>2.13.2</jackson-component.version>
+
+		<!-- Develop Common Tools -->
+		<lombok.version>1.18.22</lombok.version>
+		<redisson.version>3.17.0</redisson.version>
+		<p6spy.version>3.9.1</p6spy.version>
+		<springdoc.version>1.6.7</springdoc.version>
+		<logstash-logback-encoder.version>7.1.1</logstash-logback-encoder.version>
+		<skywalking.version>8.10.0</skywalking.version>
+		<minio.version>8.3.8</minio.version>
+
+		<!-- Alibaba Cloud Dependencies -->
+		<fastjson.version>1.2.80</fastjson.version>
+		<jetcache.version>2.6.3</jetcache.version>
+		<nacos.version>2.1.0</nacos.version>
+
+		<!-- Excellent Common Tools -->
+		<hutool.version>5.7.22</hutool.version>
+		<okhttps.version>3.5.0</okhttps.version>
+		<weixin-java-sdk.version>4.3.0</weixin-java-sdk.version>
+		<just-auth.verison>1.16.5</just-auth.verison>
+		<knife4j.version>3.0.3</knife4j.version>
+
+		<!-- Third Part Starter Dependencies -->
+		<jasypt-spring-boot-starter.version>3.0.4</jasypt-spring-boot-starter.version>
+		<camunda-bpm-spring-boot-starter-rest.version>7.17.0</camunda-bpm-spring-boot-starter-rest.version>
+		<mybatis-plus-boot-starter.version>3.5.1</mybatis-plus-boot-starter.version>
+		<mybatis-plus-generator.version>3.5.2</mybatis-plus-generator.version>
+		<mybatis.version>3.5.9</mybatis.version>
+		<velocity.version>2.3</velocity.version>
+
+		<!-- Patch Force Versions -->
+		<log4j2.version>2.17.0</log4j2.version>
+		<logback.version>1.2.11</logback.version>
+		<bcprov-jdk15on.version>1.70</bcprov-jdk15on.version>
+		<bcpkix-jdk15on.version>1.70</bcpkix-jdk15on.version>
+		<spring-integration.version>5.5.9</spring-integration.version>
+
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Macula Engine Extension Packages-->
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>macula-engine-assistant</artifactId>
+				<version>${macula-engine.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>macula-engine-authority</artifactId>
+				<version>${macula-engine.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>macula-engine-commons</artifactId>
+				<version>${macula-engine.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>macula-engine-data</artifactId>
+				<version>${macula-engine.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>macula-engine-j2cache</artifactId>
+				<version>${macula-engine.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>macula-engine-lock</artifactId>
+				<version>${macula-engine.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>macula-engine-login</artifactId>
+				<version>${macula-engine.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>macula-engine-message</artifactId>
+				<version>${macula-engine.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>macula-engine-mybatis</artifactId>
+				<version>${macula-engine.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>macula-engine-security</artifactId>
+				<version>${macula-engine.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>macula-engine-web</artifactId>
+				<version>${macula-engine.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>macula-engine-websocket</artifactId>
+				<version>${macula-engine.version}</version>
+			</dependency>
+
+			<!-- Spring Cloud Family -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud-dependencies.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- Alibaba Cloud Family -->
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
+				<version>${spring-cloud-alibaba-dependencies.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- Spring Boot Admin -->
+			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-starter-server</artifactId>
+				<version>${spring-boot-admin.version}</version>
+			</dependency>
+
+			<!-- Maven Plugin Compoments -->
+			<!-- https://mvnrepository.com/artifact/io.fabric8/docker-maven-plugin -->
+			<dependency>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>${docker-maven-plugin.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/pl.project13.maven/git-commit-id-plugin -->
+			<dependency>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+				<version>${git-commit-id-plugin.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor -->
+			<dependency>
+				<groupId>org.mapstruct</groupId>
+				<artifactId>mapstruct-processor</artifactId>
+				<version>${mapstruct-processor.version}</version>
+			</dependency>
+
+			<!-- Open Source Common Tools -->
+			<dependency>
+				<groupId>commons-beanutils</groupId>
+				<artifactId>commons-beanutils</artifactId>
+				<version>${commons-beanutils.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-collections4</artifactId>
+				<version>${commons-collections4.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-text -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-text</artifactId>
+				<version>${commons-text.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons-io.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.dataformat</groupId>
+				<artifactId>jackson-dataformat-yaml</artifactId>
+				<version>${jackson-component.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310 -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.datatype</groupId>
+				<artifactId>jackson-datatype-jsr310</artifactId>
+				<version>${jackson-component.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jdk8 -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.datatype</groupId>
+				<artifactId>jackson-datatype-jdk8</artifactId>
+				<version>${jackson-component.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.module/jackson-module-kotlin -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.module</groupId>
+				<artifactId>jackson-module-kotlin</artifactId>
+				<version>${jackson-component.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.owasp.antisamy/antisamy -->
+			<dependency>
+				<groupId>org.owasp.antisamy</groupId>
+				<artifactId>antisamy</artifactId>
+				<version>${antisamy.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.influxdb/influxdb-java -->
+			<dependency>
+				<groupId>org.influxdb</groupId>
+				<artifactId>influxdb-java</artifactId>
+				<version>${influxdb.version}</version>
+			</dependency>
+
+			<!-- Develop Common Tools -->
+			<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombok.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.redisson/redisson -->
+			<dependency>
+				<groupId>org.redisson</groupId>
+				<artifactId>redisson</artifactId>
+				<version>${redisson.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.redisson/redisson-spring-boot-starter -->
+			<dependency>
+				<groupId>org.redisson</groupId>
+				<artifactId>redisson-spring-boot-starter</artifactId>
+				<version>${redisson.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-common -->
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-common</artifactId>
+				<version>${springdoc.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-ui</artifactId>
+				<version>${springdoc.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-webflux-ui -->
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-webflux-ui</artifactId>
+				<version>${springdoc.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/p6spy/p6spy -->
+			<dependency>
+				<groupId>p6spy</groupId>
+				<artifactId>p6spy</artifactId>
+				<version>${p6spy.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/net.logstash.logback/logstash-logback-encoder -->
+			<dependency>
+				<groupId>net.logstash.logback</groupId>
+				<artifactId>logstash-logback-encoder</artifactId>
+				<version>${logstash-logback-encoder.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/io.minio/minio -->
+			<dependency>
+				<groupId>io.minio</groupId>
+				<artifactId>minio</artifactId>
+				<version>${minio.version}</version>
+			</dependency>
+
+			<!-- Alibaba Cloud Dependencies -->
+			<dependency>
+				<groupId>com.alibaba.nacos</groupId>
+				<artifactId>nacos-client</artifactId>
+				<version>${nacos.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/com.alicp.jetcache/jetcache-starter-redis -->
+			<dependency>
+				<groupId>com.alicp.jetcache</groupId>
+				<artifactId>jetcache-starter-redis-lettuce</artifactId>
+				<version>${jetcache.version}</version>
+			</dependency>
+
+			<!-- Homeland Excellent Common Tools -->
+			<!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
+			<dependency>
+				<groupId>cn.hutool</groupId>
+				<artifactId>hutool-all</artifactId>
+				<version>${hutool.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.ejlchina</groupId>
+				<artifactId>okhttps-fastjson</artifactId>
+				<version>${okhttps.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/me.zhyd.oauth/JustAuth -->
+			<dependency>
+				<groupId>me.zhyd.oauth</groupId>
+				<artifactId>JustAuth</artifactId>
+				<version>${just-auth.verison}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-springdoc-ui -->
+			<dependency>
+				<groupId>com.github.xiaoymin</groupId>
+				<artifactId>knife4j-springdoc-ui</artifactId>
+				<version>${knife4j.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/com.github.whvcse/easy-captcha -->
+			<dependency>
+				<groupId>com.github.whvcse</groupId>
+				<artifactId>easy-captcha</artifactId>
+				<version>${easy-captcha.version}</version>
+			</dependency>
+
+			<!-- Third Part Starter Dependencies -->
+			<dependency>
+				<groupId>org.camunda.bpm.springboot</groupId>
+				<artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
+				<version>${camunda-bpm-spring-boot-starter-rest.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/com.github.ulisesbocchio/jasypt-spring-boot-starter -->
+			<dependency>
+				<groupId>com.github.ulisesbocchio</groupId>
+				<artifactId>jasypt-spring-boot-starter</artifactId>
+				<version>${jasypt-spring-boot-starter.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-boot-starter</artifactId>
+				<version>${mybatis-plus-boot-starter.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-generator -->
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-generator</artifactId>
+				<version>${mybatis-plus-generator.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis</artifactId>
+				<version>${mybatis.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.apache.velocity/velocity-engine-core -->
+			<dependency>
+				<groupId>org.apache.velocity</groupId>
+				<artifactId>velocity-engine-core</artifactId>
+				<version>${velocity.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${maven-resources-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<!-- Skip Test on Package -->
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven-surefire-plugin.version}</version>
+					<configuration>
+						<skipTests>true</skipTests>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>${maven-source-plugin.version}</version>
+					<configuration>
+						<attach>true</attach>
+					</configuration>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<version>${spring-boot-dependencies.version}</version>
+					<configuration>
+						<layers>
+							<enabled>true</enabled>
+						</layers>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>versions-maven-plugin</artifactId>
+					<version>${versions-maven-plugin.version}</version>
+					<configuration>
+						<generateBackupPoms>false</generateBackupPoms>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>pl.project13.maven</groupId>
+					<artifactId>git-commit-id-plugin</artifactId>
+					<version>${git-commit-id-plugin.version}</version>
+					<configuration>
+						<dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+						<prefix>git</prefix>
+						<verbose>false</verbose>
+						<generateGitPropertiesFile>true</generateGitPropertiesFile>
+						<generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties
+						</generateGitPropertiesFilename>
+						<dateFormat>yyyy-MM-dd HH:mm:ss</dateFormat>
+						<gitDescribe>
+							<skip>false</skip>
+							<always>false</always>
+							<dirty>-dirty</dirty>
+						</gitDescribe>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>aliyun-maven</id>
+			<url>https://maven.aliyun.com/repository/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>aliyun-maven</id>
+			<url>https://maven.aliyun.com/repository/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+</project>

@@ -1,0 +1,5 @@
+spring:
+  application:
+    group: macula-cloud
+    name: macula-engine-assistant
+    instance: A001

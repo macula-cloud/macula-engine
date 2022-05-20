@@ -1,0 +1,33 @@
+spring:
+  application:
+    group: macula-cloud
+    name: macula-engine-message
+  cloud:
+    stream:          
+      bindings:
+        messageChannelMaculaEventConsumer-out-0:
+          destination: DEMO001
+        messageChannelMaculaEventConsumer-in-0:
+          destination: DEMO001
+          # content-type: application/json
+          content-type:  application/octet-stream
+          # group: macula-cloud
+        function:
+          destination: messageChannelMaculaEventConsumer
+      kafka:
+        binder:
+          brokers:
+          - localhost:9092            
+
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: false
+
+logging:
+  level:
+    org.apache.kafka: error
+    org.springframework.cloud: error
+    org.macula.engine: trace
+    
+    
+    

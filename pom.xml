@@ -1,304 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.4.RELEASE</version>
-		<relativePath />
+		<groupId>macula-cloud</groupId>
+		<artifactId>macula-engine-dependencies</artifactId>
+		<version>1.0.0</version>
+		<relativePath>macula-engine-dependencies/pom.xml</relativePath>
 	</parent>
 
-	<groupId>macula-cloud</groupId>
-	<artifactId>macula-cloud-starters</artifactId>
-	<version>2.0.0-SNAPSHOT</version>
+	<artifactId>macula-engine</artifactId>
 	<packaging>pom</packaging>
-	<description>Spring Cloud Macula Cloud Starters Extensions Project</description>
+	<description>Macula Engine Projects</description>
 
 	<licenses>
 		<license>
-			<name>The Apache Software License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<name>The MIT License</name>
+			<url>http://opensource.org/licenses/MIT</url>
 		</license>
 	</licenses>
 
 	<scm>
-		<connection>scm:https://github.com/macula-cloud/macula-cloud-starters.git</connection>
-		<developerConnection>scm:https://github.com/macula-cloud/macula-cloud-starters.git</developerConnection>
-		<url>https://github.com/macula-cloud/macula-cloud-starters.git</url>
+		<url>https://github.com/macula-cloud/macula-engine</url>
+		<connection> scm:git:git://github.com/macula-cloud/macula-engine.git</connection>
+		<developerConnection>scm:git:ssh://github.com/macula-cloud/macula-engine.git</developerConnection>
+		<tag>HEAD</tag>
 	</scm>
 
 	<developers>
 		<developer>
+			<id>macula-engine</id>
 			<name>Jokeway</name>
 			<email>jokeway@gmail.com</email>
+			<timezone>+8</timezone>
 		</developer>
 	</developers>
 
-	<properties>
-		<macula-cloud-starters.version>2.0.0-SNAPSHOT</macula-cloud-starters.version>
-		<spring-cloud.version>Hoxton.SR8</spring-cloud.version>
-		<spring-cloud-alibaba.version>2.2.2.RELEASE</spring-cloud-alibaba.version>
-		<spring-boot-admin.version>2.3.0</spring-boot-admin.version>
-		<oauth2-version>2.5.0.RELEASE</oauth2-version>
-		<redisson.version>3.13.4</redisson.version>
-		<cas-client.version>3.5.1</cas-client.version>
-		<caffeine.version>2.8.5</caffeine.version>
-		<javase.version>3.4.0</javase.version>
-		<commons-collections.version>4.4</commons-collections.version>
-		<commons-io.version>2.8.0</commons-io.version>
-		<spring-boot-druid.version>1.1.22</spring-boot-druid.version>
-		<swagger2.version>3.0.0</swagger2.version>
-		<mybatis.version>3.4.6</mybatis.version>
-		<pagehelper.version>1.2.10</pagehelper.version>
-		<tk.mybatis.version>2.1.5</tk.mybatis.version>
-		<jasypt.version>3.0.3</jasypt.version>
-		<hutool.version>5.4.2</hutool.version>
-		<guava.version>28.2-jre</guava.version>
-		<docker.registry>registry.cn-shanghai.aliyuncs.com</docker.registry>
-	</properties>
-
 	<modules>
-		<module>macula-cloud-starter-swagger</module>
-		<module>macula-cloud-starter-security</module>
-		<module>macula-cloud-starter-mybatis</module>
-		<module>macula-cloud-starter-cache</module>
-		<module>macula-cloud-starter-event</module>
-		<module>macula-cloud-starter-rbac</module>
-		<module>macula-cloud-starter-websocket</module>
-		<module>macula-cloud-starter-core</module>
-		<module>macula-cloud-starter-authority</module>
-		<module>macula-cloud-starter-registry</module>
-		<module>macula-cloud-starter-flow</module>
-		<module>macula-cloud-starter-login</module>
-		<module>macula-cloud-starter-social</module>
-		<module>macula-cloud-starter-log</module>
-		<module>macula-cloud-starter-sap</module>
-		<module>macula-cloud-starter-mq</module>
-		<module>macula-cloud-starter-cainiao</module>
-		<module>macula-cloud-starter-api</module>
-		<module>macula-cloud-starter-data</module>
+		<module>macula-engine-assistant</module>
+		<module>macula-engine-authority</module>
+		<module>macula-engine-commons</module>
+		<module>macula-engine-data</module>
+		<module>macula-engine-dependencies</module>
+		<module>macula-engine-j2cache</module>
+		<module>macula-engine-lock</module>
+		<module>macula-engine-login</module>
+		<module>macula-engine-message</module>
+		<module>macula-engine-mybatis</module>
+		<module>macula-engine-security</module>
+		<module>macula-engine-web</module>
+		<module>macula-engine-websocket</module>
 	</modules>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>macula-cloud</groupId>
-				<artifactId>macula-cloud-starter-websocket</artifactId>
-				<version>${macula-cloud-starters.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>macula-cloud</groupId>
-				<artifactId>macula-cloud-starter-api</artifactId>
-				<version>${macula-cloud-starters.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>macula-cloud</groupId>
-				<artifactId>macula-cloud-starter-core</artifactId>
-				<version>${macula-cloud-starters.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>macula-cloud</groupId>
-				<artifactId>macula-cloud-starter-log</artifactId>
-				<version>${macula-cloud-starters.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>macula-cloud</groupId>
-				<artifactId>macula-cloud-starter-data</artifactId>
-				<version>${macula-cloud-starters.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>macula-cloud</groupId>
-				<artifactId>macula-cloud-starter-sap</artifactId>
-				<version>${macula-cloud-starters.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>macula-cloud</groupId>
-				<artifactId>macula-cloud-starter-mq</artifactId>
-				<version>${macula-cloud-starters.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>macula-cloud</groupId>
-				<artifactId>macula-cloud-starter-authority</artifactId>
-				<version>${macula-cloud-starters.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>macula-cloud</groupId>
-				<artifactId>macula-cloud-starter-registry</artifactId>
-				<version>${macula-cloud-starters.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>macula-cloud</groupId>
-				<artifactId>macula-cloud-starter-cainiao</artifactId>
-				<version>${macula-cloud-starters.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>macula-cloud</groupId>
-				<artifactId>macula-cloud-starter-flow</artifactId>
-				<version>${macula-cloud-starters.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>macula-cloud</groupId>
-				<artifactId>macula-cloud-starter-login</artifactId>
-				<version>${macula-cloud-starters.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>macula-cloud</groupId>
-				<artifactId>macula-cloud-starter-social</artifactId>
-				<version>${macula-cloud-starters.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>macula-cloud</groupId>
-				<artifactId>macula-cloud-starter-swagger</artifactId>
-				<version>${macula-cloud-starters.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>macula-cloud</groupId>
-				<artifactId>macula-cloud-starter-security</artifactId>
-				<version>${macula-cloud-starters.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>macula-cloud</groupId>
-				<artifactId>macula-cloud-starter-mybatis</artifactId>
-				<version>${macula-cloud-starters.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>macula-cloud</groupId>
-				<artifactId>macula-cloud-starter-cache</artifactId>
-				<version>${macula-cloud-starters.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>macula-cloud</groupId>
-				<artifactId>macula-cloud-starter-event</artifactId>
-				<version>${macula-cloud-starters.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>macula-cloud</groupId>
-				<artifactId>macula-cloud-starter-rbac</artifactId>
-				<version>${macula-cloud-starters.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>com.alibaba.cloud</groupId>
-				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
-				<version>${spring-cloud-alibaba.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>de.codecentric</groupId>
-				<artifactId>spring-boot-admin-starter-client</artifactId>
-				<version>${spring-boot-admin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.codecentric</groupId>
-				<artifactId>spring-boot-admin-starter-server</artifactId>
-				<version>${spring-boot-admin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>de.codecentric</groupId>
-				<artifactId>spring-boot-admin-server-ui</artifactId>
-				<version>${spring-boot-admin.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jasig.cas.client</groupId>
-				<artifactId>cas-client-core</artifactId>
-				<version>${cas-client.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>org.slf4j</groupId>
-						<artifactId>slf4j-api</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>com.google.zxing</groupId>
-				<artifactId>javase</artifactId>
-				<version>${javase.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.github.ben-manes.caffeine</groupId>
-				<artifactId>caffeine</artifactId>
-				<version>${caffeine.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-collections4</artifactId>
-				<version>${commons-collections.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>commons-io</groupId>
-				<artifactId>commons-io</artifactId>
-				<version>${commons-io.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alibaba</groupId>
-				<artifactId>druid</artifactId>
-				<version>${spring-boot-druid.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alibaba</groupId>
-				<artifactId>druid-spring-boot-starter</artifactId>
-				<version>${spring-boot-druid.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.redisson</groupId>
-				<artifactId>redisson-spring-boot-starter</artifactId>
-				<version>${redisson.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.springfox</groupId>
-				<artifactId>springfox-swagger2</artifactId>
-				<version>${swagger2.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.springfox</groupId>
-				<artifactId>springfox-swagger-ui</artifactId>
-				<version>${swagger2.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.mybatis</groupId>
-				<artifactId>mybatis</artifactId>
-				<version>${mybatis.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>tk.mybatis</groupId>
-				<artifactId>mapper-spring-boot-starter</artifactId>
-				<version>${tk.mybatis.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.github.pagehelper</groupId>
-				<artifactId>pagehelper-spring-boot-starter</artifactId>
-				<version>${pagehelper.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.github.ulisesbocchio</groupId>
-				<artifactId>jasypt-spring-boot-starter</artifactId>
-				<version>${jasypt.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.security.oauth</groupId>
-				<artifactId>spring-security-oauth2</artifactId>
-				<version>${oauth2-version}</version>
-			</dependency>
-			<dependency>
-				<groupId>cn.hutool</groupId>
-				<artifactId>hutool-all</artifactId>
-				<version>${hutool.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.google.guava</groupId>
-				<artifactId>guava</artifactId>
-				<version>${guava.version}</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-all</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
 </project>

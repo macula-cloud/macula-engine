@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "spring.application.group",
+    "type": "java.lang.String",
+    "description": "application group'"
+  },
+  {
+    "name": "spring.application.instance",
+    "type": "java.lang.String",
+    "description": "application instance'"
+  }
+]}

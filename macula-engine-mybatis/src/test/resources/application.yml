@@ -1,0 +1,36 @@
+# DataSource Config
+spring:
+  application:
+    name: macula-engine-mybatis
+  sql:
+    init:
+      schema-locations: classpath:db/schema-h2.sql
+      data-locations: classpath:db/data-h2.sql
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test
+    username: root
+    password: test
+
+  h2:
+    console:
+      enabled: true
+          
+  redis:
+    host: localhost
+    port: 6379
+    database: 2
+  cache:
+    type: generic
+
+mybatis-plus:
+  type-enums-package: org.macula.engine.mybatis.enums
+  configuration-properties:
+    "audit.createTimeField": createTime
+    "audit.createByField": createBy
+    "audit.updateTimeField": lastUpdateTime
+    "audit.updateByField": lastUpdateBy
+
+logging:
+  level:
+    org.macula.engine: TRACE
