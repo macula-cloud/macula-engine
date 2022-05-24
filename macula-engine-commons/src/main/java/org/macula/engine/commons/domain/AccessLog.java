@@ -1,6 +1,5 @@
 package org.macula.engine.commons.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -8,19 +7,19 @@ import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.macula.engine.assistant.constants.Versions;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @MappedSuperclass
 @Setter
 @Getter
 @ToString(callSuper = true)
-public class AccessLog extends AbstractAuditable<String> implements Serializable {
+public class AccessLog extends TraceLog {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	@Column(name = "RESOURCE_ID", nullable = false)
 	@NotNull

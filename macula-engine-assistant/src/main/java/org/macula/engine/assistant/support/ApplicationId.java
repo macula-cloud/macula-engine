@@ -5,6 +5,7 @@ import java.io.Serializable;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.macula.engine.assistant.constants.SymbolConstants;
+import org.macula.engine.assistant.constants.Versions;
 
 /**
  * <p>
@@ -14,7 +15,7 @@ import org.macula.engine.assistant.constants.SymbolConstants;
 @NoArgsConstructor
 public class ApplicationId implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	private static ApplicationId current;
 

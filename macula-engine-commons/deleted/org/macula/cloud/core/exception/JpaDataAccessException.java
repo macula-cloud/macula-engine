@@ -10,7 +10,7 @@ import org.macula.cloud.api.protocol.ApiConstants;
  */
 public class JpaDataAccessException extends MaculaException {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	public JpaDataAccessException(String message, Throwable cause) {
 		super(message, cause);

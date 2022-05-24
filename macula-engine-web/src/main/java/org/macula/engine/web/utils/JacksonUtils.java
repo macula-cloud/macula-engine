@@ -48,7 +48,7 @@ public class JacksonUtils {
 		// 设置为中国上海时区
 		objectMapper.setTimeZone(TimeZone.getTimeZone("GMT+8"));
 		// 空值不序列化
-		//        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+		// objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 		// 序列化时，日期的统一格式
 		objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
 		// 排序key

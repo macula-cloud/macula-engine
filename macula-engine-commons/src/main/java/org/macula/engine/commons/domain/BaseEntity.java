@@ -11,15 +11,16 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.ToString;
+import org.macula.engine.assistant.constants.Versions;
+import org.macula.engine.assistant.domain.Entity;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @MappedSuperclass
 @ToString(callSuper = true)
-public class Entity extends AbstractAuditable<Long> implements Serializable {
+public class BaseEntity extends AbstractVersionAuditable<Long> implements Entity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	@Column(name = "CODE", nullable = false, length = 50)
 	@NotNull
@@ -77,7 +78,7 @@ public class Entity extends AbstractAuditable<Long> implements Serializable {
 		this.name = name;
 	}
 
-	public Entity clone(Entity entity) {
+	public BaseEntity clone(BaseEntity entity) {
 		super.clone(entity);
 		entity.setCode(getCode());
 		entity.setName(getName());

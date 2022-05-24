@@ -1,5 +1,7 @@
 package org.macula.engine.commons.event;
 
+import org.macula.engine.assistant.constants.Versions;
+
 import org.springframework.context.ApplicationEvent;
 
 /**
@@ -9,7 +11,7 @@ import org.springframework.context.ApplicationEvent;
  */
 public final class MaculaLocaleEvent extends ApplicationEvent {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	/**
 	 * @param source

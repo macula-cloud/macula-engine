@@ -6,15 +6,15 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.ToString;
+import org.macula.engine.assistant.constants.Versions;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @MappedSuperclass
 @ToString(callSuper = true)
 public class GatewayRoute extends AbstractAuditable<Long> implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	@Column(name = "URI")
 	private String uri;

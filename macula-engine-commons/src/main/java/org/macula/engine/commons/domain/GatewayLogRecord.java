@@ -5,15 +5,15 @@ import java.io.Serializable;
 import javax.persistence.MappedSuperclass;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.ToString;
+import org.macula.engine.assistant.constants.Versions;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @MappedSuperclass
 @ToString(callSuper = true)
 public class GatewayLogRecord extends AbstractAuditable<String> implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	private String url;
 	private String remoteAddress;

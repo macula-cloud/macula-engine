@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.macula.engine.assistant.constants.Versions;
 
 /**
  * Result Error  Information Feedback to  Client
@@ -16,7 +17,7 @@ import lombok.ToString;
 @Schema(title = "响应错误详情", description = "为兼容Validation而增加的Validation错误信息实体")
 public class ResultError implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	@Schema(title = "Exception完整信息", type = "string")
 	private String detail;

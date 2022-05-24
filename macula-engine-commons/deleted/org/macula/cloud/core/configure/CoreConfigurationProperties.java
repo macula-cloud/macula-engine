@@ -19,7 +19,7 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 @ConfigurationProperties(value = CoreConfigurationProperties.PREFIX, ignoreUnknownFields = true)
 public class CoreConfigurationProperties implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	public static final String PREFIX = "macula.cloud";
 

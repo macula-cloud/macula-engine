@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class SysAuthority implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	private String code;
 

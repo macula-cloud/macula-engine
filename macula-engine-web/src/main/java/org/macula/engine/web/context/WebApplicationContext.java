@@ -14,10 +14,10 @@ import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.context.ApplicationContext;
 
 /**
- * <p>Macula Application Context</p>
+ * <p>Macula Web Application Context</p>
  */
 @Getter
-public class MaculaApplicationContext {
+public class WebApplicationContext {
 
 	private final ApplicationContext applicationContext;
 	private final PlatformProperties platformProperties;
@@ -26,8 +26,8 @@ public class MaculaApplicationContext {
 
 	private ServiceContext serviceContext;
 
-	public MaculaApplicationContext(ApplicationContext applicationContext, PlatformProperties platformProperties,
-			EndpointProperties endpointProperties, ServerProperties serverProperties) {
+	public WebApplicationContext(ApplicationContext applicationContext, PlatformProperties platformProperties, EndpointProperties endpointProperties,
+			ServerProperties serverProperties) {
 		this.applicationContext = applicationContext;
 		this.platformProperties = platformProperties;
 		this.endpointProperties = endpointProperties;

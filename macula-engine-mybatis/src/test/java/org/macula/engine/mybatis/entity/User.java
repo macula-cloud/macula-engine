@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Getter;
 import lombok.Setter;
+import org.macula.engine.assistant.constants.Versions;
 import org.macula.engine.mybatis.enums.GenderEnum;
 
 /**
@@ -23,7 +24,7 @@ import org.macula.engine.mybatis.enums.GenderEnum;
 @Setter
 public class User implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	@JsonSerialize(using = ToStringSerializer.class)
 	@TableId(value = "id", type = IdType.AUTO)

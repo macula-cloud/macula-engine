@@ -3,7 +3,7 @@ package org.macula.engine.data.service;
 import java.io.Serializable;
 import java.util.List;
 
-import org.macula.engine.commons.domain.Entity;
+import org.macula.engine.assistant.domain.Entity;
 import org.macula.engine.data.repository.BaseRepository;
 
 import org.springframework.data.domain.Page;

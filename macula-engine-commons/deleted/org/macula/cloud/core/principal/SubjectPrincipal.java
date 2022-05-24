@@ -29,7 +29,7 @@
 //@JsonIgnoreProperties(ignoreUnknown = true)
 //public class SubjectPrincipal extends User implements Principal, Serializable {
 //
-//	private static final long serialVersionUID = 1L;
+//	private static final long serialVersionUID = Versions.serialVersion;
 //
 //	private String userId;
 //	private String nickname;

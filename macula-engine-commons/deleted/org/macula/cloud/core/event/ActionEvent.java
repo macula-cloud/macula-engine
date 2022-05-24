@@ -2,7 +2,7 @@ package org.macula.cloud.core.event;
 
 public class ActionEvent extends MaculaEvent<Long> {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	private final CRUD crud;
 

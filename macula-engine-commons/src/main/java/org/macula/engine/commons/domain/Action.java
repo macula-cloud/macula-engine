@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.ToString;
+import org.macula.engine.assistant.constants.Versions;
 
 import org.springframework.util.StringUtils;
 
@@ -17,7 +18,7 @@ import org.springframework.util.StringUtils;
 @ToString(callSuper = true)
 public class Action extends Resource {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	@Column(name = "LOG_LEVEL", nullable = false)
 	@NotNull

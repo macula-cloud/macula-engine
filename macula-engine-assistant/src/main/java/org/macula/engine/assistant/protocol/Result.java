@@ -13,6 +13,7 @@ import lombok.ToString;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.http.HttpStatus;
+import org.macula.engine.assistant.constants.Versions;
 import org.macula.engine.assistant.utils.StringUtils;
 
 /**
@@ -27,7 +28,10 @@ import org.macula.engine.assistant.utils.StringUtils;
 @Schema(title = "统一响应返回实体", description = "所有接口统一返回的实体定义", example = "Result.success(\"XXX\")")
 public class Result<T> implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
+
+	@Schema(title = "APM跟踪id ")
+	private String traceId;
 
 	@Schema(title = "自定义响应编码")
 	private int code = 0;
@@ -220,6 +224,7 @@ public class Result<T> implements Serializable {
 
 	public Map<String, Object> toModel() {
 		Map<String, Object> result = new HashMap<>(8);
+		result.put("traceId", traceId);
 		result.put("code", code);
 		result.put("message", message);
 		result.put("path", path);

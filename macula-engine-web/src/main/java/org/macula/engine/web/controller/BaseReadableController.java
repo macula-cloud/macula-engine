@@ -10,8 +10,8 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import org.macula.engine.assistant.domain.Entity;
 import org.macula.engine.assistant.protocol.Result;
-import org.macula.engine.commons.domain.Entity;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;

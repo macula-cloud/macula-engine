@@ -5,10 +5,9 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.ResourceBundle;
 
 import org.macula.engine.assistant.query.QueryUtils;
-
-import java.util.ResourceBundle;
 
 /**
  * <p> <b>CriteriaType</b> 是查询方式类型 </p>
@@ -244,6 +243,8 @@ public enum CriteriaType {
 			return Number.class.isAssignableFrom(claz) || Date.class.isAssignableFrom(claz);
 		}
 	},
+
+	// is null or is not null
 	Is {
 
 		@Override

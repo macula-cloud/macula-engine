@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.macula.engine.assistant.constants.Versions;
 
 @Getter
 @Setter
@@ -15,7 +16,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class FieldOption implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	public static final String ID_PARAM = "id";
 	public static final String CODE_PARAM = "code";

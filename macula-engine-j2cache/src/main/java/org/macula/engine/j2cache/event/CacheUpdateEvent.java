@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.macula.engine.assistant.constants.Versions;
 import org.macula.engine.assistant.support.ApplicationId;
 
 /**
@@ -15,7 +16,7 @@ import org.macula.engine.assistant.support.ApplicationId;
 @ToString
 public class CacheUpdateEvent implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	@Getter
 	private ApplicationId applicationId;

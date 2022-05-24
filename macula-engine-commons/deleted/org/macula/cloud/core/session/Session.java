@@ -6,7 +6,7 @@ import java.util.TimeZone;
 
 public class Session implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	private final String sessionId;
 	private final String guid;

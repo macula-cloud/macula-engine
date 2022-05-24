@@ -8,8 +8,8 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import org.macula.engine.assistant.domain.Entity;
 import org.macula.engine.assistant.protocol.Result;
-import org.macula.engine.commons.domain.Entity;
 import org.macula.engine.data.service.ReadableService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;

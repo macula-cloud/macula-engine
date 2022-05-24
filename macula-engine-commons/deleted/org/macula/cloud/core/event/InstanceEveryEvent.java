@@ -10,7 +10,7 @@ import org.macula.engine.assistant.support.ApplicationId;
  */
 public final class BroadcastEvent<T extends MaculaEvent<?>> extends CloudEvent<T> {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	/** 是否已经处理 */
 	private boolean done;

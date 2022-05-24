@@ -22,7 +22,7 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
  */
 public class OpenApiAuthenticationException extends MaculaException {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	public OpenApiAuthenticationException(HttpServletRequest request, HttpServletResponse response, String message) {
 		super(message);

@@ -2,8 +2,8 @@ package org.macula.engine.web.controller;
 
 import java.io.Serializable;
 
+import org.macula.engine.assistant.domain.Entity;
 import org.macula.engine.assistant.protocol.Result;
-import org.macula.engine.commons.domain.Entity;
 import org.macula.engine.data.service.ReadableService;
 
 /**

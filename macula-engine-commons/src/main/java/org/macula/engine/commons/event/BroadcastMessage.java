@@ -7,6 +7,7 @@ import java.util.List;
 import cn.hutool.core.util.IdUtil;
 import lombok.Getter;
 import lombok.Setter;
+import org.macula.engine.assistant.constants.Versions;
 import org.macula.engine.assistant.support.ApplicationId;
 import org.macula.engine.j2cache.utils.J2CacheUtils;
 
@@ -17,7 +18,7 @@ import org.springframework.util.CollectionUtils;
  */
 public final class BroadcastMessage<T> implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	@Getter
 	@Setter

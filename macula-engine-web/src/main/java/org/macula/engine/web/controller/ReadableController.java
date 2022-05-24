@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import org.macula.engine.assistant.domain.Entity;
 import org.macula.engine.assistant.protocol.Result;
-import org.macula.engine.commons.domain.Entity;
 import org.macula.engine.data.service.ReadableService;
 
 import org.springframework.data.domain.Page;

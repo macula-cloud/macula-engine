@@ -6,7 +6,7 @@ import java.util.List;
 
 public class SysUser implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	private Long id;
 

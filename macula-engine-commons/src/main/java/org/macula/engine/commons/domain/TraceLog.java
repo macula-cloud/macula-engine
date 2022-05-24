@@ -9,21 +9,25 @@ import lombok.Setter;
 import lombok.ToString;
 import org.macula.engine.assistant.constants.Versions;
 
+/**
+ * 
+ * <p>Tracing Log</p>
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @MappedSuperclass
 @ToString(callSuper = true)
 @Getter
 @Setter
-public class ApplicationAsset extends BaseEntity {
+public abstract class TraceLog extends ApplicationAsset {
 
 	private static final long serialVersionUID = Versions.serialVersion;
 
-	@Column(name = "APPLICATION_ID")
-	private String applicationId;
+	@Column(name = "TRACE_ID")
+	private String traceId;
 
-	public ApplicationAsset clone(ApplicationAsset entity) {
+	public TraceLog clone(TraceLog entity) {
 		super.clone(entity);
-		entity.setApplicationId(getApplicationId());
+		entity.setTraceId(getTraceId());
 		return entity;
 	}
 

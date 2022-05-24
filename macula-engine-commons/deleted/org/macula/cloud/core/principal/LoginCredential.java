@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 public class LoginCredential implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	// 客户端号
 	private String clientId;

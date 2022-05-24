@@ -9,6 +9,7 @@ import org.hibernate.cache.spi.support.DomainDataStorageAccess;
 import org.hibernate.cache.spi.support.RegionFactoryTemplate;
 import org.hibernate.cache.spi.support.StorageAccess;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
+import org.macula.engine.assistant.constants.Versions;
 import org.macula.engine.j2cache.utils.J2CacheUtils;
 
 import org.springframework.cache.CacheManager;
@@ -19,7 +20,7 @@ import org.springframework.cache.CacheManager;
  */
 public class J2CacheRegionFactory extends RegionFactoryTemplate {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	private CacheManager cacheManager;
 

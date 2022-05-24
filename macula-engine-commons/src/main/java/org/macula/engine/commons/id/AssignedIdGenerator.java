@@ -1,4 +1,4 @@
-package org.macula.engine.commons.domain;
+package org.macula.engine.commons.id;
 
 import java.io.Serializable;
 

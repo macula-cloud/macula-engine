@@ -60,7 +60,7 @@ import org.macula.engine.assistant.constants.ErrorCode;
  * 502	Bad Gateway	充当网关或代理的服务器，从远端服务器接收到了一个无效的请求
  * 503	Service Unavailable	由于超载或系统维护，服务器暂时的无法处理客户端的请求。延时的长度可包含在服务器的Retry-After头信息中
  * 504	Gateway Time-out	充当网关或代理的服务器，未及时从远端服务器获取请求
- * 505	HTTP Version not supported	服务器不支持请求的HTTP协议的版本，无法完成处理
+ * 505	HTTP Versions not supported	服务器不支持请求的HTTP协议的版本，无法完成处理
  * <p>
  * --- 自定义返回码 ---
  * <p>

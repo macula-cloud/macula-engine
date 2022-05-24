@@ -10,7 +10,7 @@ import org.macula.cloud.api.protocol.ApiConstants;
  */
 public class HibernateDataAccessException extends MaculaException {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	public HibernateDataAccessException(String message, Throwable cause) {
 		super(message, cause);

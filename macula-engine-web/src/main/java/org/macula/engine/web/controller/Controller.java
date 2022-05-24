@@ -8,8 +8,8 @@ import java.util.Map;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ObjectUtils;
+import org.macula.engine.assistant.domain.Entity;
 import org.macula.engine.assistant.protocol.Result;
-import org.macula.engine.commons.domain.Entity;
 
 import org.springframework.data.domain.Page;
 

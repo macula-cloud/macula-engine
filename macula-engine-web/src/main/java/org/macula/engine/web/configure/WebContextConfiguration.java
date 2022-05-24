@@ -3,7 +3,7 @@ package org.macula.engine.web.configure;
 import javax.annotation.PostConstruct;
 
 import lombok.extern.slf4j.Slf4j;
-import org.macula.engine.web.context.MaculaApplicationContext;
+import org.macula.engine.web.context.WebApplicationContext;
 import org.macula.engine.web.properties.EndpointProperties;
 import org.macula.engine.web.properties.PlatformProperties;
 import org.macula.engine.web.provider.DefaultOpenApiServersResolver;
@@ -36,9 +36,9 @@ public class WebContextConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public MaculaApplicationContext maculaApplicationContext(ApplicationContext applicationContext, PlatformProperties platformProperties,
+	public WebApplicationContext webApplicationContext(ApplicationContext applicationContext, PlatformProperties platformProperties,
 			EndpointProperties endpointProperties, ServerProperties serverProperties) {
-		MaculaApplicationContext contextHolder = new MaculaApplicationContext(applicationContext, platformProperties, endpointProperties,
+		WebApplicationContext contextHolder = new WebApplicationContext(applicationContext, platformProperties, endpointProperties,
 				serverProperties);
 		log.trace("[Macula] |- Bean [Macula Application  Context Holder] Auto Configure.");
 		return contextHolder;
@@ -46,8 +46,8 @@ public class WebContextConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public OpenApiServersResolver openApiServersResolver(MaculaApplicationContext maculaApplicationContext) {
-		DefaultOpenApiServersResolver defaultOpenApiServersResolver = new DefaultOpenApiServersResolver(maculaApplicationContext);
+	public OpenApiServersResolver openApiServersResolver(WebApplicationContext webApplicationContext) {
+		DefaultOpenApiServersResolver defaultOpenApiServersResolver = new DefaultOpenApiServersResolver(webApplicationContext);
 		log.trace("[Macula] |- Bean [Open Api Server Resolver] Auto Configure.");
 		return defaultOpenApiServersResolver;
 	}

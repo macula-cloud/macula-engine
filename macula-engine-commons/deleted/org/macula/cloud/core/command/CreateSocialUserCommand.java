@@ -13,7 +13,7 @@ import org.macula.engine.core.domain.UserSocial;
 @Builder
 public class CreateSocialUserCommand implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	private OAuth2User user;
 

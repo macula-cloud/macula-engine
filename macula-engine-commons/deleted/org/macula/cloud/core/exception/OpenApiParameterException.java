@@ -5,7 +5,7 @@ import org.macula.cloud.core.constant.GlobalConstant;
 
 public class OpenApiParameterException extends MaculaException {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	public OpenApiParameterException(String message) {
 		super(message);

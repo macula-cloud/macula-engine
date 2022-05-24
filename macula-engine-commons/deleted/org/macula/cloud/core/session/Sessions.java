@@ -11,7 +11,7 @@ import org.macula.cloud.core.utils.StringUtils;
 
 public class Sessions implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	private String guid;
 	private Set<String> sessoinIds = new HashSet<String>();

@@ -10,7 +10,7 @@ import org.macula.cloud.core.event.MaculaEvent;
  */
 public class SubjectPrincipalCreatedEvent extends MaculaEvent<String> {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	public SubjectPrincipalCreatedEvent(String guid) {
 		super(guid);

@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import javax.persistence.QueryHint;
 
-import org.macula.engine.commons.domain.Entity;
+import org.macula.engine.assistant.domain.Entity;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -12,7 +12,7 @@ import org.springframework.context.ApplicationEvent;
  */
 public final class InstanceProcessEvent<T extends ApplicationEvent> extends CloudEvent<T> {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 	private static final String CacheRegion = J2CacheUtils.EVENTS_REGION;
 
 	private String token;

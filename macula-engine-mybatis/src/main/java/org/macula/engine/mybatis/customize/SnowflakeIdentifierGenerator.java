@@ -5,7 +5,7 @@ import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 
 /**
- * <p>Customize MyBatis Plus ID Generator use  SnowflakeI </p>
+ * <p>Customize MyBatis Plus ID Generator use  Snow flake </p>
  */
 public class SnowflakeIdentifierGenerator implements IdentifierGenerator {
 

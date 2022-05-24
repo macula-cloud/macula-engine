@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.macula.engine.assistant.constants.Versions;
 
 import org.springframework.data.domain.Page;
 
@@ -18,7 +19,7 @@ import org.springframework.data.domain.Page;
 @NoArgsConstructor
 public class PageResult<T> extends Result<List<T>> {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	/** 本次请求的记录数 */
 	private int size;

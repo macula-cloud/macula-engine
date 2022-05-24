@@ -10,8 +10,8 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.ToString;
+import org.macula.engine.assistant.constants.Versions;
 
 /**
  * <p>
@@ -21,9 +21,9 @@ import lombok.ToString;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @MappedSuperclass
 @ToString(callSuper = true)
-public class StructuredEntity extends Entity {
+public class StructuredEntity extends BaseEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	@Column(name = "IS_GROUP", nullable = false)
 	private boolean group;
@@ -49,7 +49,7 @@ public class StructuredEntity extends Entity {
 	}
 
 	public List<Long> getChildrenIds() {
-		return getChildren() != null ? getChildren().stream().map(Entity::getId).collect(Collectors.toList()) : null;
+		return getChildren() != null ? getChildren().stream().map(BaseEntity::getId).collect(Collectors.toList()) : null;
 	}
 
 	public boolean isGroup() {

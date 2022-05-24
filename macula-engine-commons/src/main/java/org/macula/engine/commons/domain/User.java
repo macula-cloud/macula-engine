@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.macula.engine.commons.utils.SystemUtils;
+import org.macula.engine.assistant.utils.SystemUtils;
 
 @Getter
 @Setter

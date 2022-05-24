@@ -13,28 +13,26 @@ import lombok.ToString;
 public abstract class AbstractVersionAuditable<PK extends Serializable> extends AbstractAuditable<PK> {
 
 	@Version
-	@Column(name = "OBJECT_VERSION_NUMBER", nullable = false, length = 50)
-	private Long version;
+	@Column(name = "REVERSION", nullable = false, length = 50)
+	private Long reversion;
 
 	public AbstractVersionAuditable<PK> clone(AbstractVersionAuditable<PK> entity) {
 		super.clone(entity);
-		if (getVersion() != null) {
-			entity.setVersion(getVersion());
-		}
+		entity.setReversion(getReversion());
 		return entity;
 	}
 
 	/**
 	 * @return
 	 */
-	public Long getVersion() {
-		return version;
+	public Long getReversion() {
+		return reversion;
 	}
 
 	/**
 	 * @param version
 	 */
-	public void setVersion(Long version) {
-		this.version = version;
+	public void setReversion(Long version) {
+		this.reversion = version;
 	}
 }

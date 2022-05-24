@@ -1,25 +1,24 @@
 package org.macula.engine.commons.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Lob;
 import javax.persistence.MappedSuperclass;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.macula.engine.assistant.constants.Versions;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString(callSuper = true)
 @Getter
 @Setter
 @MappedSuperclass
-public class ServiceInvokeLog extends AbstractAuditable<Long> implements Serializable {
+public class ServiceInvokeLog extends TraceLog {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Versions.serialVersion;
 
 	/**
 	 * 调用Key值（业务Id）
