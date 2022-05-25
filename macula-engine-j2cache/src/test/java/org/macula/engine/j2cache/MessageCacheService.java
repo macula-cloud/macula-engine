@@ -1,7 +1,9 @@
 package org.macula.engine.j2cache;
 
+import java.util.Collections;
+import java.util.Map;
+
 import lombok.extern.slf4j.Slf4j;
-import org.macula.engine.j2cache.event.CacheUpdateEvent;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
@@ -14,9 +16,9 @@ import org.springframework.stereotype.Component;
 public class MessageCacheService {
 
 	@Cacheable("j2cache")
-	public CacheUpdateEvent getMessage(String in) {
+	public Map<String, String> getMessage(String in) {
 		log.info("[Macula] |- J2CACHE - GetMessage [{}]", in);
-		return new CacheUpdateEvent("j2cache", in);
+		return Collections.singletonMap("j2cache", in);
 	}
 
 }

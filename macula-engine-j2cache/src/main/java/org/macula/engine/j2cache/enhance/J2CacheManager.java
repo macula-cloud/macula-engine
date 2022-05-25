@@ -9,8 +9,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import lombok.extern.slf4j.Slf4j;
-import org.macula.engine.j2cache.event.CacheUpdateProcessing;
 import org.macula.engine.j2cache.properties.Expire;
+import org.macula.engine.j2cache.stream.CacheUpdateProcessing;
 
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
