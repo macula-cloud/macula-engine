@@ -8,7 +8,7 @@ import io.vavr.CheckedFunction0;
 import io.vavr.control.Try;
 import lombok.extern.slf4j.Slf4j;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.macula.engine.j2cache.event.CacheUpdateProcessing;
+import org.macula.engine.j2cache.stream.CacheUpdateProcessing;
 
 import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.cache.support.AbstractValueAdaptingCache;
