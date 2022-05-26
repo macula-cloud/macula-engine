@@ -39,13 +39,13 @@ public class AssistantAutoConfiguration {
 	}
 
 	@Bean
-	public ConversionUtils conversionUtils(ObjectProvider<ConversionService> conversionService) {
+	public static ConversionUtils conversionUtils(ObjectProvider<ConversionService> conversionService) {
 		log.debug("[Macula] |- Bean [ConversionUtils] Auto Configure.");
 		return ConversionUtils.of(conversionService.getIfAvailable());
 	}
 
 	@Bean
-	public SpringUtil springUtil() {
+	public static SpringUtil springUtil() {
 		log.debug("[Macula] |- Bean [SpringUtil] Auto Configure.");
 		return new SpringUtil();
 	}

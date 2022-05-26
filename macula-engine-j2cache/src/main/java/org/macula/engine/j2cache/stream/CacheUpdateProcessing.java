@@ -33,33 +33,27 @@ public class CacheUpdateProcessing implements StreamListener<String, MapRecord<S
 		RecordId result = messageRedisTemplate.opsForStream().add(message);
 		Long sequence = result.getSequence();
 		Long timestamp = result.getTimestamp();
-		log.trace("[Macula] |- J2CACHE - Send update message to evict key [{}] from caffine  cache [{}], sequence [{}], timestamp  [{}]", cacheKey,
-				cacheName, sequence, timestamp);
+		log.trace("[Macula] |- J2CACHE - Send cache evict: key [{}], cacheName [{}], sequence [{}], timestamp [{}]", cacheKey, cacheName, sequence,
+				timestamp);
 	}
 
 	@Override
 	public void onMessage(MapRecord<String, String, String> message) {
 		Map<String, String> events = message.getValue();
 
-		for (Entry<String, String> entry2 : events.entrySet()) {
-			String cacheName = entry2.getKey();
-			String cacheKey = entry2.getValue();
-
-			if (!StringUtils.hasText(cacheName)) {
-				return;
-			}
-
-			Cache cache = cacheManager.getCache(cacheName);
-
-			if (cache == null) {
-				return;
-			}
-
+		for (Entry<String, String> event : events.entrySet()) {
+			String cacheName = event.getKey();
+			String cacheKey = event.getValue();
 			log.trace("[Macula] |- J2CACHE - Received update message to evict key [{}] from caffine  cache [{}]", cacheKey, cacheName);
-			if (cacheKey == null && cache.getNativeCache() instanceof com.github.benmanes.caffeine.cache.Cache) {
-				((com.github.benmanes.caffeine.cache.Cache<?, ?>) cache.getNativeCache()).invalidateAll();
-			} else {
-				cache.evict(cacheKey);
+
+			Cache cache = null;
+
+			if (StringUtils.hasText(cacheName) && (cache = cacheManager.getCache(cacheName)) != null) {
+				if (cacheKey == null && cache.getNativeCache() instanceof com.github.benmanes.caffeine.cache.Cache) {
+					((com.github.benmanes.caffeine.cache.Cache<?, ?>) cache.getNativeCache()).invalidateAll();
+				} else {
+					cache.evict(cacheKey);
+				}
 			}
 		}
 	}
