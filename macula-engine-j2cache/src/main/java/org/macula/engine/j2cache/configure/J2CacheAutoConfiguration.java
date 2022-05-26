@@ -30,11 +30,12 @@ import org.springframework.data.redis.connection.stream.Consumer;
 import org.springframework.data.redis.connection.stream.MapRecord;
 import org.springframework.data.redis.connection.stream.ReadOffset;
 import org.springframework.data.redis.connection.stream.RecordId;
+import org.springframework.data.redis.connection.stream.StreamInfo.XInfoGroups;
 import org.springframework.data.redis.connection.stream.StreamOffset;
+import org.springframework.data.redis.core.StreamOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.stream.StreamMessageListenerContainer;
 import org.springframework.data.redis.stream.StreamMessageListenerContainer.StreamMessageListenerContainerOptions;
-import org.springframework.data.redis.stream.Subscription;
 
 /**
  * <p>Custom Two Level Cache Configuration</p>
@@ -88,9 +89,10 @@ public class J2CacheAutoConfiguration {
 	//		return container;
 	//	}
 
-	@Bean
-	public Subscription j2CacheSubscription(J2CacheProperties cacheProperties, RedisConnectionFactory factory, StringRedisTemplate redisTemplate,
-			CacheUpdateProcessing j2cacheBroadcastProcessing, ApplicationId applicationId) {
+	@Bean(destroyMethod = "stop")
+	public StreamMessageListenerContainer<String, MapRecord<String, String, String>> j2CacheSubscription(J2CacheProperties cacheProperties,
+			RedisConnectionFactory factory, StringRedisTemplate redisTemplate, CacheUpdateProcessing j2cacheBroadcastProcessing,
+			ApplicationId applicationId) {
 		String key = cacheProperties.getBroadTopic();
 		String group = applicationId.getInstanceKey();
 		initialRedisGroup(redisTemplate, key, group);
@@ -98,18 +100,24 @@ public class J2CacheAutoConfiguration {
 				.builder().pollTimeout(Duration.ofMillis(100)).build();
 		StreamMessageListenerContainer<String, MapRecord<String, String, String>> listenerContainer = StreamMessageListenerContainer.create(factory,
 				options);
-		Subscription subscription = listenerContainer.receiveAutoAck(Consumer.from(group, getClass().getName()),
+		listenerContainer.receiveAutoAck(Consumer.from(group, getClass().getName()),
 				StreamOffset.create(cacheProperties.getBroadTopic(), ReadOffset.lastConsumed()), j2cacheBroadcastProcessing);
 		listenerContainer.start();
 		log.debug("[Macula] |- Bean [J2Cache Redis Subscription] Auto Configure.");
-		return subscription;
+		return listenerContainer;
 	}
 
 	private void initialRedisGroup(StringRedisTemplate redisTemplate, String key, String group) {
+		StreamOperations<String, Object, Object> streamOperations = redisTemplate.opsForStream();
 		if (!redisTemplate.hasKey(key)) {
-			RecordId recordId = redisTemplate.opsForStream().add(key, Collections.singletonMap(key, group));
-			redisTemplate.opsForStream().createGroup(key, group);
+			RecordId recordId = streamOperations.add(key, Collections.singletonMap(key, group));
 			redisTemplate.opsForStream().delete(key, recordId);
+			log.trace("[Macula] |- J2CACHE - Create Redis Stream Key [{}]", key);
+		}
+		XInfoGroups groups = streamOperations.groups(key);
+		if (groups.stream().noneMatch(s -> s.groupName().equals(group))) {
+			streamOperations.createGroup(key, group);
+			log.trace("[Macula] |- J2CACHE - Create Redis Stream Group [{}] of [{}]", group, key);
 		}
 	}
 
