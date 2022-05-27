@@ -40,7 +40,7 @@ public class WebContextConfiguration {
 			EndpointProperties endpointProperties, ServerProperties serverProperties) {
 		WebApplicationContext contextHolder = new WebApplicationContext(applicationContext, platformProperties, endpointProperties,
 				serverProperties);
-		log.trace("[Macula] |- Bean [Macula Application  Context Holder] Auto Configure.");
+		log.debug("[Macula] |- Bean [Macula Application  Context Holder] Auto Configure.");
 		return contextHolder;
 	}
 
@@ -48,7 +48,7 @@ public class WebContextConfiguration {
 	@ConditionalOnMissingBean
 	public OpenApiServersResolver openApiServersResolver(WebApplicationContext webApplicationContext) {
 		DefaultOpenApiServersResolver defaultOpenApiServersResolver = new DefaultOpenApiServersResolver(webApplicationContext);
-		log.trace("[Macula] |- Bean [Open Api Server Resolver] Auto Configure.");
+		log.debug("[Macula] |- Bean [Open Api Server Resolver] Auto Configure.");
 		return defaultOpenApiServersResolver;
 	}
 

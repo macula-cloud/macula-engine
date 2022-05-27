@@ -54,7 +54,7 @@ public class J2CacheAutoConfiguration {
 
 	@PostConstruct
 	public void postConstruct() {
-		log.debug("[Macula] |- Plugin [Engine J2Cache] Auto Configure.");
+		log.debug("[Macula] |- Plugin [J2Cache Plugin] Auto Configure.");
 	}
 
 	@Bean
