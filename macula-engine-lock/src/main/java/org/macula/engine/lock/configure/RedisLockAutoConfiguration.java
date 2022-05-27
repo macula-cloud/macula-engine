@@ -20,11 +20,12 @@ public class RedisLockAutoConfiguration {
 
 	@PostConstruct
 	public void postConstruct() {
-		log.debug("[Macula] |- Plugin [Engine Redis Lock] Auto Configure.");
+		log.debug("[Macula] |- Plugin [Redis Lock Plugin] Auto Configure.");
 	}
 
 	@Bean
 	public RedisLockAop redisAop(RedissonClient redissonClient) {
+		log.debug("[Macula] |- Bean [RedisLockAop] Auto Configure.");
 		return new RedisLockAop(redissonClient);
 	}
 

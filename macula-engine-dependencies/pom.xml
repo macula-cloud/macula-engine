@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.6</version>
+		<version>2.7.0</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -53,10 +53,10 @@
 		<macula-engine.version>1.0.0</macula-engine.version>
 
 		<!-- Spring Family -->
-		<spring-boot-dependencies.version>2.6.6</spring-boot-dependencies.version>
+		<spring-boot-dependencies.version>2.7.0</spring-boot-dependencies.version>
 		<spring-cloud-dependencies.version>2021.0.2</spring-cloud-dependencies.version>
 		<spring-cloud-alibaba-dependencies.version>2021.1</spring-cloud-alibaba-dependencies.version>
-		<spring-boot-admin.version>2.6.6</spring-boot-admin.version>
+		<spring-boot-admin.version>2.6.7</spring-boot-admin.version>
 
 		<!-- Maven Plugin Compoments -->
 		<archetype-packaging.verison>3.2.1</archetype-packaging.verison>
@@ -67,7 +67,7 @@
 		<maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
 		<maven-embedder.version>3.8.5</maven-embedder.version>
 		<maven-compat.version>3.8.5</maven-compat.version>
-		<maven-invoker.verison>3.1.0</maven-invoker.verison>
+		<maven-invoker.verison>3.2.0</maven-invoker.verison>
 
 		<!-- Open Source Common Tools -->
 		<antisamy.version>1.6.7</antisamy.version>
@@ -85,7 +85,7 @@
 		<springdoc.version>1.6.7</springdoc.version>
 		<logstash-logback-encoder.version>7.1.1</logstash-logback-encoder.version>
 		<skywalking.version>8.10.0</skywalking.version>
-		<minio.version>8.3.8</minio.version>
+		<minio.version>8.4.1</minio.version>
 
 		<!-- Alibaba Cloud Dependencies -->
 		<fastjson.version>1.2.80</fastjson.version>

@@ -29,14 +29,14 @@ public class JacksonUtilsConfiguration {
 
 	@Bean
 	public JacksonUtils jacksonUtils(ObjectProvider<ObjectMapper> objectMapper) {
-		log.trace("[Macula] |- Bean [JacksonUtils] Auto Configure.");
+		log.debug("[Macula] |- Bean [JacksonUtils] Auto Configure.");
 		return new JacksonUtils(objectMapper.getIfAvailable());
 	}
 
 	@Primary
 	@Bean
 	public ObjectMapper jacksonObjectMapper(JacksonUtils jacksonUtils) {
-		log.trace("[Macula] |- Bean [JacksonUtils Object Mapper] Auto Configure.");
+		log.debug("[Macula] |- Bean [JacksonUtils Object Mapper] Auto Configure.");
 		return JacksonUtils.getObjectMapper();
 	}
 
@@ -47,7 +47,7 @@ public class JacksonUtilsConfiguration {
 	 */
 	@Bean
 	public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter(ObjectMapper objectMapper) {
-		log.trace("[Macula] |- Bean [JacksonUtils Http Message Converter] Auto Configure.");
+		log.debug("[Macula] |- Bean [JacksonUtils Http Message Converter] Auto Configure.");
 		return new MappingJackson2HttpMessageConverter(objectMapper);
 	}
 
