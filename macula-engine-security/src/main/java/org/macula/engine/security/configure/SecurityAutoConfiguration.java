@@ -1,4 +1,4 @@
-package org.macula.plugin.security.configure;
+package org.macula.engine.security.configure;
 
 import javax.annotation.PostConstruct;
 
