@@ -1,1 +1,1 @@
-org.macula.plugin.security.configure.SecurityAutoConfiguration
+org.macula.engine.security.configure.SecurityAutoConfiguration
