@@ -42,7 +42,7 @@
 
 	<properties>
 		<!-- Project Settings-->
-		<java.version>1.8</java.version>
+		<java.version>17</java.version>
 		<resource.delimiter>@</resource.delimiter>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
@@ -54,8 +54,9 @@
 
 		<!-- Spring Family -->
 		<spring-boot-dependencies.version>2.7.0</spring-boot-dependencies.version>
-		<spring-cloud-dependencies.version>2021.0.2</spring-cloud-dependencies.version>
-		<spring-cloud-alibaba-dependencies.version>2021.1</spring-cloud-alibaba-dependencies.version>
+		<spring-cloud-dependencies.version>2021.0.3</spring-cloud-dependencies.version>
+		<spring-cloud-alibaba-dependencies.version>2021.0.1.0</spring-cloud-alibaba-dependencies.version>
+		<spring-security-oauth2-authorization-server.version>0.3.0</spring-security-oauth2-authorization-server.version>
 		<spring-boot-admin.version>2.6.7</spring-boot-admin.version>
 
 		<!-- Maven Plugin Compoments -->
@@ -70,7 +71,8 @@
 		<maven-invoker.verison>3.2.0</maven-invoker.verison>
 
 		<!-- Open Source Common Tools -->
-		<antisamy.version>1.6.7</antisamy.version>
+		<antisamy.version>1.6.8</antisamy.version>
+		<bcprov-jdk15to18.version>1.71</bcprov-jdk15to18.version>
 		<commons-collections4.version>4.4</commons-collections4.version>
 		<commons-text.version>1.9</commons-text.version>
 		<commons-beanutils.version>1.9.4</commons-beanutils.version>
@@ -79,25 +81,24 @@
 		<jackson-component.version>2.13.2</jackson-component.version>
 
 		<!-- Develop Common Tools -->
-		<lombok.version>1.18.22</lombok.version>
-		<redisson.version>3.17.0</redisson.version>
+		<lombok.version>1.18.24</lombok.version>
+		<redisson.version>3.17.3</redisson.version>
 		<p6spy.version>3.9.1</p6spy.version>
-		<springdoc.version>1.6.7</springdoc.version>
-		<logstash-logback-encoder.version>7.1.1</logstash-logback-encoder.version>
+		<springdoc.version>1.6.9</springdoc.version>
+		<logstash-logback-encoder.version>7.2</logstash-logback-encoder.version>
 		<skywalking.version>8.10.0</skywalking.version>
 		<minio.version>8.4.1</minio.version>
 
 		<!-- Alibaba Cloud Dependencies -->
 		<fastjson.version>1.2.80</fastjson.version>
-		<jetcache.version>2.6.3</jetcache.version>
+		<jetcache.version>2.6.5</jetcache.version>
 		<nacos.version>2.1.0</nacos.version>
 
 		<!-- Excellent Common Tools -->
-		<hutool.version>5.7.22</hutool.version>
-		<okhttps.version>3.5.0</okhttps.version>
-		<weixin-java-sdk.version>4.3.0</weixin-java-sdk.version>
+		<hutool.version>5.8.2</hutool.version>
+		<okhttps.version>3.5.2</okhttps.version>
+		<weixin-java-sdk.version>4.3.4.B</weixin-java-sdk.version>
 		<just-auth.verison>1.16.5</just-auth.verison>
-		<knife4j.version>3.0.3</knife4j.version>
 		<assertj.version>3.22.0</assertj.version>
 
 		<!-- Third Part Starter Dependencies -->
@@ -105,7 +106,7 @@
 		<camunda-bpm-spring-boot-starter-rest.version>7.17.0</camunda-bpm-spring-boot-starter-rest.version>
 		<mybatis-plus-boot-starter.version>3.5.1</mybatis-plus-boot-starter.version>
 		<mybatis-plus-generator.version>3.5.2</mybatis-plus-generator.version>
-		<mybatis.version>3.5.9</mybatis.version>
+		<mybatis.version>3.5.10</mybatis.version>
 		<velocity.version>2.3</velocity.version>
 
 		<!-- Patch Force Versions -->
@@ -189,6 +190,12 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			
+			<dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-oauth2-authorization-server</artifactId>
+                <version>${spring-security-oauth2-authorization-server.version}</version>
+            </dependency>
 
 			<!-- Alibaba Cloud Family -->
 			<dependency>
