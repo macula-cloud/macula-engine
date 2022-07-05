@@ -1,16 +1,18 @@
-package org.macula.cloud.core.session;
+package org.macula.engine.security.session;
 
 import java.io.Serializable;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import org.macula.engine.assistant.constants.Versions;
+
 public class Session implements Serializable {
 
 	private static final long serialVersionUID = Versions.serialVersion;
 
-	private final String sessionId;
-	private final String guid;
+	private final String subjectId;
 
+	private final String sessionId;
 	private String loginName;
 	private String accessKey;
 	private String authType;
@@ -20,21 +22,21 @@ public class Session implements Serializable {
 	private long createdTime;
 	private long lastUpdatedTime;
 
-	public Session(String sessionId, String guid) {
+	public Session(String subjectId, String sessionId) {
+		this.subjectId = subjectId;
 		this.sessionId = sessionId;
-		this.guid = guid;
 		this.setLocale(Locale.getDefault());
 		this.setTimeZone(TimeZone.getDefault());
 		this.createdTime = System.currentTimeMillis();
 		this.lastUpdatedTime = System.currentTimeMillis();
 	}
 
-	public String getSessionId() {
-		return sessionId;
+	public String getSubjectId() {
+		return subjectId;
 	}
 
-	public String getGuid() {
-		return guid;
+	public String getSessionId() {
+		return sessionId;
 	}
 
 	public void setTerminalType(String terminalType) {

@@ -50,6 +50,7 @@
 		<module>macula-engine-security</module>
 		<module>macula-engine-web</module>
 		<module>macula-engine-websocket</module>
+		<module>macula-engine-oauth2</module>
 	</modules>
 
 	<dependencies>

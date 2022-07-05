@@ -1,9 +1,10 @@
-package org.macula.cloud.core.principal;
+package org.macula.engine.security.credential;
 
 import java.io.Serializable;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.macula.engine.assistant.constants.Versions;
 
 @Setter
 @Getter
