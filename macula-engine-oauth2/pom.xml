@@ -3,16 +3,13 @@
 	<parent>
 		<groupId>macula-cloud</groupId>
 		<artifactId>macula-engine</artifactId>
-		<version>1.0.0</version>
+		<version>${revision}</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>macula-engine-oauth2</artifactId>
+	<name>${project.artifactId}</name>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-cas</artifactId>
-		</dependency>
-
 		<!-- 这个不要删，用于统一覆盖依赖于 spring-security-web 的包-->
 		<!-- 以实现用自定义代码覆盖原有 Spring Security Web 代码的-->
 		<!-- 单独增加一个依赖，相当于把其它包自己依赖的 Spring Security Web 提取出来，再用自己的代码覆盖-->

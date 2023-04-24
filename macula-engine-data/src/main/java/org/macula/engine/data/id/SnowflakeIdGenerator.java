@@ -1,6 +1,4 @@
-package org.macula.engine.commons.id;
-
-import java.io.Serializable;
+package org.macula.engine.data.id;
 
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
@@ -16,8 +14,8 @@ public class SnowflakeIdGenerator implements IdentifierGenerator {
 	private static final Snowflake snowflake = IdUtil.getSnowflake(1, (int) (Math.random() * 20 + 1));
 
 	@Override
-	public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
-		Serializable id = session.getEntityPersister(null, object).getClassMetadata().getIdentifier(object, session);
+	public Object generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
+		Object id = session.getEntityPersister(null, object).getIdentifier(object, session);
 		return id != null ? id : snowflake.nextId();
 	}
 

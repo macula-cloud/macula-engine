@@ -3,7 +3,7 @@ package org.macula.cloud.core.web.support;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.macula.cloud.api.protocol.Response;
 import org.macula.cloud.core.utils.HttpRequestUtils;

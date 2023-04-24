@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.QueryHint;
-
+import jakarta.persistence.QueryHint;
+import org.hibernate.jpa.HibernateHints;
 import org.macula.engine.assistant.domain.Entity;
 
 import org.springframework.data.domain.Page;
@@ -22,46 +22,45 @@ import org.springframework.transaction.annotation.Transactional;
  * <p> BaseRepository extends from JPA repository</p>
  */
 @NoRepositoryBean
-public interface BaseRepository<E extends Entity, ID extends Serializable>
-		extends JpaRepository<E, ID>, JpaSpecificationExecutor<E> {
+public interface BaseRepository<E extends Entity, ID extends Serializable> extends JpaRepository<E, ID>, JpaSpecificationExecutor<E> {
 
-	@QueryHints(@QueryHint(name = org.hibernate.annotations.QueryHints.CACHEABLE, value = "true"))
+	@QueryHints(@QueryHint(name = HibernateHints.HINT_CACHEABLE, value = "true"))
 	@Override
 	List<E> findAll();
 
-	@QueryHints(@QueryHint(name = org.hibernate.annotations.QueryHints.CACHEABLE, value = "true"))
+	@QueryHints(@QueryHint(name = HibernateHints.HINT_CACHEABLE, value = "true"))
 	@Override
 	List<E> findAll(Sort sort);
 
-	@QueryHints(@QueryHint(name = org.hibernate.annotations.QueryHints.CACHEABLE, value = "true"))
+	@QueryHints(@QueryHint(name = HibernateHints.HINT_CACHEABLE, value = "true"))
 	@Override
 	Optional<E> findOne(Specification<E> specification);
 
-	@QueryHints(@QueryHint(name = org.hibernate.annotations.QueryHints.CACHEABLE, value = "true"))
+	@QueryHints(@QueryHint(name = HibernateHints.HINT_CACHEABLE, value = "true"))
 	@Override
 	List<E> findAll(Specification<E> specification);
 
-	@QueryHints(@QueryHint(name = org.hibernate.annotations.QueryHints.CACHEABLE, value = "true"))
+	@QueryHints(@QueryHint(name = HibernateHints.HINT_CACHEABLE, value = "true"))
 	@Override
 	Page<E> findAll(Specification<E> specification, Pageable pageable);
 
-	@QueryHints(@QueryHint(name = org.hibernate.annotations.QueryHints.CACHEABLE, value = "true"))
+	@QueryHints(@QueryHint(name = HibernateHints.HINT_CACHEABLE, value = "true"))
 	@Override
 	List<E> findAll(Specification<E> specification, Sort sort);
 
-	@QueryHints(@QueryHint(name = org.hibernate.annotations.QueryHints.CACHEABLE, value = "true"))
+	@QueryHints(@QueryHint(name = HibernateHints.HINT_CACHEABLE, value = "true"))
 	@Override
 	long count(Specification<E> specification);
 
-	@QueryHints(@QueryHint(name = org.hibernate.annotations.QueryHints.CACHEABLE, value = "true"))
+	@QueryHints(@QueryHint(name = HibernateHints.HINT_CACHEABLE, value = "true"))
 	@Override
 	Page<E> findAll(Pageable pageable);
 
-	@QueryHints(@QueryHint(name = org.hibernate.annotations.QueryHints.CACHEABLE, value = "true"))
+	@QueryHints(@QueryHint(name = HibernateHints.HINT_CACHEABLE, value = "true"))
 	@Override
 	Optional<E> findById(ID id);
 
-	@QueryHints(@QueryHint(name = org.hibernate.annotations.QueryHints.CACHEABLE, value = "true"))
+	@QueryHints(@QueryHint(name = HibernateHints.HINT_CACHEABLE, value = "true"))
 	@Override
 	long count();
 

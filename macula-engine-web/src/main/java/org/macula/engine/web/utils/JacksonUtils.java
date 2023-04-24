@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.TimeZone;
 import java.util.function.Function;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;

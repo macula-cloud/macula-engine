@@ -3,7 +3,7 @@ package org.macula.engine.j2cache.configure;
 import java.time.Duration;
 import java.util.Collections;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;

@@ -1,6 +1,6 @@
 package org.macula.engine.web.configure;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 import lombok.extern.slf4j.Slf4j;
 import org.macula.engine.web.context.WebApplicationContext;

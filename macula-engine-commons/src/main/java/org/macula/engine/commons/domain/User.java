@@ -3,9 +3,9 @@ package org.macula.engine.commons.domain;
 import java.util.Date;
 import java.util.Locale;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

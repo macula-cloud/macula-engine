@@ -39,7 +39,7 @@ public class J2CaffeineCacheManager extends CaffeineCacheManager {
 			String key = StringUtils.replace(name, SymbolConstants.COLON, cacheProperties.getSeparator());
 			if (expires.containsKey(key)) {
 				Expire expire = expires.get(key);
-				log.debug("[Macula] |- J2CACHE - Caffeine cache [{}] is setted to use CUSTEM exprie.", name);
+				log.debug("[Macula] |- J2CACHE - Caffeine cache [{}] is setted to use CUSTEM expired.", name);
 				return Caffeine.newBuilder().expireAfterWrite(expire.getDuration(), expire.getUnit()).build();
 			}
 		}

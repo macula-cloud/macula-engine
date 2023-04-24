@@ -19,8 +19,8 @@ public class KafkaMessageChannelTestCases {
 	@Test
 	void testMaculaEvent001() throws InterruptedException {
 		for (int i = 0; i < 5; i++) {
-			MaculaRemoteEvent broadcastEvent = MaculaRemoteEvent.every(
-					new User("name" + i, "password" + i, i + 10, new Bank("ChinaBank", BigDecimal.valueOf(53.0d))));
+			MaculaRemoteEvent broadcastEvent = MaculaRemoteEvent
+					.every(new User("name" + i, "password" + i, i + 10, new Bank("ChinaBank", BigDecimal.valueOf(53.0d))));
 			applicationContext.publishEvent(broadcastEvent);
 			Thread.sleep(5 * 1000);
 		}

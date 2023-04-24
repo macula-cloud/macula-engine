@@ -2,7 +2,7 @@ package org.macula.cloud.core.exception.translator;
 
 import java.sql.BatchUpdateException;
 
-import javax.validation.ConstraintViolationException;
+import jakarta.validation.ConstraintViolationException;
 
 import org.hibernate.HibernateException;
 import org.hibernate.PessimisticLockException;

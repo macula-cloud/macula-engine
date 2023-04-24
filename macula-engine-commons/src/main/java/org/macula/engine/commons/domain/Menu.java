@@ -3,9 +3,9 @@ package org.macula.engine.commons.domain;
 import java.io.Serializable;
 import java.util.Map;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Transient;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.ToString;

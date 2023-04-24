@@ -1,8 +1,7 @@
 package org.macula.engine.assistant.configure;
 
-import javax.annotation.PostConstruct;
-
 import cn.hutool.extra.spring.SpringUtil;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.macula.engine.assistant.query.ConversionUtils;
 import org.macula.engine.assistant.support.ApplicationId;
@@ -27,7 +26,7 @@ public class AssistantAutoConfiguration {
 	}
 
 	@Bean
-	public ApplicationId currentApplicationId(Environment env) {
+	ApplicationId currentApplicationId(Environment env) {
 		String applicationGroup = ApplicationResolver.getApplicationGroup(env);
 		String applicationName = ApplicationResolver.getApplicationName(env);
 		String applicationInstance = ApplicationResolver.getApplicationInstance(env);
@@ -39,13 +38,13 @@ public class AssistantAutoConfiguration {
 	}
 
 	@Bean
-	public static ConversionUtils conversionUtils(ObjectProvider<ConversionService> conversionService) {
+	ConversionUtils conversionUtils(ObjectProvider<ConversionService> conversionService) {
 		log.debug("[Macula] |- Bean [ConversionUtils] Auto Configure.");
 		return ConversionUtils.of(conversionService.getIfAvailable());
 	}
 
 	@Bean
-	public static SpringUtil springUtil() {
+	SpringUtil springUtil() {
 		log.debug("[Macula] |- Bean [SpringUtil] Auto Configure.");
 		return new SpringUtil();
 	}

@@ -9,7 +9,6 @@ import org.springframework.cache.Cache;
 
 /**
  * <p>自定义Hibernate二级缓存DomainDataStorageAccess </p>
- *
  */
 @Slf4j
 public class J2CacheDataStorageAccess implements DomainDataStorageAccess {

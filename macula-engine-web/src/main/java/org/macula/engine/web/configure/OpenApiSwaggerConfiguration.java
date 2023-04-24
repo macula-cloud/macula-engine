@@ -1,6 +1,6 @@
 package org.macula.engine.web.configure;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.OAuthFlow;

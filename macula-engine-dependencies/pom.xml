@@ -6,13 +6,13 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.1</version>
+		<version>3.0.6</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<groupId>macula-cloud</groupId>
 	<artifactId>macula-engine-dependencies</artifactId>
-	<version>${macula-engine.version}</version>
+	<version>${revision}</version>
 	<packaging>pom</packaging>
 	<name>macula-engine-dependencies</name>
 	<description>Macula Engine based on Spring Cloud and Tencent dependencies</description>
@@ -26,7 +26,7 @@
 
 	<scm>
 		<url>https://github.com/macula-cloud/macula-engine</url>
-		<connection> scm:git:git://github.com/macula-cloud/macula-engine.git</connection>
+		<connection>scm:git:git://github.com/macula-cloud/macula-engine.git</connection>
 		<developerConnection>scm:git:ssh://github.com/macula-cloud/macula-engine.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
@@ -50,70 +50,62 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<!-- Macula Engine -->
-		<macula-engine.version>1.0.0</macula-engine.version>
+		<revision>3.0.6.1</revision>
 
 		<!-- Spring Family -->
-		<spring-boot-dependencies.version>2.7.0</spring-boot-dependencies.version>
-		<spring-cloud-dependencies.version>2021.0.3</spring-cloud-dependencies.version>
-		<spring-cloud-tencent-dependencies.version>1.5.3-2021.0.2</spring-cloud-tencent-dependencies.version>
-		<spring-security-oauth2-authorization-server.version>0.3.1</spring-security-oauth2-authorization-server.version>
-		<spring-boot-admin.version>2.7.0</spring-boot-admin.version>
+		<spring-boot-dependencies.version>3.0.6</spring-boot-dependencies.version>
+		<spring-cloud-dependencies.version>2022.0.2</spring-cloud-dependencies.version>
+		<spring-cloud-tencent-dependencies.version>1.11.1-2022.0.1</spring-cloud-tencent-dependencies.version>
+		<spring-security-oauth2-authorization-server.version>1.1.0-RC1</spring-security-oauth2-authorization-server.version>
+		<spring-boot-admin.version>3.0.2</spring-boot-admin.version>
+
+		<!-- Open Source Common Tools -->
+        <antisamy.version>1.7.3</antisamy.version>
+        <bcprov-jdk15to18.version>1.72</bcprov-jdk15to18.version>
+        <commons-collections4.version>4.4</commons-collections4.version>
+        <commons-text.version>1.10.0</commons-text.version>
+        <commons-beanutils.version>20030211.134440</commons-beanutils.version>
+        <commons-io.version>20030203.000550</commons-io.version>
+        <guava.version>31.1-jre</guava.version>
+		<jackson-component.version>2.15.0</jackson-component.version>
+
+		<!-- Develop Common Tools -->
+		<lombok.version>1.18.26</lombok.version>
+		<redisson.version>3.20.1</redisson.version>
+		<p6spy.version>3.9.1</p6spy.version>
+		<springdoc.version>2.1.0</springdoc.version>
+		<logstash-logback-encoder.version>7.3</logstash-logback-encoder.version>
+		<skywalking.version>8.15.0</skywalking.version>
+		<minio.version>8.5.2</minio.version>
+
+		<!-- Excellent Common Tools -->
+		<hutool.version>5.8.18</hutool.version>
+		<okhttps.version>3.5.3</okhttps.version>
+		<weixin-java-sdk.version>4.3.5.B</weixin-java-sdk.version>
+		<just-auth.verison>1.16.5</just-auth.verison>
+		<assertj.version>3.24.2</assertj.version>
+		<jetcache.version>2.7.3</jetcache.version>
+		<velocity.version>2.3</velocity.version>
+
+		<!-- 3rd Part Starter Dependencies -->
+		<mybatis.version>3.5.13</mybatis.version>
+		<mybatis-plus-boot-starter.version>3.5.3.1</mybatis-plus-boot-starter.version>
+		<mybatis-plus-generator.version>3.5.3.1</mybatis-plus-generator.version>
+		<jasypt-spring-boot-starter.version>3.0.5</jasypt-spring-boot-starter.version>
+		<camunda-bpm-spring-boot-starter-rest.version>7.19.0</camunda-bpm-spring-boot-starter-rest.version>
 
 		<!-- Maven Plugin Compoments -->
 		<archetype-packaging.verison>3.2.1</archetype-packaging.verison>
-		<docker-maven-plugin.version>0.39.1</docker-maven-plugin.version>
+		<docker-maven-plugin.version>0.42.1</docker-maven-plugin.version>
 		<git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
-		<duplicate-finder-maven-plugin.version>1.3.0</duplicate-finder-maven-plugin.version>
-		<mapstruct-processor.version>1.4.2.Final</mapstruct-processor.version>
+		<duplicate-finder-maven-plugin.version>1.5.1</duplicate-finder-maven-plugin.version>
+		<versions-maven-plugin.version>2.15.0</versions-maven-plugin.version>
+		<mapstruct-processor.version>1.5.5.Final</mapstruct-processor.version>
 		<maven-archetype-plugin.version>3.2.1</maven-archetype-plugin.version>
 		<maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
 		<maven-embedder.version>3.8.5</maven-embedder.version>
 		<maven-compat.version>3.8.5</maven-compat.version>
 		<maven-invoker.verison>3.2.0</maven-invoker.verison>
-
-		<!-- Open Source Common Tools -->
-		<antisamy.version>1.6.8</antisamy.version>
-		<bcprov-jdk15to18.version>1.71</bcprov-jdk15to18.version>
-		<commons-collections4.version>4.4</commons-collections4.version>
-		<commons-text.version>1.9</commons-text.version>
-		<commons-beanutils.version>1.9.4</commons-beanutils.version>
-		<commons-io.version>2.11.0</commons-io.version>
-		<guava.version>31.1-jre</guava.version>
-		<jackson-component.version>2.13.2</jackson-component.version>
-
-		<!-- Develop Common Tools -->
-		<lombok.version>1.18.24</lombok.version>
-		<redisson.version>3.17.3</redisson.version>
-		<p6spy.version>3.9.1</p6spy.version>
-		<springdoc.version>1.6.9</springdoc.version>
-		<logstash-logback-encoder.version>7.2</logstash-logback-encoder.version>
-		<skywalking.version>8.10.0</skywalking.version>
-		<minio.version>8.4.1</minio.version>
-
-		<!-- Alibaba Cloud Dependencies -->
-		<jetcache.version>2.6.5</jetcache.version>
-
-		<!-- Excellent Common Tools -->
-		<hutool.version>5.8.2</hutool.version>
-		<okhttps.version>3.5.2</okhttps.version>
-		<weixin-java-sdk.version>4.3.5.B</weixin-java-sdk.version>
-		<just-auth.verison>1.16.5</just-auth.verison>
-		<assertj.version>3.22.0</assertj.version>
-
-		<!-- Third Part Starter Dependencies -->
-		<jasypt-spring-boot-starter.version>3.0.4</jasypt-spring-boot-starter.version>
-		<camunda-bpm-spring-boot-starter-rest.version>7.17.0</camunda-bpm-spring-boot-starter-rest.version>
-		<mybatis-plus-boot-starter.version>3.5.1</mybatis-plus-boot-starter.version>
-		<mybatis-plus-generator.version>3.5.2</mybatis-plus-generator.version>
-		<mybatis.version>3.5.10</mybatis.version>
-		<velocity.version>2.3</velocity.version>
-
-		<!-- Patch Force Versions -->
-		<log4j2.version>2.17.0</log4j2.version>
-		<logback.version>1.2.11</logback.version>
-		<bcprov-jdk15on.version>1.70</bcprov-jdk15on.version>
-		<bcpkix-jdk15on.version>1.70</bcpkix-jdk15on.version>
-		<spring-integration.version>5.5.9</spring-integration.version>
 
 	</properties>
 
@@ -123,70 +115,82 @@
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>macula-engine-assistant</artifactId>
-				<version>${macula-engine.version}</version>
+				<version>${revision}</version>
 			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>macula-engine-authority</artifactId>
-				<version>${macula-engine.version}</version>
+				<version>${revision}</version>
 			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>macula-engine-commons</artifactId>
-				<version>${macula-engine.version}</version>
+				<version>${revision}</version>
 			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>macula-engine-data</artifactId>
-				<version>${macula-engine.version}</version>
+				<version>${revision}</version>
 			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>macula-engine-j2cache</artifactId>
-				<version>${macula-engine.version}</version>
+				<version>${revision}</version>
 			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>macula-engine-lock</artifactId>
-				<version>${macula-engine.version}</version>
+				<version>${revision}</version>
 			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>macula-engine-login</artifactId>
-				<version>${macula-engine.version}</version>
+				<version>${revision}</version>
 			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>macula-engine-message</artifactId>
-				<version>${macula-engine.version}</version>
+				<version>${revision}</version>
 			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>macula-engine-mybatis</artifactId>
-				<version>${macula-engine.version}</version>
+				<version>${revision}</version>
 			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>macula-engine-security</artifactId>
-				<version>${macula-engine.version}</version>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>macula-engine-tracing</artifactId>
+				<version>${revision}</version>
 			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>macula-engine-oauth2</artifactId>
-				<version>${macula-engine.version}</version>
+				<version>${revision}</version>
 			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>macula-engine-web</artifactId>
-				<version>${macula-engine.version}</version>
+				<version>${revision}</version>
 			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>macula-engine-websocket</artifactId>
-				<version>${macula-engine.version}</version>
+				<version>${revision}</version>
 			</dependency>
 
 			<!-- Spring Cloud Family -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot-dependencies.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
@@ -324,22 +328,22 @@
 				<artifactId>redisson-spring-boot-starter</artifactId>
 				<version>${redisson.version}</version>
 			</dependency>
-			<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-common -->
+			<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-common -->
 			<dependency>
 				<groupId>org.springdoc</groupId>
-				<artifactId>springdoc-openapi-common</artifactId>
+				<artifactId>springdoc-openapi-starter-common</artifactId>
 				<version>${springdoc.version}</version>
 			</dependency>
-			<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
+			<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
 			<dependency>
 				<groupId>org.springdoc</groupId>
-				<artifactId>springdoc-openapi-ui</artifactId>
+				<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 				<version>${springdoc.version}</version>
 			</dependency>
-			<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-webflux-ui -->
+			<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webflux-ui -->
 			<dependency>
 				<groupId>org.springdoc</groupId>
-				<artifactId>springdoc-openapi-webflux-ui</artifactId>
+				<artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
 				<version>${springdoc.version}</version>
 			</dependency>
 			<!-- https://mvnrepository.com/artifact/p6spy/p6spy -->
@@ -385,12 +389,6 @@
 				<groupId>me.zhyd.oauth</groupId>
 				<artifactId>JustAuth</artifactId>
 				<version>${just-auth.verison}</version>
-			</dependency>
-			<!-- https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-springdoc-ui -->
-			<dependency>
-				<groupId>com.github.xiaoymin</groupId>
-				<artifactId>knife4j-springdoc-ui</artifactId>
-				<version>${knife4j.version}</version>
 			</dependency>
 			<!-- https://mvnrepository.com/artifact/com.github.whvcse/easy-captcha -->
 			<dependency>
@@ -441,6 +439,13 @@
 				<artifactId>velocity-engine-core</artifactId>
 				<version>${velocity.version}</version>
 			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.apache.skywalking/apm-toolkit-trace -->
+			<dependency>
+				<groupId>org.apache.skywalking</groupId>
+				<artifactId>apm-toolkit-trace</artifactId>
+				<version>${skywalking.version}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
@@ -455,6 +460,24 @@
 						<source>${java.version}</source>
 						<target>${java.version}</target>
 						<encoding>${project.build.sourceEncoding}</encoding>
+						<showWarnings>true</showWarnings>
+						<annotationProcessorPaths>
+							<annotationProcessorPath>
+								<groupId>org.projectlombok</groupId>
+								<artifactId>lombok</artifactId>
+								<version>${lombok.version}</version>
+							</annotationProcessorPath>
+							<annotationProcessorPath>
+								<groupId>org.mapstruct</groupId>
+								<artifactId>mapstruct-processor</artifactId>
+								<version>${mapstruct-processor.version}</version>
+							</annotationProcessorPath>
+							<annotationProcessorPath>
+								<groupId>org.springframework.boot</groupId>
+								<artifactId>spring-boot-configuration-processor</artifactId>
+								<version>${spring-boot-dependencies.version}</version>
+							</annotationProcessorPath>
+						</annotationProcessorPaths>
 					</configuration>
 				</plugin>
 				<plugin>

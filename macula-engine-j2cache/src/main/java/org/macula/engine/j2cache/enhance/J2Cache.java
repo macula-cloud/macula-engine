@@ -4,7 +4,7 @@ import java.util.concurrent.Callable;
 
 import cn.hutool.crypto.SecureUtil;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
-import io.vavr.CheckedFunction0;
+import io.github.resilience4j.core.functions.CheckedSupplier;
 import io.vavr.control.Try;
 import lombok.extern.slf4j.Slf4j;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -33,9 +33,8 @@ public class J2Cache extends AbstractValueAdaptingCache {
 	private final CircuitBreaker cacheCircuitBreaker;
 	private final CacheUpdateProcessing broadcastProcessing;
 
-	public J2Cache(String name, CaffeineCache caffeineCache, RedisCache redisCache, boolean desensitization,
-			boolean clearRemoteOnExit, boolean allowNullValues, boolean openCircuitBreaker,
-			CircuitBreaker cacheCircuitBreaker, CacheUpdateProcessing broadcastProcessing) {
+	public J2Cache(String name, CaffeineCache caffeineCache, RedisCache redisCache, boolean desensitization, boolean clearRemoteOnExit,
+			boolean allowNullValues, boolean openCircuitBreaker, CircuitBreaker cacheCircuitBreaker, CacheUpdateProcessing broadcastProcessing) {
 		super(allowNullValues);
 		this.name = name;
 		this.caffeineCache = caffeineCache;
@@ -109,11 +108,9 @@ public class J2Cache extends AbstractValueAdaptingCache {
 	public <T> T get(Object key, Callable<T> valueLoader) {
 		String secure = secure(key);
 
-		T value = (T) caffeineCache.getNativeCache().get(secure,
-				k -> this.doRedisOperation(() -> getRedisStoreValue(k, valueLoader)));
+		T value = (T) caffeineCache.getNativeCache().get(secure, k -> this.doRedisOperation(() -> getRedisStoreValue(k, valueLoader)));
 		if (value instanceof NullValue) {
-			log.trace("[Macula] |- J2CACHE - Get <T> with type form valueLoader Cache for key: [{}], value is null",
-					secure);
+			log.trace("[Macula] |- J2CACHE - Get <T> with type form valueLoader Cache for key: [{}], value is null", secure);
 			return null;
 		}
 
@@ -128,11 +125,9 @@ public class J2Cache extends AbstractValueAdaptingCache {
 					name));
 		} else {
 			String secure = secure(key);
-			log.trace("[Macula] |- J2CACHE - Put data into  Caffeine Cache, with key: [{}] and value: [{}]", secure,
-					value);
+			log.trace("[Macula] |- J2CACHE - Put data into  Caffeine Cache, with key: [{}] and value: [{}]", secure, value);
 			caffeineCache.put(secure, value);
-			log.trace("[Macula] |- J2CACHE - Put data into  Redis Cache, with key: [{}] and value: [{}]", secure,
-					value);
+			log.trace("[Macula] |- J2CACHE - Put data into  Redis Cache, with key: [{}] and value: [{}]", secure, value);
 			doRedisOperation(() -> redisCache.put(secure, value));
 
 			sendBroadcastMessage(secure);
@@ -186,8 +181,7 @@ public class J2Cache extends AbstractValueAdaptingCache {
 		if (!ObjectUtils.isEmpty(redisValue)) {
 			log.trace("[Macula] |- J2CACHE - Get ValueWrapper data from redis cache, hit the cache.");
 			caffeineCache.put(secure, redisValue.get());
-			log.trace("[Macula] |- J2CACHE - Put data into  Caffeine Cache, with key: [{}] and value: [{}]", secure,
-					redisValue.get());
+			log.trace("[Macula] |- J2CACHE - Put data into  Caffeine Cache, with key: [{}] and value: [{}]", secure, redisValue.get());
 			return redisValue;
 		}
 
@@ -199,9 +193,9 @@ public class J2Cache extends AbstractValueAdaptingCache {
 	/** @param call to Redis */
 	private void doRedisOperation(@NonNull Runnable call) {
 		if (openCircuitBreaker) {
-			Try.runRunnable(cacheCircuitBreaker.decorateRunnable(call));
+			cacheCircuitBreaker.executeRunnable(cacheCircuitBreaker.decorateRunnable(call));
 		} else {
-			Try.runRunnable(call);
+			call.run();
 		}
 	}
 
@@ -209,12 +203,12 @@ public class J2Cache extends AbstractValueAdaptingCache {
 	 * @param call to Redis
 	 * @return execution result as {@link Try}
 	 */
-	private <T> Try<T> doRedisOperation(@NonNull CheckedFunction0<T> call) {
+	private <T> CheckedSupplier<T> doRedisOperation(@NonNull CheckedSupplier<T> call) {
 		if (openCircuitBreaker) {
 			log.trace("[Macula] |- J2CACHE - Redis Cache Operation in CircuitBreaker [{}]", call);
-			return Try.of(cacheCircuitBreaker.decorateCheckedSupplier(call));
+			return cacheCircuitBreaker.decorateCheckedSupplier(call);
 		} else {
-			return Try.of(call);
+			return call;
 		}
 	}
 
@@ -222,11 +216,10 @@ public class J2Cache extends AbstractValueAdaptingCache {
 	private void sendBroadcastMessage(@Nullable String key) {
 		if (openCircuitBreaker) {
 			log.trace("[Macula] |- J2CACHE - Redis Cache Broadcast Message in CircuitBreaker, key-> [{}]", key);
-			Try.runRunnable(
-					cacheCircuitBreaker.decorateRunnable(() -> broadcastProcessing.sendBroadcast(getName(), key)));
+			cacheCircuitBreaker.executeRunnable(cacheCircuitBreaker.decorateRunnable(() -> broadcastProcessing.sendBroadcast(getName(), key)));
 		} else {
 			log.trace("[Macula] |- J2CACHE - Redis Cache Broadcast Message, key-> [{}]", key);
-			Try.runRunnable(() -> broadcastProcessing.sendBroadcast(getName(), key));
+			broadcastProcessing.sendBroadcast(getName(), key);
 		}
 	}
 }

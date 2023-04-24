@@ -1,7 +1,7 @@
 package org.macula.cloud.core.exception;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.macula.cloud.api.context.CloudApplicationContext;
 import org.macula.cloud.api.exception.MaculaException;

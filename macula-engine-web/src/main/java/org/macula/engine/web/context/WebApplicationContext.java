@@ -1,7 +1,7 @@
 
 package org.macula.engine.web.context;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 import lombok.Getter;
 import org.apache.commons.lang3.ObjectUtils;

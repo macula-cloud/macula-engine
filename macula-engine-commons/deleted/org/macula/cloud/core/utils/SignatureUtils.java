@@ -5,9 +5,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.crypto.Mac;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
+import jakarta.crypto.Mac;
+import jakarta.crypto.SecretKey;
+import jakarta.crypto.spec.SecretKeySpec;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.serializer.support.SerializingConverter;

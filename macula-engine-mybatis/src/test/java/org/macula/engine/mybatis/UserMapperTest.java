@@ -3,10 +3,9 @@ package org.macula.engine.mybatis;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import jakarta.annotation.Resource;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;

@@ -2,8 +2,8 @@ package org.macula.engine.commons.domain;
 
 import java.util.Date;
 
-import javax.persistence.Lob;
-import javax.persistence.MappedSuperclass;
+import jakarta.persistence.Lob;
+import jakarta.persistence.MappedSuperclass;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;

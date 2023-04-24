@@ -1,6 +1,6 @@
 package org.macula.engine.lock.configure;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 import lombok.extern.slf4j.Slf4j;
 import org.macula.engine.lock.aspectj.RedisLockAop;

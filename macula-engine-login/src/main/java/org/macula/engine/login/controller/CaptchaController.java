@@ -3,19 +3,17 @@ package org.macula.engine.login.controller;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
-
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Slf4j
@@ -23,7 +21,10 @@ public class CaptchaController {
 	@Autowired
 	private DefaultKaptcha captchaProducer;
 
-	@RequestMapping(value = { "/imageCode", "/captcha", "/public/captcha" }, method = RequestMethod.GET)
+	@GetMapping(value = {
+			"/imageCode",
+			"/captcha",
+			"/public/captcha" })
 	public void createCaptcha(HttpServletRequest request, HttpServletResponse response) {
 		response.setDateHeader("Expires", 0);
 		response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");

@@ -23,20 +23,19 @@ public class J2RedisCacheManager extends RedisCacheManager {
 
 	private J2CacheProperties cacheProperties;
 
-	public J2RedisCacheManager(RedisCacheWriter cacheWriter, RedisCacheConfiguration defaultCacheConfiguration,
-			J2CacheProperties cacheProperties) {
+	public J2RedisCacheManager(RedisCacheWriter cacheWriter, RedisCacheConfiguration defaultCacheConfiguration, J2CacheProperties cacheProperties) {
 		super(cacheWriter, defaultCacheConfiguration);
 		this.cacheProperties = cacheProperties;
 	}
 
-	public J2RedisCacheManager(RedisCacheWriter cacheWriter, RedisCacheConfiguration defaultCacheConfiguration,
-			J2CacheProperties cacheProperties, String... initialCacheNames) {
+	public J2RedisCacheManager(RedisCacheWriter cacheWriter, RedisCacheConfiguration defaultCacheConfiguration, J2CacheProperties cacheProperties,
+			String... initialCacheNames) {
 		super(cacheWriter, defaultCacheConfiguration, initialCacheNames);
 		this.cacheProperties = cacheProperties;
 	}
 
-	public J2RedisCacheManager(RedisCacheWriter cacheWriter, RedisCacheConfiguration defaultCacheConfiguration,
-			boolean allowInFlightCacheCreation, J2CacheProperties cacheProperties, String... initialCacheNames) {
+	public J2RedisCacheManager(RedisCacheWriter cacheWriter, RedisCacheConfiguration defaultCacheConfiguration, boolean allowInFlightCacheCreation,
+			J2CacheProperties cacheProperties, String... initialCacheNames) {
 		super(cacheWriter, defaultCacheConfiguration, allowInFlightCacheCreation, initialCacheNames);
 		this.cacheProperties = cacheProperties;
 	}
@@ -59,7 +58,7 @@ public class J2RedisCacheManager extends RedisCacheManager {
 			String key = StringUtils.replace(name, SymbolConstants.COLON, cacheProperties.getSeparator());
 			if (expires.containsKey(key)) {
 				Expire expire = expires.get(key);
-				log.debug("[Macula] |- J2CACHE - Redis cache [{}] is setted to use CUSTEM exprie.", name);
+				log.debug("[Macula] |- J2CACHE - Redis cache [{}] is setted to use CUSTEM expired.", name);
 				cacheConfig = cacheConfig.entryTtl(expire.getTtl());
 			}
 		}
